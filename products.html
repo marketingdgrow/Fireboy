@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Products - Fire Boy</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="about.css" />
+    <link rel="stylesheet" href="./quote.css" />
+  </head>
+  <body>
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-close" onclick="closeMobileMenu()">x</button>
+      <a href="./index.html" onclick="closeMobileMenu()">Home</a>
+      <a href="./about.html" onclick="closeMobileMenu()">About</a>
+      <a href="./products.html" onclick="closeMobileMenu()">Products</a>
+      <a href="./contact.html" onclick="closeMobileMenu()">Contact</a>
+    </div>
+
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="logo">
+        <img class="logo-icon" src="./img/fire-logo.png" alt="Fire Boy" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./products.html" class="active">Products</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+      <a href="#quote" class="nav-cta">Get Quote</a>
+      <button class="nav-hamburger" id="hamburger" onclick="openMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="page-body">
+      <section class="products-catalog-section" id="products">
+        <div class="container">
+          <div class="catalog-header">
+            <div>
+              <div class="section-tag">Our Arsenal</div>
+              <h2 class="section-title">FEATURED<br />PRODUCTS</h2>
+            </div>
+            <div class="search-bar">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search fire safety products..."
+                onkeyup="searchProducts()"
+              />
+              <button class="search-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" stroke="white" stroke-width="2" />
+                </svg>
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all" onclick="filterProducts('all', this)">All Products</button>
+            <button class="filter-btn" data-filter="extinguisher" onclick="filterProducts('extinguisher', this)">Extinguishers</button>
+            <button class="filter-btn" data-filter="hydrant" onclick="filterProducts('hydrant', this)">Hydrant Systems</button>
+            <button class="filter-btn" data-filter="detection" onclick="filterProducts('detection', this)">Detection</button>
+            <button class="filter-btn" data-filter="suppression" onclick="filterProducts('suppression', this)">Suppression</button>
+            <button class="filter-btn" data-filter="ppe" onclick="filterProducts('ppe', this)">PPE & Safety</button>
+            <button class="filter-btn" data-filter="signage" onclick="filterProducts('signage', this)">Signage</button>
+          </div>
+
+          <div class="products-grid" id="productsGrid"></div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-main">
+          <div class="footer-brand">
+            <a href="#" class="logo">
+              <img class="logo-icon" src="./img/fire-logo.png" alt="" />
+            </a>
+            <p class="footer-desc">
+              India's premier fire safety equipment supplier. BIS certified, expert-backed, always
+              reliable. Protecting lives and properties since 1998.
+            </p>
+            <div class="footer-socials">
+              <a href="#" class="social-btn">f</a>
+              <a href="#" class="social-btn">in</a>
+              <a href="#" class="social-btn">tw</a>
+              <a href="#" class="social-btn">yt</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul class="footer-links">
+              <li><a href="#">Fire Extinguishers</a></li>
+              <li><a href="#">Hydrant Systems</a></li>
+              <li><a href="#">Fire Alarms</a></li>
+              <li><a href="#">Smoke Detectors</a></li>
+              <li><a href="#">Sprinkler Systems</a></li>
+              <li><a href="#">Safety Signage</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul class="footer-links">
+              <li><a href="#">Annual Maintenance</a></li>
+              <li><a href="#">Site Assessment</a></li>
+              <li><a href="#">Refilling Services</a></li>
+              <li><a href="#">Installation</a></li>
+              <li><a href="#">Training</a></li>
+              <li><a href="#">NOC Support</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul class="footer-links">
+              <li><a href="#">About IGNIS</a></li>
+              <li><a href="#">Certifications</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Distributor Login</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-copy">&copy; 2025 IGNIS Fire Safety Solutions Pvt. Ltd. All rights reserved.</div>
+          <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Sitemap</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="./quote.js"></script>
+  </body>
+</html>
