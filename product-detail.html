@@ -1,179 +1,1617 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Product Detail — Fire Boy</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="about.css" />
-    <link rel="stylesheet" href="./quote.css" />
-  </head>
-  <body>
-    <!-- CURSOR -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-trail" id="cursorTrail"></div>
 
-    <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">
-      <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
-      <a href="./index.html" onclick="closeMobileMenu()">Home</a>
-      <a href="./about.html" onclick="closeMobileMenu()">About</a>
-      <a href="./products.html" onclick="closeMobileMenu()">Products</a>
-      <a href="./contact.html" onclick="closeMobileMenu()">Contact</a>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Details - Fire Boy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --fire: #ff6a00;
+      --fire-light: #ff8c2a;
+      --text-dark: #111111;
+      --text-mid: #555555;
+      --text-muted: #888888;
+      --ash: #f5f5f3;
+      --footer-bg: #111111;
+      --font-display: "Oswald", sans-serif;
+      --font-body: "Inter", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #ffffff;
+      color: var(--text-dark);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    .cursor,
+    .cursor-trail {
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      z-index: 99999;
+    }
+
+    .cursor {
+      width: 12px;
+      height: 12px;
+      background: var(--fire);
+      box-shadow: 0 0 8px var(--fire), 0 0 20px rgba(255, 106, 0, 0.4);
+      transition: transform 0.1s;
+    }
+
+    .cursor-trail {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(255, 106, 0, 0.45);
+      transition: left 0.15s ease, top 0.15s ease;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      height: 72px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.96);
+      border-bottom: 1px solid rgba(255, 106, 0, 0.15);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(20px);
+    }
+
+    .logo img {
+      width: 48px;
+      display: block;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a,
+    .nav-cta,
+    .mobile-menu a {
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--fire);
+    }
+
+    .nav-cta,
+    .btn-primary {
+      background: var(--fire);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      box-shadow: 0 4px 20px rgba(255, 106, 0, 0.28);
+    }
+
+    .nav-cta {
+      padding: 10px 24px;
+      font-size: 13px;
+    }
+
+    .nav-hamburger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      margin: 5px auto;
+      background: #111111;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      place-content: center;
+      gap: 24px;
+      background: #111111;
+      text-align: center;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+    }
+
+    .mobile-menu a {
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 2px;
+    }
+
+    .mobile-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: transparent;
+      color: #ffffff;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .detail-top {
+      padding: 118px 48px 28px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #aaaaaa;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .breadcrumb a {
+      color: #999999;
+      text-decoration: none;
+    }
+
+    .page-title {
+      margin-top: 24px;
+      font-family: var(--font-display);
+      font-size: clamp(44px, 7vw, 96px);
+      line-height: 0.92;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .page-title span {
+      color: var(--fire);
+    }
+
+    .product-jump {
+      padding: 0 48px 28px;
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .product-jump a {
+      padding: 10px 16px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      color: #111111;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .product-jump a:hover {
+      background: var(--fire);
+      color: #fff;
+      border-color: var(--fire);
+    }
+
+    .product-section {
+      scroll-margin-top: 96px;
+      padding: 48px 48px 96px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .product-section:target {
+      background: linear-gradient(180deg, rgba(255, 106, 0, 0.08), rgba(255, 255, 255, 0) 260px);
+    }
+
+    .product-hero {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(300px, 0.9fr) minmax(320px, 1fr);
+      gap: 72px;
+      align-items: start;
+    }
+
+    .img-col {
+      position: sticky;
+      top: 104px;
+    }
+
+    .img-main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--product-bg, #f5f5f3), #f5f5f3);
+    }
+
+    .img-main::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 35% 30%, rgba(255, 106, 0, 0.1), transparent 64%);
+    }
+
+    .img-main img {
+      position: relative;
+      z-index: 1;
+      width: 74%;
+      height: 74%;
+      object-fit: contain;
+      animation: floatImg 4s ease-in-out infinite;
+    }
+
+    @keyframes floatImg {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .badge-strip {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 6px 14px;
+      background: #111111;
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+    }
+
+    .badge-fire {
+      background: var(--fire);
+    }
+
+    .prod-cat {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--fire);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .prod-cat::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--fire);
+    }
+
+    .prod-name {
+      margin-bottom: 20px;
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.2vw, 58px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .prod-name span {
+      color: var(--fire);
+    }
+
+    .prod-desc {
+      margin-bottom: 32px;
+      padding-left: 20px;
+      border-left: 3px solid var(--fire);
+      color: var(--text-mid);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .price-box {
+      margin-bottom: 32px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: #f9f9f7;
+      border-left: 4px solid var(--fire);
+    }
+
+    .price-label,
+    .price-note,
+    .spec-key {
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .price-label,
+    .spec-key {
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .price-val {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .price-val span {
+      color: #999999;
+      font-family: var(--font-body);
+      font-size: 18px;
+    }
+
+    .price-note {
+      margin-top: 4px;
+      font-size: 12px;
+      text-transform: none;
+    }
+
+    .action-btns {
+      margin-bottom: 36px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
+      padding: 14px 30px;
+      border: 0;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      border: 2px solid rgba(0, 0, 0, 0.15);
+      color: #111111;
+      background: transparent;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .spec-item {
+      padding: 16px 20px;
+      background: var(--ash);
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .spec-item:hover {
+      border-left-color: var(--fire);
+      background: #fff5ef;
+    }
+
+    .spec-val {
+      margin-top: 4px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .detail-panel {
+      max-width: 1300px;
+      margin: 40px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .detail-card {
+      min-height: 120px;
+      padding: 24px;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .detail-card h3 {
+      margin-bottom: 10px;
+      color: var(--fire-light);
+      font-family: var(--font-display);
+      font-size: 17px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .detail-card p {
+      color: #d8d8d8;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .footer-main {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 58px 48px;
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .footer-desc,
+    .footer-links a,
+    .footer-copy,
+    .footer-legal a {
+      color: #aaaaaa;
+    }
+
+    .footer-desc {
+      margin-top: 18px;
+      max-width: 340px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 16px;
+      font-family: var(--font-display);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .footer-links a,
+    .footer-legal a {
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .footer-bottom {
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+
+      .product-hero,
+      .detail-panel,
+      .footer-main {
+        grid-template-columns: 1fr;
+      }
+
+      .img-col {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .nav-hamburger {
+        display: block;
+      }
+
+      .detail-top,
+      .product-jump,
+      .product-section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .product-section {
+        padding-top: 36px;
+        padding-bottom: 72px;
+      }
+
+      .product-hero {
+        gap: 32px;
+      }
+
+      .spec-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-box,
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-main,
+      .footer-bottom {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="closeMobileMenu()">x</button>
+    <a href="./index.html" onclick="closeMobileMenu()">Home</a>
+    <a href="./about.html" onclick="closeMobileMenu()">About</a>
+    <a href="./products.html" onclick="closeMobileMenu()">Products</a>
+    <a href="./contact.html" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <nav id="navbar">
+    <a href="./index.html" class="logo">
+      <img src="./img/fire-logo.png" alt="Fire Boy" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./products.html" class="active">Products</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <a href="./contact.html" class="nav-cta">Get Quote</a>
+    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <header class="detail-top">
+      <div class="breadcrumb">
+        <a href="./index.html">Home</a> /
+        <a href="./products.html">Products</a> /
+        <span>Product Details</span>
+      </div>
+      <h1 class="page-title">All Product<br /><span>Details</span></h1>
+    </header>
+
+    <div class="product-jump" aria-label="Product shortcuts">
+      <a href="#product-1">ABC Powder</a>
+      <a href="#product-2">CO₂ 4.5KG</a>
+      <a href="#product-3">Clean Agent</a>
+      <a href="#product-4">Hydrant Valve</a>
+      <a href="#product-5">Hose Reel</a>
+      <a href="#product-6">Smoke Detector</a>
+      <a href="#product-7">Alarm Panel</a>
+      <a href="#product-8">Sprinkler</a>
+      <a href="#product-9">Proximity Suit</a>
+      <a href="#product-10">SCBA</a>
+      <a href="#product-11">Exit Signs</a>
+      <a href="#product-12">Water Mist</a>
     </div>
 
-    <!-- NAV -->
-    <nav class="navbar" id="navbar">
-      <a href="index.html" class="logo">
-        <img class="logo-icon" src="./img/fire-logo.png" alt="Fire Boy" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="./index.html">Home</a></li>
-        <li><a href="./about.html">About</a></li>
-        <li><a href="./products.html" class="active">Products</a></li>
-        <li><a href="./contact.html">Contact</a></li>
-      </ul>
-      <a href="#quote" class="nav-cta">Get Quote</a>
-      <button class="nav-hamburger" id="hamburger" onclick="openMobileMenu()">
-        <span></span><span></span><span></span>
-      </button>
-    </nav>
-
-    <div class="page-body">
-
-    <section style="padding: 80px 0">
-      <div
-        class="container"
-        style="
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 40px;
-          align-items: start;
-        "
-      >
-        <div>
-          <img src="" alt="Fire Extinguisher" />
+    <!-- ─── PRODUCT 1 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-1" style="--product-bg: #ffece0">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/DCP-SBC-PBC.webp" alt="ABC Dry Powder Extinguisher 4KG" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Best Seller</div>
+            <div class="badge">ISI Marked</div>
+            <div class="badge">5 Year Warranty</div>
+          </div>
         </div>
-
-        <div>
-          <div class="tag">PRODUCT</div>
-          <h1
-            style="
-              font-family: Oswald, sans-serif;
-              font-size: 36px;
-              margin: 12px 0;
-            "
-          >
-            Fire Extinguisher — Model FX-100
-          </h1>
-          <p style="color: #bcbcbc; line-height: 1.6">
-            The FX-100 is an all-purpose ABC dry chemical extinguisher optimized
-            for residential and light commercial use. It provides reliable
-            performance on Class A, B, and C fires and is simple to operate
-            under stress.
+        <div class="info-col">
+          <div class="prod-cat">Extinguisher</div>
+          <h2 class="prod-name">ABC Dry<br /><span>Powder</span><br />Extinguisher 4KG</h2>
+          <p class="prod-desc">
+            Multi-purpose dry powder extinguisher for Class A, B and C fires. A reliable fit for offices,
+            homes, shops, warehouses and general industrial use.
           </p>
-
-          <div
-            style="
-              margin-top: 20px;
-              display: flex;
-              gap: 12px;
-              align-items: center;
-            "
-          >
-            <a href="#" class="btn">Buy Now</a>
-            <a
-              href="#"
-              class="btn"
-              style="
-                background: transparent;
-                border: 1px solid #ff4d00;
-                color: #fff;
-              "
-              >Request Quote</a
-            >
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹1,250 <span>/ unit</span></div>
+              <div class="price-note">Bulk and AMC pricing available on request</div>
+            </div>
           </div>
-
-          <div style="margin-top: 28px">
-            <h3 style="font-family: Oswald, sans-serif">Specifications</h3>
-            <ul style="color: #bcbcbc; line-height: 1.8">
-              <li>Agent: ABC dry chemical (1 kg)</li>
-              <li>Operating pressure: 12 bar</li>
-              <li>Temperature range: -20°C to 60°C</li>
-              <li>Warranty: 3 years</li>
-            </ul>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
           </div>
-
-          <div style="margin-top: 20px">
-            <a
-              href="products.html"
-              class="btn"
-              style="
-                background: transparent;
-                border: 1px solid #fff;
-                color: #fff;
-              "
-              >← Back to Products</a
-            >
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Capacity</div>
+              <div class="spec-val">4 KG</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Fire Class</div>
+              <div class="spec-val">A / B / C</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">IS:2171</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Warranty</div>
+              <div class="spec-val">5 Years</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Discharge</div>
+              <div class="spec-val">Approx 13 sec</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Range</div>
+              <div class="spec-val">4–6 Metres</div>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>General fire protection for mixed-risk spaces with paper, wood, liquid and gas hazards.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Check pressure monthly and refill after discharge or as per service schedule.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Wall hook, hose/nozzle assembly, safety seal and inspection tag.</p>
         </div>
       </div>
     </section>
 
-      <footer>
+    <!-- ─── PRODUCT 2 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-2" style="--product-bg: #f0f4ff">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/CO2-TM-XX.webp" alt="CO2 Fire Extinguisher 4.5KG" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Premium</div>
+            <div class="badge">BIS Certified</div>
+            <div class="badge">Electrical Safe</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Extinguisher</div>
+          <h2 class="prod-name">CO₂<br /><span>Carbon</span><br />Dioxide 4.5KG</h2>
+          <p class="prod-desc">
+            Carbon dioxide extinguisher designed for electrical panels, server rooms, labs and clean indoor
+            environments where residue-free discharge matters.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹3,800 <span>/ unit</span></div>
+              <div class="price-note">Available with installation and service support</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Capacity</div>
+              <div class="spec-val">4.5 KG</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Fire Class</div>
+              <div class="spec-val">B / E</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">IS:2878</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Agent</div>
+              <div class="spec-val">CO₂ Gas</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Discharge</div>
+              <div class="spec-val">Approx 14 sec</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Range</div>
+              <div class="spec-val">2–3 Metres</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Best for electrical and electronic risks where powder residue can damage equipment.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Inspect weight and horn condition during scheduled service visits.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Discharge horn, safety pin, wall mounting bracket and service tag.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 3 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-3" style="--product-bg: #f0f8ff">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/STP-CA-XX.webp" alt="Clean Agent HFC-236fa 4KG" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">New</div>
+            <div class="badge">No Residue</div>
+            <div class="badge">Safe Electronics</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Extinguisher</div>
+          <h2 class="prod-name">Clean<br /><span>Agent</span><br />HFC-236fa 4KG</h2>
+          <p class="prod-desc">
+            Zero-residue clean agent extinguisher made for data centers, control rooms, medical equipment zones
+            and sensitive assets that cannot tolerate powder cleanup.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹6,500 <span>/ unit</span></div>
+              <div class="price-note">Recommended for high-value electronics rooms</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Capacity</div>
+              <div class="spec-val">4 KG</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Fire Class</div>
+              <div class="spec-val">A / B / C / E</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Agent</div>
+              <div class="spec-val">HFC-236fa</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Residue</div>
+              <div class="spec-val">Zero</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Discharge</div>
+              <div class="spec-val">Approx 10 sec</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Electrical Safe</div>
+              <div class="spec-val">35,000V</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Protection for IT, telecom, laboratories and clean rooms with sensitive equipment.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Verify seal, weight and pressure during periodic inspection.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Hose assembly, mounting accessories and product certification support.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 4 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-4" style="--product-bg: #fff8f0">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/Double-Headed-Hydrant-Valve_pro.webp" alt="Fire Hydrant Valve Gun Metal 63mm" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Hydrant System</div>
+            <div class="badge">IS:5290</div>
+            <div class="badge">High Pressure</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Hydrant Systems</div>
+          <h2 class="prod-name">Fire Hydrant<br /><span>Valve</span><br />Gun Metal 63MM</h2>
+          <p class="prod-desc">
+            Heavy-duty gun metal landing valve for hydrant risers and hose stations, built for reliable water
+            delivery during emergency response.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹2,100 <span>/ unit</span></div>
+              <div class="price-note">Project quantity pricing available</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Size</div>
+              <div class="spec-val">63 mm</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Material</div>
+              <div class="spec-val">Gun Metal</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">IS:5290</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Pressure</div>
+              <div class="spec-val">16 Bar</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Operation</div>
+              <div class="spec-val">Quarter Turn</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Inlet Thread</div>
+              <div class="spec-val">BSP / IS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Hydrant networks in commercial buildings, factories, parking areas and warehouses.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Operate periodically and check washer, spindle and leakage points.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Valve body, hand wheel, cap/chain and inspection-ready documentation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 5 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-5" style="--product-bg: #f5fff0">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/Short-Branch-Pipe-With-Nozzle_pro.webp" alt="Fire Hose Reel 30M x 25mm" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Popular</div>
+            <div class="badge">30M Hose</div>
+            <div class="badge">180° Swivel</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Hydrant Systems</div>
+          <h2 class="prod-name">Fire Hose<br /><span>Reel</span><br />30M × 25MM</h2>
+          <p class="prod-desc">
+            Wall-mounted hose reel with 30 metre hose and swivel arm coverage for quick first-response water
+            deployment in building corridors and plant areas.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹4,200 <span>/ unit</span></div>
+              <div class="price-note">Installation support available on request</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Hose Length</div>
+              <div class="spec-val">30 Metres</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Bore</div>
+              <div class="spec-val">25 mm</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Swivel</div>
+              <div class="spec-val">180°</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">IS:884</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Pressure</div>
+              <div class="spec-val">8 Bar</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Mounting</div>
+              <div class="spec-val">Wall Bracket</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Fast manual firefighting access for corridors, parking zones, warehouses and workshops.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Unwind and inspect hose, nozzle, drum movement and water flow during service checks.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Hose reel drum, hose, nozzle, wall bracket and inlet connection assembly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 6 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-6" style="--product-bg: #f0f5ff">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/Panel-Protection-Systems_pro.webp" alt="Photoelectric Smoke Detector" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">ISI ✓</div>
+            <div class="badge">360° Coverage</div>
+            <div class="badge">Low False Alarm</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Detection</div>
+          <h2 class="prod-name">Photoelectric<br /><span>Smoke</span><br />Detector</h2>
+          <p class="prod-desc">
+            Advanced optical smoke detector with 360° sensing coverage and low false-alarm technology.
+            Compatible with conventional and addressable fire alarm panels.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹850 <span>/ unit</span></div>
+              <div class="price-note">Bulk project pricing available on request</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Coverage</div>
+              <div class="spec-val">360°</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Voltage</div>
+              <div class="spec-val">9–35V DC</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">IS:11360</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Type</div>
+              <div class="spec-val">Optical / Photo</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Alarm LED</div>
+              <div class="spec-val">Red Flash</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Power</div>
+              <div class="spec-val">Low Consumption</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Early smoke detection for offices, corridors, server rooms, hotels and residential complexes.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Clean sensing chamber every 6 months and test alarm response annually.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Detector head, mounting base, installation screws and wiring guide.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 7 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-7" style="--product-bg: #f5f5f5">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/FB-1X2.webp" alt="Conventional Fire Alarm Panel 4-Zone" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">New</div>
+            <div class="badge">ISI ✓</div>
+            <div class="badge">4 Zone</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Detection</div>
+          <h2 class="prod-name">Fire Alarm<br /><span>Panel</span><br />4-Zone LCD</h2>
+          <p class="prod-desc">
+            4-zone conventional fire alarm control panel with LCD display and event logging. Supports detectors,
+            manual call points, bells and sounder beacons across four independent zones.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹8,500 <span>/ unit</span></div>
+              <div class="price-note">Multi-panel and AMC packages available</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Zones</div>
+              <div class="spec-val">4 Zones</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Display</div>
+              <div class="spec-val">LCD</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Power</div>
+              <div class="spec-val">240V AC</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Backup</div>
+              <div class="spec-val">12V Battery</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Event Log</div>
+              <div class="spec-val">Yes</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Output</div>
+              <div class="spec-val">Relay / Sounder</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Central alarm management for small to mid-size buildings, factories and commercial premises.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Test zone circuits and backup battery every 6 months. Inspect log entries regularly.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Control panel unit, mounting hardware, terminal block cover and user manual.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 8 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-8" style="--product-bg: #f0fff5">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/Fire-Hydrants-and-Sprinkler-Systems.webp" alt="Automatic Water Sprinkler Head 68C" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">IS:903</div>
+            <div class="badge">ISI ✓</div>
+            <div class="badge">68°C Rating</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Suppression</div>
+          <h2 class="prod-name">Automatic<br /><span>Sprinkler</span><br />Head 68°C</h2>
+          <p class="prod-desc">
+            Pendant-type fusible-link sprinkler head that activates automatically at 68°C. Provides reliable
+            water distribution coverage for commercial and industrial spaces.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹180 <span>/ unit</span></div>
+              <div class="price-note">Available in bulk quantities for system installations</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Type</div>
+              <div class="spec-val">Pendant</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Temperature</div>
+              <div class="spec-val">68°C</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">K Factor</div>
+              <div class="spec-val">K = 80</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">IS:903</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Thread</div>
+              <div class="spec-val">½" BSP</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Coverage</div>
+              <div class="spec-val">9–12 m²</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Automatic suppression for shopping malls, warehouses, hotels and industrial buildings.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Inspect visually every year. Replace any physically damaged or paint-coated heads.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Sprinkler head with pre-fitted glass bulb and thread protection cap.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 9 ─────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-9" style="--product-bg: #fff5f0">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/DSPA-5-Fire-Suppression-Aerosol-Device_pro_pro.webp" alt="Firefighter Proximity Suit" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Premium</div>
+            <div class="badge">ISI ✓</div>
+            <div class="badge">1000°C Rated</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">PPE &amp; Safety</div>
+          <h2 class="prod-name">Firefighter<br /><span>Proximity</span><br />Suit</h2>
+          <p class="prod-desc">
+            Full-body aluminized firefighter proximity suit offering radiant heat protection up to 1000°C.
+            Designed for airport crash rescue, industrial firefighting and high-heat emergency response.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹18,500 <span>/ unit</span></div>
+              <div class="price-note">Sizing and custom fit available on request</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Material</div>
+              <div class="spec-val">Aluminized</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Heat Rating</div>
+              <div class="spec-val">1000°C</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">EN 1486</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Coverage</div>
+              <div class="spec-val">Full Body</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Layers</div>
+              <div class="spec-val">3-Layer Composite</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Visor</div>
+              <div class="spec-val">Gold-Coated</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Airport crash rescue, petroleum refineries, industrial furnace areas and high-radiant-heat zones.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Inspect for tears, reflectivity loss and visor damage after each use. Store away from UV.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Jacket, trousers, hood with visor, gloves and boot covers — full set.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 10 ────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-10" style="--product-bg: #f0f5ff">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/Battery-Energy-Storage-Systems-BESS_pro_pro.webp"
+              alt="SCBA Self Contained Breathing Apparatus" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Premium</div>
+            <div class="badge">CE Certified</div>
+            <div class="badge">30 Min Air</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">PPE &amp; Safety</div>
+          <h2 class="prod-name">SCBA<br /><span>Breathing</span><br />Apparatus</h2>
+          <p class="prod-desc">
+            Self-Contained Breathing Apparatus with 6L carbon fibre cylinder and full-face mask. Provides
+            30 minutes of clean air supply for entry into smoke-filled or oxygen-deficient environments.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹42,000 <span>/ unit</span></div>
+              <div class="price-note">Cylinder refilling and servicing available</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Cylinder</div>
+              <div class="spec-val">6 Litres</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Air Supply</div>
+              <div class="spec-val">30 Minutes</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Mask</div>
+              <div class="spec-val">Full Face</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">CE Certified</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Pressure</div>
+              <div class="spec-val">300 Bar</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Weight</div>
+              <div class="spec-val">Approx 12 KG</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Smoke rescue, confined space entry, chemical spill response and industrial emergency intervention.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Hydrostatic test cylinder every 3 years. Check mask seals, harness straps and regulator function.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Carbon cylinder, full-face mask, demand regulator, harness frame and carry bag.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 11 ────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-11" style="--product-bg: #f0fff0">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/Clean-Agent-Fire-Suppression-Systems_pro.webp"
+              alt="Glow in Dark Fire Exit Sign Pack of 10" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Value Pack</div>
+            <div class="badge">Pack of 10</div>
+            <div class="badge">8hr Glow</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Signage</div>
+          <h2 class="prod-name">Glow-in-Dark<br /><span>Fire Exit</span><br />Signs ×10</h2>
+          <p class="prod-desc">
+            Photoluminescent fire exit signage that remains visible for 8+ hours after power failure.
+            No wiring required — simply mount and charge under ambient light.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹650 <span>/ pack</span></div>
+              <div class="price-note">Pack of 10 units — ideal for complete floor coverage</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Pack Size</div>
+              <div class="spec-val">10 Units</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Type</div>
+              <div class="spec-val">Photoluminescent</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Glow Duration</div>
+              <div class="spec-val">8+ Hours</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Standard</div>
+              <div class="spec-val">IS:12349</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Mounting</div>
+              <div class="spec-val">Self-Adhesive</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Power</div>
+              <div class="spec-val">None Required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Evacuation route marking for offices, malls, hotels, hospitals and any multi-floor buildings.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Wipe clean periodically. Replace signs that show fading or physical damage.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>10 self-adhesive photoluminescent signs with pre-punched holes for screw fixing option.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRODUCT 12 ────────────────────────────────────────────────────── -->
+    <section class="product-section" id="product-12" style="--product-bg: #f0f8ff">
+      <div class="product-hero">
+        <div class="img-col">
+          <div class="img-main">
+            <img src="./img/SHP-CO2-XX.webp" alt="Water Mist Extinguisher 9L" />
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-fire">Eco Choice</div>
+            <div class="badge">ISI ✓</div>
+            <div class="badge">No Chemicals</div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="prod-cat">Extinguisher</div>
+          <h2 class="prod-name">Water Mist<br /><span>Extinguisher</span><br />9 Litres</h2>
+          <p class="prod-desc">
+            Eco-friendly water mist extinguisher safe on electrical fires up to 1000V. Covers Class A, B and F
+            fires with no chemical residue — ideal for kitchens, offices and public areas.
+          </p>
+          <div class="price-box">
+            <div>
+              <div class="price-label">Starting Price</div>
+              <div class="price-val">₹4,900 <span>/ unit</span></div>
+              <div class="price-note">Ideal for kitchen and hospitality environments</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <a class="btn-primary" href="./contact.html">Request Quote</a>
+            <a class="btn-secondary" href="./products.html">Back to Products</a>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <div class="spec-key">Capacity</div>
+              <div class="spec-val">9 Litres</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Fire Class</div>
+              <div class="spec-val">A / B / F</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Electrical</div>
+              <div class="spec-val">Safe to 1000V</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Residue</div>
+              <div class="spec-val">None</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Agent</div>
+              <div class="spec-val">Distilled Water</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-key">Discharge</div>
+              <div class="spec-val">Approx 55 sec</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-card">
+          <h3>Use Case</h3>
+          <p>Restaurants, hotel kitchens, offices, hospitals and anywhere chemical extinguishers are undesirable.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Maintenance</h3>
+          <p>Annual pressure check and refill with demineralised water per service schedule.</p>
+        </div>
+        <div class="detail-card">
+          <h3>Included</h3>
+          <p>Extinguisher body, spray nozzle, wall bracket, safety pin and service label.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
     <div class="footer-main">
       <div class="footer-brand">
-        <a href="#" class="logo">
-          <img class="logo-icon" src="./img/fire-logo.png" alt="" />
+        <a href="./index.html" class="logo">
+          <img src="./img/fire-logo.png" alt="Fire Boy" />
         </a>
-        <p class="footer-desc">India's premier fire safety equipment supplier. BIS certified, expert-backed, always
-          reliable. Protecting lives and properties since 1998.</p>
-        <div class="footer-socials">
-          <a href="#" class="social-btn">f</a>
-          <a href="#" class="social-btn">in</a>
-          <a href="#" class="social-btn">tw</a>
-          <a href="#" class="social-btn">yt</a>
-        </div>
+        <p class="footer-desc">
+          India's fire safety equipment supplier with certified products, technical consultation and installation
+          support.
+        </p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
         <ul class="footer-links">
-          <li><a href="#">Fire Extinguishers</a></li>
-          <li><a href="#">Hydrant Systems</a></li>
-          <li><a href="#">Fire Alarms</a></li>
-          <li><a href="#">Smoke Detectors</a></li>
-          <li><a href="#">Sprinkler Systems</a></li>
-          <li><a href="#">Safety Signage</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul class="footer-links">
-          <li><a href="#">Annual Maintenance</a></li>
-          <li><a href="#">Site Assessment</a></li>
-          <li><a href="#">Refilling Services</a></li>
-          <li><a href="#">Installation</a></li>
-          <li><a href="#">Training</a></li>
-          <li><a href="#">NOC Support</a></li>
+          <li><a href="./products.html?category=extinguisher">Fire Extinguishers</a></li>
+          <li><a href="./products.html?category=hydrant">Hydrant Systems</a></li>
+          <li><a href="./products.html?category=detection">Fire Detection</a></li>
+          <li><a href="./products.html?category=suppression">Suppression</a></li>
+          <li><a href="./products.html?category=ppe">PPE &amp; Safety</a></li>
+          <li><a href="./products.html?category=signage">Signage</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul class="footer-links">
-          <li><a href="#">About IGNIS</a></li>
-          <li><a href="#">Certifications</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Distributor Login</a></li>
+          <li><a href="./about.html">About</a></li>
+          <li><a href="./products.html">Products</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="./contact.html">Request Quote</a></li>
+          <li><a href="./contact.html">Site Assessment</a></li>
+          <li><a href="./contact.html">AMC Service</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2025 IGNIS Fire Safety Solutions Pvt. Ltd. All rights reserved.</div>
+      <div class="footer-copy">&copy; 2025 IGNIS Fire Safety Solutions Pvt. Ltd. All rights reserved.</div>
       <div class="footer-legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
@@ -181,32 +1619,37 @@
       </div>
     </div>
   </footer>
-  
-     <script>
-      // CURSOR
-      const cursor = document.getElementById("cursor");
-      const trail  = document.getElementById("cursorTrail");
-      let tx=0, ty=0, cx=0, cy=0;
-      document.addEventListener("mousemove", e => {
-        tx = e.clientX; ty = e.clientY;
-        cursor.style.left = tx-6+"px"; cursor.style.top = ty-6+"px";
-      });
-      setInterval(() => {
-        cx += (tx-cx)*0.15; cy += (ty-cy)*0.15;
-        trail.style.left = cx-18+"px"; trail.style.top = cy-18+"px";
-      }, 16);
-      document.addEventListener("mousedown", () => cursor.style.transform = "scale(2)");
-      document.addEventListener("mouseup",   () => cursor.style.transform = "scale(1)");
 
-      // NAV SCROLL
-      window.addEventListener("scroll", () => {
-        document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 60);
-      });
+  <script>
+    const cursor = document.getElementById("cursor");
+    const trail = document.getElementById("cursorTrail");
+    let tx = 0, ty = 0, cx = 0, cy = 0;
 
-      // MOBILE MENU
-      function openMobileMenu()  { document.getElementById("mobileMenu").classList.add("open"); }
-      function closeMobileMenu() { document.getElementById("mobileMenu").classList.remove("open"); }
-    </script>
-    <script src="./quote.js"></script>
-  </body>
+    document.addEventListener("mousemove", (e) => {
+      tx = e.clientX; ty = e.clientY;
+      cursor.style.left = tx - 6 + "px";
+      cursor.style.top = ty - 6 + "px";
+    });
+
+    setInterval(() => {
+      cx += (tx - cx) * 0.15;
+      cy += (ty - cy) * 0.15;
+      trail.style.left = cx - 18 + "px";
+      trail.style.top = cy - 18 + "px";
+    }, 16);
+
+    document.addEventListener("mousedown", () => cursor.style.transform = "scale(2)");
+    document.addEventListener("mouseup", () => cursor.style.transform = "scale(1)");
+
+    window.addEventListener("scroll", () => {
+      document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 60);
+    });
+
+    function openMobileMenu() { document.getElementById("mobileMenu").classList.add("open"); }
+    function closeMobileMenu() { document.getElementById("mobileMenu").classList.remove("open"); }
+  </script>
+  <link rel="stylesheet" href="./floating-widgets.css" />
+<script src="./floating-widgets.js"></script>
+</body>
+
 </html>
