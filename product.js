@@ -28,24 +28,22 @@ const productImages = {
   12: "./img/SHP-CO2-XX.webp",
 };
 
-// ─── Product Detail Page Map ──────────────────────────────────────────────────
-// All 12 products now have dedicated detail sections.
+
 const productPages = {
-  1:  "./product-detail.html#product-1",
-  2:  "./product-detail.html#product-2",
-  3:  "./product-detail.html#product-3",
-  4:  "./product-detail.html#product-4",
-  5:  "./product-detail.html#product-5",
-  6:  "./product-detail.html#product-6",
-  7:  "./product-detail.html#product-7",
-  8:  "./product-detail.html#product-8",
-  9:  "./product-detail.html#product-9",
-  10: "./product-detail.html#product-10",
-  11: "./product-detail.html#product-11",
-  12: "./product-detail.html#product-12",
+  1:  "./product1.html",
+  2:  "./product2.html",
+  3:  "./product3.html",
+  4:  "./product4.html",  
+  5:  "./product5.html",
+  6:  "./product6.html",
+  7:  "./product7.html",
+  8:  "./product8.html",
+  9:  "./product9.html",
+  10: "./product10.html",
+  11: "./product11.html",
+  12: "./product12.html",
 };
 
-// ─── Render ───────────────────────────────────────────────────────────────────
 
 function renderProducts(list) {
   const grid = document.getElementById("productsGrid");
@@ -159,6 +157,7 @@ function viewProduct(id) {
   if (productPages[id]) {
     window.location.href = productPages[id];
   } else {
+    // Fallback for products that don't have a page yet
     const p = products.find((x) => x.id === id);
     alert(
       `Product: ${p.name}\nPrice: ₹${p.price}/unit\n\nFull product page coming soon!\nFor details, contact our sales team:\n📞 +91 98765 43210\n✉ info@ignis.in`

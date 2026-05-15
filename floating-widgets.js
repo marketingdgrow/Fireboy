@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
    floating-widgets.js
-   Auto-injects:
-     • Share button (left side) — click to reveal social icons below
+   • Share button (right side, bottom area) — click to reveal social icons above
    Add ONE line to every page: <script src="./floating-widgets.js"></script>
    ═══════════════════════════════════════════════════════════════ */
 
@@ -13,19 +12,19 @@
   style.textContent = `
     #fw-share-group {
       position: fixed;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
+      right: 16px;
+      top: 80px;          /* close to bottom */
       display: flex;
-      flex-direction: column;
+      flex-direction: column-reverse;   /* icons open UPWARD */
       align-items: center;
       gap: 10px;
       z-index: 9999;
     }
 
+    /* ── Toggle Button ── */
     #fw-share-toggle {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: #444;
       border: none;
@@ -33,27 +32,38 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.2s;
       padding: 0;
     }
-    #fw-share-toggle:hover { transform: scale(1.1); }
-    #fw-share-toggle svg { width: 22px; height: 22px; }
+    #fw-share-toggle:hover { transform: scale(1.12); }
+    #fw-share-toggle svg {
+      width: 22px;
+      height: 22px;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    /* Rotate icon when open */
+    #fw-share-group.open #fw-share-toggle {
+      background: #222;
+      transform: rotate(180deg) scale(1.08);
+    }
 
+    /* ── Social List ── */
     #fw-social-list {
       display: flex;
-      flex-direction: column;
+      flex-direction: column-reverse;  /* stacks upward */
       gap: 10px;
       overflow: hidden;
       max-height: 0;
       opacity: 0;
-      transition: max-height 0.35s ease, opacity 0.3s ease;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
     }
     #fw-share-group.open #fw-social-list {
-      max-height: 300px;
+      max-height: 400px;
       opacity: 1;
     }
 
+    /* ── Social Buttons ── */
     .fw-social-btn {
       width: 46px;
       height: 46px;
@@ -66,12 +76,26 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      transform: translateY(20px) scale(0.7);
+      transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.2s, filter 0.15s;
       padding: 0;
     }
+    #fw-share-group.open .fw-social-btn {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    /* Stagger upward */
+    #fw-share-group.open .fw-social-btn:nth-child(1) { transition-delay: 0.05s; }
+    #fw-share-group.open .fw-social-btn:nth-child(2) { transition-delay: 0.10s; }
+    #fw-share-group.open .fw-social-btn:nth-child(3) { transition-delay: 0.15s; }
+    #fw-share-group.open .fw-social-btn:nth-child(4) { transition-delay: 0.20s; }
+
     .fw-social-btn:hover {
-      transform: scale(1.12);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+      transform: scale(1.14) translateY(0);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      filter: brightness(1.1);
     }
     .fw-social-btn svg {
       width: 24px;
@@ -81,18 +105,11 @@
     }
 
     /* ── Brand Colors ── */
-    .fw-social-btn[data-p="whatsapp"] {
-      background: #25D366;
-    }
     .fw-social-btn[data-p="instagram"] {
       background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
     }
-    .fw-social-btn[data-p="facebook"] {
-      background: #1877F2;
-    }
-    .fw-social-btn[data-p="youtube"] {
-      background: #FF0000;
-    }
+    .fw-social-btn[data-p="facebook"]  { background: #1877F2; }
+    .fw-social-btn[data-p="youtube"]   { background: #FF0000; }
 
     /* ── Ripple ── */
     .fw-ripple {
@@ -129,6 +146,13 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* ── Mobile ── */
+    @media (max-width: 760px) {
+      #fw-share-group { right: 12px; bottom: 16px; }
+      #fw-share-toggle { width: 46px; height: 46px; }
+      .fw-social-btn  { width: 42px; height: 42px; }
+    }
   `;
   document.head.appendChild(style);
 
@@ -138,25 +162,18 @@
     <!-- SHARE GROUP -->
     <div id="fw-share-group">
 
-      <!-- Share toggle button -->
-      <button id="fw-share-toggle" aria-label="Share this page" title="Share">
+      <!-- Share toggle button (at bottom, icons open above) -->
+      <button id="fw-share-toggle" aria-label="Share this page" title="Share" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="18" cy="5" r="3" fill="white"/>
-          <circle cx="6" cy="12" r="3" fill="white"/>
+          <circle cx="18" cy="5"  r="3" fill="white"/>
+          <circle cx="6"  cy="12" r="3" fill="white"/>
           <circle cx="18" cy="19" r="3" fill="white"/>
-          <line x1="8.6" y1="13.5" x2="15.4" y2="17.5" stroke="white" stroke-width="2"/>
+          <line x1="8.6"  y1="13.5" x2="15.4" y2="17.5" stroke="white" stroke-width="2"/>
           <line x1="15.4" y1="6.5"  x2="8.6"  y2="10.5" stroke="white" stroke-width="2"/>
         </svg>
       </button>
 
       <div id="fw-social-list">
-
-        <!-- WhatsApp -->
-        <button class="fw-social-btn" data-p="whatsapp" data-label="WHATSAPP" aria-label="Share on WhatsApp">
-          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="white">
-            <path d="M16 2C8.268 2 2 8.268 2 16c0 2.492.655 4.83 1.797 6.854L2 30l7.335-1.776A13.932 13.932 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.43 11.43 0 01-5.824-1.596l-.418-.248-4.352 1.054 1.088-4.234-.272-.434A11.432 11.432 0 014.5 16C4.5 9.649 9.649 4.5 16 4.5S27.5 9.649 27.5 16 22.351 27.5 16 27.5zm6.29-8.558c-.344-.172-2.036-1.003-2.352-1.119-.316-.115-.546-.172-.776.173-.23.344-.888 1.119-1.089 1.349-.2.23-.402.258-.746.086-.344-.172-1.452-.535-2.768-1.706-1.023-.912-1.713-2.038-1.913-2.382-.2-.344-.021-.53.15-.702.154-.154.344-.402.517-.603.172-.2.229-.344.344-.573.115-.23.057-.431-.028-.603-.086-.172-.776-1.87-1.063-2.562-.28-.672-.563-.58-.776-.591l-.66-.011c-.23 0-.603.086-.919.431-.316.344-1.205 1.177-1.205 2.87s1.234 3.33 1.406 3.56c.172.229 2.428 3.707 5.882 5.198.822.355 1.464.567 1.964.726.825.263 1.576.226 2.169.137.661-.099 2.036-.832 2.323-1.635.287-.803.287-1.491.2-1.635-.085-.143-.315-.229-.659-.4z"/>
-          </svg>
-        </button>
 
         <!-- Instagram -->
         <button class="fw-social-btn" data-p="instagram" data-label="INSTAGRAM" aria-label="Open Instagram">
@@ -190,7 +207,7 @@
 
   `);
 
-  /* ── Share toggle ────────────────────────────────────────── */
+  /* ── Share Toggle Logic ───────────────────────────────────── */
   const group  = document.getElementById("fw-share-group");
   const toggle = document.getElementById("fw-share-toggle");
 
@@ -200,7 +217,6 @@
     toggle.setAttribute("aria-expanded", group.classList.contains("open"));
   });
 
-  // Close on outside click
   document.addEventListener("click", function (e) {
     if (!group.contains(e.target)) {
       group.classList.remove("open");
@@ -208,18 +224,16 @@
     }
   });
 
-  /* ── Share actions ───────────────────────────────────────── */
   function getUrl()   { return window.location.href; }
   function getTitle() { return document.title; }
 
   var actions = {
-    whatsapp  : function() { window.open("https://wa.me/?text=" + encodeURIComponent(getTitle() + " " + getUrl()), "_blank"); },
     instagram : function() { window.open("https://www.instagram.com/", "_blank"); },
     facebook  : function() { window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(getUrl()), "_blank"); },
     youtube   : function() { window.open("https://www.youtube.com/", "_blank"); }
   };
 
-  // Ripple + action on each social button
+  /* ── Ripple + Action ─────────────────────────────────────── */
   document.querySelectorAll(".fw-social-btn").forEach(function(btn) {
     btn.addEventListener("click", function(e) {
       var r = document.createElement("span");

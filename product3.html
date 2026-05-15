@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Clean Agent HFC-236fa 4KG — Fire Boy</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+ 
   <style>
     :root {
       --fire: #ff6a00;
@@ -28,11 +29,11 @@
     .cursor { position:fixed;width:12px;height:12px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:99999;box-shadow:0 0 8px var(--fire),0 0 20px rgba(255,106,0,.4);transition:transform .1s; }
     .cursor-trail { position:fixed;width:36px;height:36px;border:1.5px solid rgba(255,106,0,.45);border-radius:50%;pointer-events:none;z-index:99998;transition:left .15s ease,top .15s ease; }
 
-    nav { position:fixed;top:0;width:100%;z-index:1000;height:72px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,106,0,.15);box-shadow:0 2px 20px rgba(0,0,0,.06); }
+    nav { position:fixed;top:0;width:100%;z-index:1000;height:72px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(0, 0, 0, 0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,106,0,.15);box-shadow:0 2px 20px rgba(0,0,0,.06); }
     .logo { display:flex;align-items:center;gap:10px;text-decoration:none; }
     .logo img { width:48px; }
     .nav-links { list-style:none;display:flex;gap:32px; }
-    .nav-links a { text-decoration:none;color:#888;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:color .3s; }
+    .nav-links a { text-decoration:none;color:#ffffff;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:color .3s; }
     .nav-links a:hover,.nav-links a.active { color:var(--fire); }
     .nav-cta { background:var(--fire);color:#fff;text-decoration:none;padding:10px 24px;font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:all .3s;box-shadow:0 0 14px rgba(255,106,0,.3); }
     .nav-cta:hover { background:var(--fire-light);transform:translateY(-1px); }
@@ -206,6 +207,7 @@
       .compare-table{font-size:11px;} .compare-table th,.compare-table td{padding:10px 8px;}
     }
   </style>
+  <link rel="stylesheet" href="./quote.css">
 </head>
 <body>
 
@@ -267,7 +269,7 @@
       </div>
 
       <div class="action-btns reveal">
-        <button class="btn-primary" onclick="alert('Contact our sales team:\n📞 +91 98765 43210\n✉ info@ignis.in')">Enquire Now</button>
+         <button class="btn-primary" > <a href="#quote" class="nav-cta">Enquire Now</a></button>
         <a href="./products.html" class="btn-secondary" style="display:inline-block;text-align:center;text-decoration:none;color:#111;">← Back to Products</a>
       </div>
 
@@ -487,7 +489,7 @@
     <div class="section-label">You May Also Need</div>
     <h2 class="section-heading reveal">RELATED<br/>PRODUCTS</h2>
     <div class="related-grid reveal">
-      <a href="./product-2.html" class="related-card">
+      <a href="./product2.html" class="related-card">
         <div class="related-img" style="background:linear-gradient(135deg,#e8eeff,#efefec);">
           <img src="./img/CO2-TM-XX.webp" alt="CO2 Extinguisher" />
         </div>
@@ -497,7 +499,7 @@
           <div class="related-price">₹3,800 <span style="font-size:13px;color:#999;font-family:var(--font-body);">/ unit</span></div>
         </div>
       </a>
-      <a href="./products.html?category=detection" class="related-card">
+      <a href="./product4.html" class="related-card">
         <div class="related-img" style="background:linear-gradient(135deg,#f5f5f5,#efefec);">
           <img src="./img/FB-1X2.webp" alt="Fire Alarm Panel" />
         </div>
@@ -507,7 +509,7 @@
           <div class="related-price">₹8,500 <span style="font-size:13px;color:#999;font-family:var(--font-body);">/ unit</span></div>
         </div>
       </a>
-      <a href="./products.html?category=suppression" class="related-card">
+      <a href="./product5.html" class="related-card">
         <div class="related-img" style="background:linear-gradient(135deg,#f0fff5,#efefec);">
           <img src="./img/Fire-Hydrants-and-Sprinkler-Systems.webp" alt="Sprinkler" />
         </div>
@@ -586,5 +588,7 @@
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     function switchTab(id,btn){document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
   </script>
+  <script src="./quote.js"></script>
+  <script src="./floating-widgets.js"></script>
 </body>
 </html>

@@ -129,6 +129,7 @@ function initReveal() {
 }
 
 // ─── Stat Counter Animation ───────────────────────────────────────────────────
+   
 
 function animateCounters() {
   const nums = document.querySelectorAll(".fire-num");

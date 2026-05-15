@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Glow-in-Dark Fire Exit Sign Pack of 10 — Fire Boy</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+        <link rel="stylesheet" href="./quote.css">
+    <style>
+        :root {
+            --fire: #ff6a00;
+            --fire-light: #ff8c2a;
+            --fire-dark: #cc4e00;
+            --coal: #ffffff;
+            --text-dark: #111111;
+            --text-mid: #555555;
+            --text-muted: #888888;
+            --ash: #efefec;
+            --gold: #c9a84c;
+            --footer-bg: #111111;
+            --font-display: "Oswald", sans-serif;
+            --font-body: "Inter", sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fff;
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: var(--fire);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            box-shadow: 0 0 8px var(--fire), 0 0 20px rgba(255, 106, 0, .4);
+            transition: transform .1s;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid rgba(255, 106, 0, .45);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transition: left .15s ease, top .15s ease;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 72px;
+            padding: 0 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 106, 0, .15);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 48px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color .3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--fire);
+        }
+
+        .nav-cta {
+            background: var(--fire);
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 24px;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+            transition: all .3s;
+            box-shadow: 0 0 14px rgba(255, 106, 0, .3);
+        }
+
+        .nav-cta:hover {
+            background: var(--fire-light);
+            transform: translateY(-1px);
+        }
+
+        .breadcrumb {
+            padding: 100px 48px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #aaa;
+        }
+
+        .breadcrumb a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--fire);
+        }
+
+        .breadcrumb span {
+            color: var(--fire);
+        }
+
+        .product-hero {
+            padding: 40px 48px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .img-col {
+            position: sticky;
+            top: 100px;
+        }
+
+        .img-main {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-main::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 30%, rgba(255, 106, 0, .08) 0%, transparent 65%);
+        }
+
+        .img-main img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            transition: transform .6s ease;
+            position: relative;
+            z-index: 1;
+            animation: floatImg 4s ease-in-out infinite;
+        }
+
+        @keyframes floatImg {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .img-main:hover img {
+            transform: scale(1.06) translateY(-6px);
+        }
+
+        .badge-strip {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 5px 14px;
+            font-family: var(--font-display);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+        }
+
+        .badge-fire {
+            background: var(--fire);
+            color: #fff;
+        }
+
+        .badge-gold {
+            background: var(--gold);
+            color: #fff;
+        }
+
+        .badge-dark {
+            background: #111;
+            color: #fff;
+        }
+
+        .info-col {
+            padding-top: 20px;
+        }
+
+        .prod-cat {
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: var(--fire);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prod-cat::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: var(--fire);
+        }
+
+        .prod-name {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 4vw, 56px);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .prod-name span {
+            color: var(--fire);
+        }
+
+        .prod-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.8;
+            border-left: 3px solid var(--fire);
+            padding-left: 20px;
+            margin-bottom: 36px;
+        }
+
+        .price-box {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 24px;
+            background: #f9f9f7;
+            border-left: 4px solid var(--fire);
+            margin-bottom: 36px;
+        }
+
+        .price-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+
+        .price-val {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: #111;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .price-val span {
+            font-size: 18px;
+            color: #999;
+            font-family: var(--font-body);
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 4px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 14px 36px;
+            background: var(--fire);
+            color: #fff;
+            border: none;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: none;
+            transition: all .3s;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+            box-shadow: 0 4px 20px rgba(255, 106, 0, .3);
+        }
+
+        .btn-primary:hover {
+            background: var(--fire-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255, 106, 0, .45);
+        }
+
+        .btn-secondary {
+            padding: 14px 36px;
+            background: transparent;
+            color: #111;
+            border: 2px solid rgba(0, 0, 0, .15);
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: none;
+            transition: all .3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--fire);
+            color: var(--fire);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .spec-item {
+            padding: 16px 20px;
+            background: #f5f5f3;
+            border-left: 3px solid transparent;
+            transition: all .3s;
+        }
+
+        .spec-item:hover {
+            border-left-color: var(--fire);
+            background: #fff5ef;
+        }
+
+        .spec-key {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #aaa;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .spec-val {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .tabs {
+            border-top: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .tab-btns {
+            display: flex;
+            gap: 0;
+        }
+
+        .tab-btn {
+            padding: 16px 28px;
+            background: none;
+            border: none;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #aaa;
+            cursor: none;
+            transition: all .3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--fire);
+            border-bottom-color: var(--fire);
+        }
+
+        .tab-btn:hover {
+            color: #111;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 32px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            color: var(--fire);
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .spec-table tr {
+            border-bottom: 1px solid rgba(0, 0, 0, .06);
+            transition: background .2s;
+        }
+
+        .spec-table tr:hover {
+            background: #fff8f4;
+        }
+
+        .spec-table td {
+            padding: 14px 12px;
+            font-size: 14px;
+        }
+
+        .spec-table td:first-child {
+            color: #888;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            width: 40%;
+        }
+
+        .spec-table td:last-child {
+            color: #111;
+            font-weight: 500;
+        }
+
+        .cert-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .cert-tag {
+            padding: 10px 20px;
+            background: #f5f5f3;
+            border: 1px solid rgba(0, 0, 0, .1);
+            font-family: var(--font-display);
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            color: #333;
+        }
+
+        .cert-tag strong {
+            color: var(--fire);
+        }
+
+        .detail-section {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 48px;
+            border-top: 1px solid rgba(0, 0, 0, .07);
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--fire);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .section-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 0, 0, .08);
+        }
+
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 700;
+            line-height: .95;
+            margin-bottom: 24px;
+        }
+
+        .fire-classes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .fire-class-card {
+            padding: 28px;
+            background: #f5f5f3;
+            text-align: center;
+            transition: all .3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .fire-class-card:hover {
+            background: #fff8f4;
+            border-bottom-color: var(--fire);
+            transform: translateY(-4px);
+        }
+
+        .fire-class-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .fire-class-label {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--fire);
+            margin-bottom: 6px;
+        }
+
+        .fire-class-name {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .fire-class-desc {
+            font-size: 12px;
+            color: #888;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        .step {
+            padding: 32px 24px;
+            background: #f5f5f3;
+            transition: all .3s;
+        }
+
+        .step:hover {
+            background: #fff8f4;
+        }
+
+        .step-num {
+            font-family: var(--font-display);
+            font-size: 64px;
+            font-weight: 700;
+            color: rgba(255, 106, 0, .1);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            padding: 24px 28px;
+            background: #fff8f0;
+            border-left: 4px solid var(--fire);
+            margin-top: 40px;
+        }
+
+        .warning-box p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .warning-box strong {
+            color: var(--fire);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .related-card {
+            background: #f5f5f3;
+            padding: 0;
+            overflow: hidden;
+            cursor: none;
+            transition: all .3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .related-card:hover {
+            background: #fff8f4;
+        }
+
+        .related-img {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #efefec;
+            overflow: hidden;
+        }
+
+        .related-img img {
+            height: 120px;
+            object-fit: contain;
+            transition: transform .4s;
+        }
+
+        .related-card:hover .related-img img {
+            transform: scale(1.08);
+        }
+
+        .related-info {
+            padding: 20px;
+        }
+
+        .related-cat {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--fire);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .related-name {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        .related-price {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: #111;
+        }
+
+        footer {
+            background: #111;
+            border-top: 1px solid rgba(255, 106, 0, .15);
+        }
+
+        .footer-main {
+            padding: 80px 48px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+
+        .footer-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            margin: 16px 0 28px;
+            max-width: 300px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            background: #1e1e1e;
+            border: 1px solid rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #aaa;
+            font-size: 12px;
+            transition: all .3s;
+            cursor: none;
+        }
+
+        .social-btn:hover {
+            background: var(--fire);
+            color: #fff;
+            border-color: var(--fire);
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color .3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            padding: 20px 48px;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: #444;
+            letter-spacing: 1px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            font-size: 12px;
+            color: #444;
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        .footer-legal a:hover {
+            color: var(--fire);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .scroll-bar {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            z-index: 999;
+            height: 3px;
+            background: var(--fire);
+            transition: width .1s;
+            box-shadow: 0 0 8px rgba(255, 106, 0, .5);
+        }
+
+        @media (max-width: 1024px) {
+            .product-hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .img-col {
+                position: static;
+            }
+
+            .fire-classes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .breadcrumb {
+                padding: 90px 20px 0;
+                font-size: 10px;
+            }
+
+            .product-hero {
+                padding: 24px 20px 60px;
+                gap: 32px;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .fire-classes {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-section {
+                padding: 60px 20px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                padding: 48px 20px;
+            }
+
+            .footer-bottom {
+                padding: 16px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-bar" id="scrollBar"></div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <a href="./index.html" class="logo">
+            <img src="./img/fire-logo.png" alt="Fire Boy" />
+        </a>
+        <ul class="nav-links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./products.html" class="active">Products</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Get Quote</a>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="./index.html">Home</a> /
+        <a href="./products.html">Products</a> /
+        <a href="./products.html?category=signage">Safety Signage</a> /
+        <span>Glow-in-Dark Fire Exit Sign Pack of 10</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="product-hero">
+
+        <!-- IMAGE COL -->
+        <div class="img-col reveal">
+            <div class="img-main" style="background:linear-gradient(135deg,#f0fff0,#f5f5f3);">
+                <img src="./img/Clean-Agent-Fire-Suppression-Systems_pro.webp"
+                    alt="Glow-in-Dark Fire Exit Sign Pack of 10" />
+            </div>
+            <div class="badge-strip">
+                <div class="badge badge-fire">Value Pack</div>
+                <div class="badge badge-gold">IS:12349</div>
+                <div class="badge badge-dark">8+ Hr Glow</div>
+            </div>
+        </div>
+
+        <!-- INFO COL -->
+        <div class="info-col">
+            <div class="prod-cat reveal">Safety Signage</div>
+            <h1 class="prod-name reveal">GLOW-IN-DARK<br /><span>FIRE EXIT</span><br />SIGN ×10</h1>
+            <p class="prod-desc reveal">Photoluminescent fire exit signs with strontium aluminate pigment for 8+ hour
+                glow after power failure. IS:12349 and ISO:3864 compliant. Pack of 10 with mixed directional arrows
+                covers a standard floor. Zero power, zero wiring, zero batteries — charges automatically from ambient
+                light.</p>
+
+            <div class="price-box reveal">
+                <div>
+                    <div class="price-label">Unit Price</div>
+                    <div class="price-val">₹650 <span>/ unit</span></div>
+                    <div class="price-note">Bulk pricing available. GST extra.</div>
+                </div>
+            </div>
+
+            <div class="action-btns reveal">
+                 <button class="btn-primary" > <a href="#quote" class="nav-cta">Enquire Now</a></button>
+                <a href="./products.html" class="btn-secondary"
+                    style="display:inline-block;text-align:center;text-decoration:none;color:#111;">← Back to
+                    Products</a>
+            </div>
+
+            <div class="spec-grid reveal">
+                <div class="spec-item">
+                    <div class="spec-key">Qty</div>
+                    <div class="spec-val">Pack of 10</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-key">Glow</div>
+                    <div class="spec-val">8+ Hours</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-key">Standard</div>
+                    <div class="spec-val">IS:12349</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-key">Size</div>
+                    <div class="spec-val">200×100mm</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-key">Lifespan</div>
+                    <div class="spec-val">10+ Years</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-key">Fixing</div>
+                    <div class="spec-val">Adhesive+Screw</div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs reveal">
+                <div class="tab-btns">
+                    <button class="tab-btn active" onclick="switchTab('features', this)">Features</button>
+                    <button class="tab-btn" onclick="switchTab('specs', this)">Full Specs</button>
+                    <button class="tab-btn" onclick="switchTab('certs', this)">Certifications</button>
+                </div>
+
+                <div class="tab-content active" id="tab-features">
+                    <ul class="feature-list">
+                        <li>Strontium aluminate photoluminescent pigment — 8+ hour glow at 180 mcd/m² after 30-minute
+                            ambient charge</li>
+                        <li>IS:12349 and ISO:3864 compliant — mandatory for NOC and building completion certificate</li>
+                        <li>Zero power required — no electrical connection, no batteries, no wiring cost</li>
+                        <li>Dual fixing: high-bond 3M self-adhesive backing + pre-drilled screw holes</li>
+                        <li>UV-resistant hard laminate overlay — 10+ year rated lifespan against fading and cleaning
+                            chemicals</li>
+                        <li>Pack of 10 includes mixed running man left, right, and forward arrow directions</li>
+                        <li>Rigid 1.5mm PVC substrate — maintains flat profile even in humid environments</li>
+                    </ul>
+                </div>
+
+                <div class="tab-content" id="tab-specs">
+                    <table class="spec-table">
+                        <tr>
+                            <td>Model</td>
+                            <td>PLS-EXIT-10PK</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>Photoluminescent (SrAl₂O₄)</td>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td>200 × 100 mm each</td>
+                        </tr>
+                        <tr>
+                            <td>Substrate</td>
+                            <td>Rigid PVC 1.5mm</td>
+                        </tr>
+                        <tr>
+                            <td>Glow Duration</td>
+                            <td>8+ hours</td>
+                        </tr>
+                        <tr>
+                            <td>Charge Time</td>
+                            <td>30 min fluorescent</td>
+                        </tr>
+                        <tr>
+                            <td>Initial Luminance</td>
+                            <td>180 mcd/m² at 10 min</td>
+                        </tr>
+                        <tr>
+                            <td>Standard</td>
+                            <td>IS:12349 / ISO:3864</td>
+                        </tr>
+                        <tr>
+                            <td>Fixing</td>
+                            <td>3M Adhesive + Pre-drilled</td>
+                        </tr>
+                        <tr>
+                            <td>Laminate</td>
+                            <td>UV Hard Coat</td>
+                        </tr>
+                        <tr>
+                            <td>Operating Temp</td>
+                            <td>-20°C to +60°C</td>
+                        </tr>
+                        <tr>
+                            <td>Lifespan</td>
+                            <td>10+ years</td>
+                        </tr>
+                        <tr>
+                            <td>Pack Contents</td>
+                            <td>10 signs (mixed arrows)</td>
+                        </tr>
+                        <tr>
+                            <td>ODP/GWP</td>
+                            <td>Zero</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="tab-content" id="tab-certs">
+                    <div class="cert-row">
+                        <div class="cert-tag"><strong>IS:12349</strong> — BIS Compliant</div>
+                        <div class="cert-tag"><strong>ISO:3864</strong> — Graphical Safety Signs</div>
+                        <div class="cert-tag"><strong>NBC Compliant</strong> — Part 4</div>
+                        <div class="cert-tag"><strong>Zero ODP/GWP</strong> — Eco Friendly</div>
+                    </div>
+                    <p style="margin-top:20px;font-size:13px;color:#777;line-height:1.7;">Compliant with IS:12349
+                        (photoluminescent safety signs) and ISO:3864 (graphical symbols and safety signs). Mandatory
+                        under NBC Part 4 and accepted by all state fire departments for NOC compliance. No electrical
+                        hazard — safe for all occupancies.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- COVERAGE / APPLICATION SECTION -->
+    <div class="detail-section">
+        <div class="section-label">Installation Locations</div>
+        <h2 class="section-heading reveal">WHERE TO<br />INSTALL</h2>
+        <div class="fire-classes reveal">
+            <div class="fire-class-card">
+                <div class="fire-class-icon">🚪</div>
+                <div class="fire-class-label">EXITS</div>
+                <div class="fire-class-name">Emergency Doors</div>
+                <div class="fire-class-desc">Above every emergency exit door on each floor — mandatory.</div>
+            </div>
+            <div class="fire-class-card">
+                <div class="fire-class-icon">🪜</div>
+                <div class="fire-class-label">STAIRS</div>
+                <div class="fire-class-name">Stairwells</div>
+                <div class="fire-class-desc">Top, mid, and bottom of each stairwell — directional arrows.</div>
+            </div>
+            <div class="fire-class-card">
+                <div class="fire-class-icon">🛗</div>
+                <div class="fire-class-label">LIFTS</div>
+                <div class="fire-class-name">Lift Lobbies</div>
+                <div class="fire-class-desc">Adjacent to each lift lobby directing towards nearest stair exit.</div>
+            </div>
+            <div class="fire-class-card">
+                <div class="fire-class-icon">🅿️</div>
+                <div class="fire-class-label">PARKING</div>
+                <div class="fire-class-name">Basement</div>
+                <div class="fire-class-desc">Stairwell access points and emergency exit doors in car parks.</div>
+            </div>
+            <div class="fire-class-card">
+                <div class="fire-class-icon">🛏️</div>
+                <div class="fire-class-label">HOTELS</div>
+                <div class="fire-class-name">Guest Floors</div>
+                <div class="fire-class-desc">Inside each guest room door and corridor T-junctions.</div>
+            </div>
+            <div class="fire-class-card">
+                <div class="fire-class-icon">🏭</div>
+                <div class="fire-class-label">INDUSTRY</div>
+                <div class="fire-class-name">Factory Floors</div>
+                <div class="fire-class-desc">Production floor exit routes and assembly point directions.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW TO USE / OPERATION SECTION -->
+    <div class="detail-section" style="background:#f9f9f7; max-width:100%; padding:80px 48px;">
+        <div style="max-width:1300px; margin:auto;">
+            <div class="section-label">How to Install</div>
+            <h2 class="section-heading reveal">INSTALLATION<br />GUIDE</h2>
+            <div class="steps reveal">
+                <div class="step">
+                    <div class="step-num">Step 1</div>
+                    <div class="step-title">PLAN Layout</div>
+                    <div class="step-desc">Map all emergency exit routes. Place a sign at every decision point —
+                        junction, corner, and above each exit door.</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">Step 2</div>
+                    <div class="step-title">CLEAN Surface</div>
+                    <div class="step-desc">Clean mounting surface with isopropyl alcohol. Ensure surface is dry and
+                        dust-free before applying adhesive.</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">Step 3</div>
+                    <div class="step-title">FIX Sign</div>
+                    <div class="step-desc">Peel backing from 3M adhesive and press firmly for 30 seconds. For masonry,
+                        use pre-drilled holes and appropriate wall plugs.</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">Step 4</div>
+                    <div class="step-title">TEST Glow</div>
+                    <div class="step-desc">After installation, photograph all signs in complete darkness after 60-minute
+                        charge to verify glow performance.</div>
+                </div>
+            </div>
+            <div class="warning-box reveal">
+                <p><strong>⚠ Important:</strong> Signs must be at eye level (1.8–2.2m) or above exit doors. Verify glow
+                    performance annually in complete darkness. Replace any sign with glow duration below 4 hours.
+                    Maintain a signage register for NOC compliance. <strong>Emergency: 101 (Fire)</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RELATED PRODUCTS -->
+    <div class="detail-section">
+        <div class="section-label">You May Also Need</div>
+        <h2 class="section-heading reveal">RELATED<br />PRODUCTS</h2>
+        <div class="related-grid reveal">
+            <a href="product7.html" class="related-card">
+                <div class="related-img" style="background:linear-gradient(135deg,#f5f5f5,#efefec);">
+                    <img src="./img/FB-1X2.webp" alt="Fire Alarm Panel 4-Zone" />
+                </div>
+                <div class="related-info">
+                    <div class="related-cat">Detection</div>
+                    <div class="related-name">Fire Alarm Panel 4-Zone</div>
+                    <div class="related-price">₹8,500 <span
+                            style="font-size:13px;color:#999;font-family:var(--font-body);">/ unit</span></div>
+                </div>
+            </a>
+            <a href="product6.html" class="related-card">
+                <div class="related-img" style="background:linear-gradient(135deg,#f0f5ff,#efefec);">
+                    <img src="./img/Panel-Protection-Systems_pro.webp" alt="Photoelectric Smoke Detector" />
+                </div>
+                <div class="related-info">
+                    <div class="related-cat">Detection</div>
+                    <div class="related-name">Photoelectric Smoke Detector</div>
+                    <div class="related-price">₹850 <span
+                            style="font-size:13px;color:#999;font-family:var(--font-body);">/ unit</span></div>
+                </div>
+            </a>
+            <a href="product9.html" class="related-card">
+                <div class="related-img" style="background:linear-gradient(135deg,#fff5f0,#efefec);">
+                    <img src="./img/DSPA-5-Fire-Suppression-Aerosol-Device_pro_pro.webp"
+                        alt="Firefighter Proximity Suit" />
+                </div>
+                <div class="related-info">
+                    <div class="related-cat">PPE</div>
+                    <div class="related-name">Firefighter Proximity Suit</div>
+                    <div class="related-price">₹18,500 <span
+                            style="font-size:13px;color:#999;font-family:var(--font-body);">/ unit</span></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="./index.html" class="logo">
+                    <img src="./img/fire-logo.png" alt="Fire Boy" style="width:50px;filter:brightness(0) invert(1);" />
+                </a>
+                <p class="footer-desc">India's premier fire safety equipment supplier. BIS certified, expert-backed,
+                    always reliable. Protecting lives and properties since 1998.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-btn">f</a>
+                    <a href="#" class="social-btn">in</a>
+                    <a href="#" class="social-btn">tw</a>
+                    <a href="#" class="social-btn">yt</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul class="footer-links">
+                    <li><a href="./products.html?category=extinguisher">Fire Extinguishers</a></li>
+                    <li><a href="./products.html?category=hydrant">Hydrant Systems</a></li>
+                    <li><a href="./products.html?category=detection">Fire Alarms</a></li>
+                    <li><a href="./products.html?category=suppression">Sprinkler Systems</a></li>
+                    <li><a href="./products.html?category=signage">Safety Signage</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Annual Maintenance</a></li>
+                    <li><a href="#">Site Assessment</a></li>
+                    <li><a href="#">Refilling Services</a></li>
+                    <li><a href="#">Installation</a></li>
+                    <li><a href="#">Training</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="#">📞 +91 98765 43210</a></li>
+                    <li><a href="#">✉ info@ignis.in</a></li>
+                    <li><a href="./about.html">About IGNIS</a></li>
+                    <li><a href="#">Certifications</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2025 IGNIS Fire Safety Solutions Pvt. Ltd. All rights reserved.</div>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        const cursor = document.getElementById('cursor');
+        const trail = document.getElementById('cursorTrail');
+        let tx = 0, ty = 0, cx = 0, cy = 0;
+        document.addEventListener('mousemove', e => {
+            tx = e.clientX; ty = e.clientY;
+            cursor.style.left = (tx - 6) + 'px'; cursor.style.top = (ty - 6) + 'px';
+        });
+        setInterval(() => {
+            cx += (tx - cx) * .15; cy += (ty - cy) * .15;
+            trail.style.left = (cx - 18) + 'px'; trail.style.top = (cy - 18) + 'px';
+        }, 16);
+        document.addEventListener('mousedown', () => cursor.style.transform = 'scale(2)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+            document.getElementById('scrollBar').style.width = pct + '%';
+        });
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: .12 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        function switchTab(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            btn.classList.add('active');
+        }
+
+    </script>
+    <script src="./quote.js"></script>
+    <script src="./floating-widgets.js"></script>
+</body>
+
+</html>
