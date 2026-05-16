@@ -1,3 +1,10 @@
+/* ═══════════════════════════════════════════════════════════════
+   quote.css  —  Quote modal + Scroll-to-top + Share widget
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════
+   QUOTE MODAL
+══════════════════════════════════════════════ */
 .quote-modal {
   position: fixed;
   inset: 0;
@@ -175,6 +182,9 @@ body.quote-lock {
   overflow: hidden;
 }
 
+/* ══════════════════════════════════════════════
+   FOOTER SOCIAL ICONS
+══════════════════════════════════════════════ */
 footer .footer-brand .logo-icon,
 footer .footer-logo-img {
   width: 92px !important;
@@ -192,9 +202,12 @@ footer .social-btn svg {
   fill: currentColor;
 }
 
+/* ══════════════════════════════════════════════
+   SCROLL TO TOP  (existing — untouched)
+══════════════════════════════════════════════ */
 .scroll-top {
   position: fixed;
-  right: 32px;
+  right: 10px;
   bottom: 32px;
   z-index: 100000;
   width: 48px;
@@ -207,17 +220,16 @@ footer .social-btn svg {
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(18px);
-  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
   cursor: pointer;
-  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-  box-shadow: 0 8px 24px rgba(255, 106, 0, 0.36);
+  box-shadow: -4px 0 20px rgba(255, 106, 0, 0.35);
 }
 
 .scroll-top.visible {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .scroll-top:hover {
@@ -230,7 +242,202 @@ footer .social-btn svg {
   fill: currentColor;
 }
 
+/* ══════════════════════════════════════════════
+   SHARE WIDGET  — sits just above scroll-top
+   Stack:  [share-toggle]  ← always visible at bottom of group
+           [instagram]
+           [facebook]
+           [youtube]      ← slides up on open
+══════════════════════════════════════════════ */
+
+/* Outer wrapper — anchored same corner as scroll-top */
+.share-group {
+  position: fixed;
+  right: 10px;
+  bottom: calc(32px + 48px + 4px);
+  z-index: 100001;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 48px;
+}
+
+/* ── Share toggle button ── */
+.share-toggle {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: #ff6708;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s ease;
+  order: 2;
+}
+
+.share-toggle:hover {
+  background: #ff6a00;
+}
+
+.share-toggle svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.share-group.open .share-toggle svg {
+  transform: rotate(180deg);
+}
+
+/* ── Social icon list ── */
+.share-social-list {
+  display: flex;
+  flex-direction: column;
+  /* instagram on top, youtube closest to toggle */
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  max-height: 0;
+  padding-bottom: 0;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    padding-bottom 0.3s ease;
+  order: 1;
+  /* renders before toggle → visually above it */
+}
+
+.share-group.open .share-social-list {
+  max-height: 220px;
+  /* 3 × 48px + 3 × 6px gap = 162px, give headroom */
+  padding-bottom: 6px;
+}
+
+/* ── Individual social button ── */
+.share-social-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.15s ease;
+}
+
+.share-group.open .share-social-btn {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* stagger: youtube (child 3) appears first since list is column-reversed visually */
+.share-group.open .share-social-btn:nth-child(3) {
+  transition-delay: 0.04s;
+}
+
+.share-group.open .share-social-btn:nth-child(2) {
+  transition-delay: 0.09s;
+}
+
+.share-group.open .share-social-btn:nth-child(1) {
+  transition-delay: 0.14s;
+}
+
+.share-social-btn:hover {
+  filter: brightness(1.15);
+}
+
+.share-social-btn svg {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* brand colors */
+.share-social-btn[data-p="instagram"] {
+  background: radial-gradient(circle at 30% 107%,
+      #fdf497 0%,
+      #fdf497 5%,
+      #fd5949 45%,
+      #d6249f 60%,
+      #285aeb 90%);
+}
+
+.share-social-btn[data-p="facebook"] {
+  background: #1877f2;
+}
+
+.share-social-btn[data-p="youtube"] {
+  background: #ff0000;
+}
+
+/* tooltip */
+.share-social-btn::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 54px;
+  background: #111;
+  color: #fff;
+  font-family: "Oswald", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 5px 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.2s, transform 0.2s;
+  clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+  z-index: 9999;
+}
+
+.share-social-btn:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ripple */
+.share-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.38);
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  animation: shareRipple 0.5s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes shareRipple {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
 @media (max-width: 640px) {
+
+  /* Quote modal */
   .quote-modal {
     padding: 16px;
   }
@@ -248,8 +455,26 @@ footer .social-btn svg {
     right: 12px;
   }
 
+  /* Scroll-top + Share — stay flush right edge on mobile */
   .scroll-top {
-    right: 20px;
+    right: 0;
     bottom: 20px;
+  }
+
+  .share-group {
+    right: 0;
+    bottom: calc(20px + 48px + 4px);
+    width: 44px;
+  }
+
+  .share-toggle,
+  .share-social-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* hide tooltip on mobile */
+  .share-social-btn::after {
+    display: none;
   }
 }

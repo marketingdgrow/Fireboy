@@ -1,4 +1,7 @@
 (function () {
+  /* ══════════════════════════════════════════════
+     QUOTE MODAL
+  ══════════════════════════════════════════════ */
   function createQuoteModal() {
     if (document.getElementById("quoteModal")) return;
 
@@ -79,6 +82,9 @@
   window.openQuoteModal = openQuoteModal;
   window.closeQuoteModal = closeQuoteModal;
 
+  /* ══════════════════════════════════════════════
+     SOCIAL ICONS (footer)
+  ══════════════════════════════════════════════ */
   const socialIcons = {
     f: {
       label: "Facebook",
@@ -109,6 +115,9 @@
     });
   }
 
+  /* ══════════════════════════════════════════════
+     SCROLL-TO-TOP  (existing — untouched)
+  ══════════════════════════════════════════════ */
   function ensureScrollTop() {
     let button = document.getElementById("scrollTop");
     if (!button) {
@@ -117,7 +126,8 @@
       button.id = "scrollTop";
       button.type = "button";
       button.setAttribute("aria-label", "Back to top");
-      button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14l5-5 5 5z"/></svg>';
+      button.innerHTML =
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14l5-5 5 5z"/></svg>';
       document.body.appendChild(button);
     }
 
@@ -132,11 +142,105 @@
     window.addEventListener("scroll", update, { passive: true });
   }
 
+  /* ══════════════════════════════════════════════
+     SHARE BUTTON  (sits above scroll-top)
+  ══════════════════════════════════════════════ */
+  function ensureShareWidget() {
+    if (document.getElementById("shareGroup")) return;
+
+    const group = document.createElement("div");
+    group.id = "shareGroup";
+    group.className = "share-group";
+    group.innerHTML = `
+      <!-- Social icons (hidden until open) -->
+      <div class="share-social-list" id="shareSocialList">
+        <button class="share-social-btn" data-p="instagram" data-label="INSTAGRAM" aria-label="Open Instagram" type="button">
+          <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.337 3.608 1.312.975.975 1.25 2.242 1.312 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.337 2.633-1.312 3.608-.975.975-2.242 1.25-3.608 1.312-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.337-3.608-1.312-.975-.975-1.25-2.242-1.312-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.337-2.633 1.312-3.608.975-.975 2.242-1.25 3.608-1.312C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.013 15.259 0 12 0z"/>
+            <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8z"/>
+            <circle cx="18.406" cy="5.594" r="1.44" fill="white"/>
+          </svg>
+        </button>
+        <button class="share-social-btn" data-p="facebook" data-label="FACEBOOK" aria-label="Share on Facebook" type="button">
+          <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+          </svg>
+        </button>
+        <button class="share-social-btn" data-p="youtube" data-label="YOUTUBE" aria-label="Open YouTube" type="button">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805z" fill="white"/>
+            <path d="M9.609 15.601V8.408l6.264 3.602z" fill="#FF0000"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Share toggle (bottom — always visible) -->
+      <button class="share-toggle" id="shareToggle" aria-label="Share this page" aria-expanded="false" type="button">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="5"  r="3" fill="white"/>
+          <circle cx="6"  cy="12" r="3" fill="white"/>
+          <circle cx="18" cy="19" r="3" fill="white"/>
+          <line x1="8.6"  y1="13.5" x2="15.4" y2="17.5" stroke="white" stroke-width="2"/>
+          <line x1="15.4" y1="6.5"  x2="8.6"  y2="10.5" stroke="white" stroke-width="2"/>
+        </svg>
+      </button>
+    `;
+    document.body.appendChild(group);
+
+    /* toggle open/close */
+    const toggle = document.getElementById("shareToggle");
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      group.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", group.classList.contains("open"));
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!group.contains(e.target)) {
+        group.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    /* social actions */
+    const actions = {
+      instagram: () => window.open("https://www.instagram.com/", "_blank"),
+      facebook: () =>
+        window.open(
+          "https://www.facebook.com/sharer/sharer.php?u=" +
+            encodeURIComponent(window.location.href),
+          "_blank"
+        ),
+      youtube: () => window.open("https://www.youtube.com/", "_blank"),
+    };
+
+    group.querySelectorAll(".share-social-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        /* ripple */
+        const r = document.createElement("span");
+        r.className = "share-ripple";
+        const rect = btn.getBoundingClientRect();
+        r.style.left = e.clientX - rect.left + "px";
+        r.style.top = e.clientY - rect.top + "px";
+        btn.appendChild(r);
+        r.addEventListener("animationend", () => r.remove());
+
+        const p = btn.getAttribute("data-p");
+        if (actions[p]) actions[p]();
+      });
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     INIT
+  ══════════════════════════════════════════════ */
   document.addEventListener("DOMContentLoaded", () => {
     enhanceSocialIcons();
-    ensureScrollTop();
+    ensureScrollTop();   /* existing scroll-top — untouched */
+    ensureShareWidget(); /* NEW share button above scroll-top */
   });
 
+  /* Quote modal triggers */
   document.addEventListener("click", (event) => {
     const trigger = event.target.closest(".nav-cta, [data-quote-open]");
     if (trigger) {
@@ -144,7 +248,6 @@
       openQuoteModal();
       return;
     }
-
     if (event.target.closest("[data-quote-close]")) {
       closeQuoteModal();
     }

@@ -130,7 +130,6 @@ function initReveal() {
 
 // ─── Stat Counter Animation ───────────────────────────────────────────────────
    
-
 function animateCounters() {
   const nums = document.querySelectorAll(".fire-num");
   nums.forEach(el => {
@@ -141,7 +140,6 @@ function animateCounters() {
     const step = (timestamp) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
-      // ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       el.textContent = Math.floor(eased * target);
       if (progress < 1) requestAnimationFrame(step);

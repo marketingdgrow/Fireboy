@@ -568,12 +568,8 @@ body::after {
   z-index: 1;
 }
 
-.btn-ghost:hover::before {
-  transform: scaleX(1);
-}
-
 .btn-ghost:hover {
-  color: #fff;
+  color: #000000;
   border-color: var(--fire);
 }
 
@@ -1725,7 +1721,7 @@ footer {
 }
 
 .footer-main {
-  padding: 80px 52px;
+  padding: 40px 52px 20px;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 48px;
@@ -1941,8 +1937,6 @@ footer {
   justify-content: center;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.42s cubic-bezier(0.4, 0, 0.2, 1);
-  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
   box-shadow: 0 4px 18px rgba(255, 106, 0, 0.38);
 }
 
@@ -2030,7 +2024,6 @@ footer {
   background: var(--fire-light);
 }
 
-/* ── SCROLL REVEAL ── */
 .reveal {
   opacity: 0;
   transform: translateY(32px);
@@ -2058,7 +2051,6 @@ footer {
   transition-delay: 0.4s;
 }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .why-grid {
     grid-template-columns: 1fr;
