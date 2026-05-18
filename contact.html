@@ -16,7 +16,9 @@
     :root {
       --fire: #ff6a00;
       --fire-light: #ff8c2a;
+      
       --fire-glow: #ffaa55;
+  --fire-glow1: #ffcfa0;
       --white-bg: #ffffff;
       --light-grey: #f5f5f3;
       --card: #ffffff;
@@ -109,12 +111,12 @@
       align-items: center;
       justify-content: space-between;
       height: 72px;
-      background: rgba(0, 0, 0, 0.99);
+      background: rgba(255, 255, 255, 0.99);
       transition: all 0.4s;
     }
 
     .navbar.scrolled {
-      background: rgba(0, 0, 0, 0.97);
+      background: rgba(255, 255, 255, 0.97);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 106, 0, 0.18);
       box-shadow: 0 2px 20px rgba(255, 106, 0, 0.07);
@@ -143,7 +145,7 @@
 
     .nav-links a {
       text-decoration: none;
-      color: #ffffff;
+      color: #000000;
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 2px;
@@ -272,7 +274,7 @@
       display: flex;
       align-items: center;
       overflow: hidden;
-      background: #ffffff;
+      background: var(--fire-glow1);
       padding-top: 110px;
     }
 
@@ -523,7 +525,7 @@
     /* ── CONTACT SECTION ── */
     .contact-section {
       padding: 100px 48px;
-      background: var(--white-bg);
+      background: var(--fire-glow1);
     }
 
     .contact-section-header {
@@ -1278,8 +1280,8 @@
   <!-- ══════════════════ CONTACT SECTION ══════════════════ -->
   <section class="contact-section" id="contact-form">
     <div class="contact-section-header">
-      <div class="section-tag">Get In Touch</div>
-      <h2>REACH<br />OUT TO US</h2>
+     
+      <h2>REACH OUT TO US</h2>
       <p>Fill in the form or use any of our direct contact methods. A certified fire safety specialist will get back to
         you promptly.</p>
     </div>

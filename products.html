@@ -47,8 +47,8 @@
         <div class="container">
           <div class="catalog-header">
             <div>
-              <div class="section-tag">Our Arsenal</div>
-              <h2 class="section-title">FEATURED<br />PRODUCTS</h2>
+              <!-- <div class="section-tag">Our Arsenal</div> -->
+              <h2 class="section-title">FEATURED PRODUCTS</h2>
             </div>
             <div class="search-bar">
               <input
@@ -69,6 +69,9 @@
 
           <div class="filter-bar">
             <button class="filter-btn active" data-filter="all" onclick="filterProducts('all', this)">All Products</button>
+            <button class="filter-btn" data-filter="head" onclick="filterProducts('head', this)">Head Protection</button>
+            <button class="filter-btn" data-filter="eye" onclick="filterProducts('eye', this)">Eye Protection</button>
+            <button class="filter-btn" data-filter="face" onclick="filterProducts('face', this)">Face Protection</button>
             <button class="filter-btn" data-filter="extinguisher" onclick="filterProducts('extinguisher', this)">Extinguishers</button>
             <button class="filter-btn" data-filter="hydrant" onclick="filterProducts('hydrant', this)">Hydrant Systems</button>
             <button class="filter-btn" data-filter="detection" onclick="filterProducts('detection', this)">Detection</button>
@@ -145,7 +148,6 @@
 
     <script src="./product.js"></script>
     <script src="./quote.js"></script>
-    <link rel="stylesheet" href="./floating-widgets.css" />
-<script src="./floating-widgets.js"></script>
+   
   </body>
 </html>

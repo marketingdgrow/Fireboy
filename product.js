@@ -11,6 +11,331 @@ const products = [
   { id: 10, category: "ppe", name: "SCBA Self Contained Breathing Apparatus", desc: "Full-face SCBA with 6L carbon cylinder and 30-min air supply. CE certified.", price: "42,000", badge: "Premium", cert: true, specs: ["6L Cylinder", "30-Min Air", "Full Face", "CE Certified"], color: "#f0f5ff" },
   { id: 11, category: "signage", name: "Glow-in-Dark Fire Exit Sign (Pack of 10)", desc: "Photoluminescent fire exit signage visible for 8+ hours after power failure.", price: "650", badge: "Value Pack", cert: false, specs: ["Pack of 10", "Photoluminescent", "8hr Glow", "IS:12349"], color: "#f0fff0" },
   { id: 12, category: "extinguisher", name: "Water Mist Extinguisher 9L", desc: "Eco-friendly water mist. Safe on electrical fires up to 1000V. Class A, B, F.", price: "4,900", badge: "Eco Choice", cert: true, specs: ["9L Capacity", "Class A/B/F", "1000V Safe", "No Chemicals"], color: "#f0f8ff" },
+ {
+    id: 13,
+    category: "head",
+    name: "Fire Rescue Helmet",
+    desc: "Advanced fire rescue helmet with transparent visor and impact protection for firefighters and emergency response teams.",
+    price: "8500",
+    badge: "Premium Safety",
+    cert: true,
+    specs: ["Heat Resistant", "Full Face Visor", "Impact Protection", "Adjustable Strap"],
+    color: "#f7e600"
+  },
+
+  {
+    id: 14,
+    category: "head",
+    name: "Industrial Safety Helmet",
+    desc: "Heavy-duty industrial safety helmet designed for construction and factory environments.",
+    price: "450",
+    badge: "Best Seller",
+    cert: true,
+    specs: ["ABS Plastic", "Adjustable Lock", "Light Weight", "Industrial Grade"],
+    color: "#0066ff"
+  },
+
+  {
+    id: 15,
+    category: "head",
+    name: "Auto Darkening Welding Helmet",
+    desc: "Professional welding helmet with auto-darkening lens for arc and MIG/TIG welding applications.",
+    price: "3200",
+    badge: "Professional",
+    cert: true,
+    specs: ["Auto Darkening", "UV Protection", "Heat Resistant", "Wide Lens"],
+    color: "#1a1a1a"
+  },
+
+  {
+    id: 16,
+    category: "head",
+    name: "Full Cover Face Shield Hood",
+    desc: "Complete face and neck protection hood for chemical and hazardous industrial operations.",
+    price: "5400",
+    badge: "Full Protection",
+    cert: true,
+    specs: ["Full Face Cover", "Chemical Resistant", "Anti Fog Shield", "Comfort Fit"],
+    color: "#00aa66"
+  },
+
+  {
+    id: 17,
+    category: "head",
+    name: "Safety Helmet with Face Shield",
+    desc: "Industrial safety helmet with transparent face visor for grinding and cutting operations.",
+    price: "1200",
+    badge: "Industrial Use",
+    cert: true,
+    specs: ["Clear Face Shield", "Impact Resistant", "Helmet Mounted", "Reusable"],
+    color: "#ffd400"
+  },
+
+  {
+    id: 18,
+    category: "head",
+    name: "Ventilated Safety Helmet",
+    desc: "Ventilated lightweight helmet suitable for long working hours in industrial environments.",
+    price: "650",
+    badge: "Comfort Fit",
+    cert: true,
+    specs: ["Ventilation Slots", "ABS Material", "Adjustable Fit", "Sweat Resistant"],
+    color: "#39d353"
+  },
+
+  {
+    id: 19,
+    category: "head",
+    name: "Construction Safety Helmet",
+    desc: "Durable construction helmet for civil, industrial, and site safety applications.",
+    price: "500",
+    badge: "Construction Grade",
+    cert: true,
+    specs: ["Impact Resistant", "Heavy Duty", "Light Weight", "Site Safety"],
+    color: "#ff6a00"
+  },
+
+  {
+    id: 20,
+    category: "head",
+    name: "Bump Cap Helmet",
+    desc: "Soft shell bump cap designed for low-risk head protection in maintenance and warehouse areas.",
+    price: "700",
+    badge: "Light Duty",
+    cert: true,
+    specs: ["Soft Padding", "Breathable", "Light Weight", "Comfort Wear"],
+    color: "#5da9ff"
+  },
+
+  {
+    id: 21,
+    category: "head",
+    name: "Ventilated Safety Helmet - Purple",
+    desc: "Color-coded ventilated industrial helmet with enhanced airflow and lightweight structure.",
+    price: "650",
+    badge: "Color Series",
+    cert: true,
+    specs: ["Ventilation Design", "ABS Plastic", "Comfort Lock", "Industrial Grade"],
+    color: "#7b2cff"
+  },
+
+  {
+    id: 22,
+    category: "head",
+    name: "Flip Front Welding Shield",
+    desc: "Flip-front welding face shield with protective viewing window for fabrication works.",
+    price: "1800",
+    badge: "Welding Safety",
+    cert: true,
+    specs: ["Flip Front Glass", "Heat Resistant", "Face Protection", "Durable Build"],
+    color: "#222222"
+  },
+
+  {
+    id: 23,
+    category: "head",
+    name: "Yellow Industrial Helmet",
+    desc: "Classic industrial safety helmet with chin strap for maximum workplace safety.",
+    price: "550",
+    badge: "Industrial Standard",
+    cert: true,
+    specs: ["High Impact ABS", "Adjustable Strap", "Safety Certified", "Light Weight"],
+    color: "#ffdd00"
+  },
+
+   {
+    id: 24,
+    category: "eye",
+    name: "Transparent Safety Glass",
+    desc: "Lightweight transparent safety glasses for industrial and workshop eye protection.",
+    price: "180",
+    badge: "Best Seller",
+    cert: true,
+    specs: ["Anti Scratch", "Clear Vision", "Light Weight", "Industrial Use"],
+    color: "#f5f5f5"
+  },
+
+  {
+    id: 25,
+    category: "eye",
+    name: "Black Frame Safety Glass",
+    desc: "Stylish black frame protective eyewear for factory and engineering environments.",
+    price: "250",
+    badge: "Premium",
+    cert: true,
+    specs: ["UV Protection", "Impact Resistant", "Comfort Fit", "Wide Lens"],
+    color: "#111111"
+  },
+
+  {
+    id: 26,
+    category: "eye",
+    name: "Crystal Clear Safety Spectacles",
+    desc: "Crystal-clear industrial eye protector designed for all-day comfortable usage.",
+    price: "220",
+    badge: "Comfort Fit",
+    cert: true,
+    specs: ["Anti Fog", "Flexible Arms", "Light Weight", "Scratch Resistant"],
+    color: "#ffffff"
+  },
+
+  {
+    id: 27,
+    category: "eye",
+    name: "Pink Protective Glass",
+    desc: "Fashion-style pink protective eyewear with impact-resistant transparent lens.",
+    price: "280",
+    badge: "Stylish",
+    cert: true,
+    specs: ["UV Safe", "Impact Resistant", "Soft Grip", "Modern Design"],
+    color: "#ffb6d9"
+  },
+
+  {
+    id: 28,
+    category: "eye",
+    name: "Side Shield Safety Glass",
+    desc: "Industrial safety spectacles with side shield protection against dust and particles.",
+    price: "240",
+    badge: "Industrial Grade",
+    cert: true,
+    specs: ["Side Protection", "Clear Lens", "Dust Resistant", "Durable Frame"],
+    color: "#eef7ff"
+  },
+
+  {
+    id: 29,
+    category: "eye",
+    name: "Welding Protection Goggles",
+    desc: "Professional welding goggles designed to protect eyes from sparks and harmful light.",
+    price: "850",
+    badge: "Welding Safety",
+    cert: true,
+    specs: ["Dark Lens", "Heat Resistant", "Elastic Strap", "Welding Grade"],
+    color: "#1d3b6d"
+  },
+
+  {
+    id: 30,
+    category: "eye",
+    name: "Black UV Protection Glass",
+    desc: "Dark lens protective eyewear for outdoor industrial and high-light environments.",
+    price: "350",
+    badge: "UV Shield",
+    cert: true,
+    specs: ["UV Protection", "Dark Lens", "Sport Design", "Impact Resistant"],
+    color: "#000000"
+  },
+
+  {
+    id: 31,
+    category: "eye",
+    name: "Transparent Safety Goggles",
+    desc: "Full-cover transparent safety goggles for chemical and laboratory protection.",
+    price: "320",
+    badge: "Lab Safety",
+    cert: true,
+    specs: ["Chemical Resistant", "Elastic Band", "Anti Fog", "Full Eye Cover"],
+    color: "#dfefff"
+  },
+
+  {
+    id: 32,
+    category: "eye",
+    name: "Ventilated Safety Goggles",
+    desc: "Ventilated industrial safety goggles designed for long-duration comfortable wear.",
+    price: "360",
+    badge: "Ventilated",
+    cert: true,
+    specs: ["Ventilation Holes", "Dust Protection", "Flexible Fit", "Comfort Wear"],
+    color: "#d8c8ff"
+  },
+
+  {
+    id: 33,
+    category: "face",
+    name: "Forestry Safety Helmet",
+    desc: "Professional forestry safety helmet with mesh face shield and ear protection for industrial cutting operations.",
+    price: "1850",
+    badge: "Forestry",
+    cert: true,
+    specs: ["Mesh Face Shield", "Ear Protection", "Impact Resistant", "Industrial Grade"],
+    color: "#ff7a00"
+},
+
+{
+    id: 34,
+    category: "face",
+    name: "Blue Face Shield",
+    desc: "Industrial face shield with clear visor for full-face safety protection in workshops and factories.",
+    price: "620",
+    badge: "Face Protection",
+    cert: true,
+    specs: ["Clear Visor", "Adjustable Headband", "Impact Resistant", "Light Weight"],
+    color: "#1d5dff"
+},
+
+{
+    id: 35,
+    category: "face",
+    name: "White Industrial Face Shield",
+    desc: "Heavy-duty industrial face shield designed for chemical, laboratory, and workshop safety applications.",
+    price: "650",
+    badge: "Industrial",
+    cert: true,
+    specs: ["Full Face Coverage", "Chemical Resistant", "Adjustable Fit", "Industrial Safety"],
+    color: "#d9d9d9"
+},
+
+
+{
+    id: 37,
+    category: "face",
+    name: "Flip Front Welding Shield",
+    desc: "Industrial welding face shield with flip-front viewing window for safe welding operations.",
+    price: "1350",
+    badge: "Flip Front",
+    cert: true,
+    specs: ["Flip Front Lens", "Heat Resistant", "Industrial Grade", "Comfort Headband"],
+    color: "#111111"
+},
+
+{
+    id: 38,
+    category: "face",
+    name: "Black Safety Face Shield",
+    desc: "Durable black safety face shield designed for grinding, industrial, and workshop applications.",
+    price: "580",
+    badge: "Safety Shield",
+    cert: true,
+    specs: ["Clear Protection", "Adjustable Strap", "Impact Resistant", "Light Weight"],
+    color: "#111111"
+},
+
+{
+    id: 39,
+    category: "face",
+    name: "Green Face Shield",
+    desc: "Industrial green face shield with transparent visor for workshop and engineering safety use.",
+    price: "590",
+    badge: "Industrial",
+    cert: true,
+    specs: ["Transparent Visor", "Comfort Fit", "Industrial Safety", "Reusable Design"],
+    color: "#184d2f"
+},
+
+{
+    id: 40,
+    category: "face",
+    name: "Yellow Face Shield",
+    desc: "Protective yellow face shield with full-face transparent visor for industrial safety applications.",
+    price: "610",
+    badge: "Full Protection",
+    cert: true,
+    specs: ["Full Face Coverage", "Adjustable Headgear", "Impact Resistant", "Clear Vision"],
+    color: "#ffd400"
+}
+
 ];
 
 const productImages = {
@@ -26,6 +351,34 @@ const productImages = {
   10: "./img/Battery-Energy-Storage-Systems-BESS_pro_pro.webp",
   11: "./img/Clean-Agent-Fire-Suppression-Systems_pro.webp",
   12: "./img/SHP-CO2-XX.webp",
+  13: "./img/helmat/bike-hel.jpeg",
+  14: "./img/helmat/blue-hel.jpeg",
+  15: "./img/helmat/digital-hel.jpeg",
+  16: "./img/helmat/fullcover-hel.jpeg",
+  17: "./img/helmat/glass-hel.jpeg",
+  18: "./img/helmat/green-hel.jpeg",
+  19: "./img/helmat/orange-hel.jpeg",
+  20: "./img/helmat/rubber-hel.jpeg",
+  21: "./img/helmat/voilet-hel.jpeg",
+  22: "./img/helmat/weldding-hel.jpeg",
+  23: "./img/helmat/yellow-helmat.jpeg",
+  24: "./img/glass/glass-1.jpeg",
+  25: "./img/glass/glass-2.jpeg",
+  26: "./img/glass/glass-3.jpeg",
+  27: "./img/glass/glass-4.jpeg",
+  28: "./img/glass/glass-5.jpeg",
+  29: "./img/glass/glass-6.jpeg",
+  30: "./img/glass/glass-7.jpeg",
+  31: "./img/glass/glass-8.jpeg",
+  32: "./img/glass/glass-9.jpeg",
+  33: "./img/glasshel/glasshel-1.jpeg",
+  34: "./img/glasshel/glasshel-2.jpeg",
+  35: "./img/glasshel/glasshel-3.jpeg",
+  37: "./img/glasshel/glasshel-5.jpeg",
+  38: "./img/glasshel/glasshel-6.jpeg",
+  39: "./img/glasshel/glasshel-7.jpeg",
+  40: "./img/glasshel/glasshel-8.jpeg",
+
 };
 
 
@@ -42,6 +395,33 @@ const productPages = {
   10: "./product10.html",
   11: "./product11.html",
   12: "./product12.html",
+  13: "./product13.html",
+  14: "./product14.html",
+  15: "./product15.html",
+  16: "./product16.html",
+  17: "./product17.html",
+  18: "./product18.html",
+  19: "./product19.html",
+  20: "./product20.html",
+  21: "./product21.html",
+  22: "./product22.html",
+  23: "./product23.html",
+  24: "./product24.html",
+  25: "./product25.html",
+  26: "./product26.html",
+  27: "./product27.html",
+  28: "./product28.html",
+  29: "./product29.html",
+  30: "./product30.html",
+  31: "./product31.html",
+  32: "./product32.html",
+  33: "./product33.html",
+  34: "./product34.html",
+  35: "./product35.html",
+  
+  
+  
+
 };
 
 

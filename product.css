@@ -8,6 +8,8 @@
   --fire: #ff6a00;
   --fire-light: #ff8c2a;
   --coal: #ffffff;
+   --fire-glow: #ffaa55;
+  --fire-glow1: #ffcfa0;
   --charcoal: #f5f5f3;
   --card-bg: #ffffff;
   --card-hover: #fff8f4;
@@ -31,7 +33,7 @@
 }
 
 body {
-  background: var(--coal);
+  background: var(--fire-light);
   color: var(--text-dark);
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
@@ -94,12 +96,12 @@ nav.navbar {
   align-items: center;
   justify-content: space-between;
   height: 72px;
-  background:  rgba(0, 0, 0, 0.98);
+  background:  rgba(255, 255, 255, 0.98);
   transition: all 0.4s;
 }
 
 nav.navbar.scrolled {
-  background: rgba(0, 0, 0, 0.97);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 106, 0, 0.2);
   box-shadow: 0 2px 20px rgba(255, 106, 0, 0.08);
@@ -128,7 +130,7 @@ nav.navbar.scrolled {
 
 .nav-links a {
   text-decoration: none;
-  color: #ffffff;
+  color: #000000;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 2px;
@@ -240,13 +242,13 @@ nav.navbar.scrolled {
 
 /* ── PAGE BODY ── */
 .page-body {
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
 /* ── PRODUCTS CATALOG SECTION ── */
 .products-catalog-section {
   padding: 100px 0;
-  background: var(--coal);
+  background: var(--fire-glow1);
 }
 
 .catalog-header {

@@ -1,4 +1,4 @@
-// ─── Navbar Scroll ────────────────────────────────────────────────────────────
+// ─── Navbar Scroll ───────────────────────────────────────────────────────────
 
 window.addEventListener("scroll", () => {
   document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 80);
@@ -6,14 +6,14 @@ window.addEventListener("scroll", () => {
   const scrollTop = document.getElementById("scrollTop");
   if (scrollTop) scrollTop.classList.toggle("visible", window.scrollY > 400);
 
-  // scroll reveal
   revealOnScroll();
+  checkCounters();
 });
 
-// ─── Custom Cursor ────────────────────────────────────────────────────────────
+// ─── Custom Cursor ───────────────────────────────────────────────────────────
 
-const cursor    = document.getElementById("cursor");
-const trail     = document.getElementById("cursorTrail");
+const cursor = document.getElementById("cursor");
+const trail  = document.getElementById("cursorTrail");
 
 let tx = 0, ty = 0, cx = 0, cy = 0;
 
@@ -43,23 +43,36 @@ document.addEventListener("mouseup", () => {
   cursor.style.background = "var(--fire)";
 });
 
-// Cursor grow on interactive elements
 document.querySelectorAll("a, button, .cat-card, .product-card, .why-feat, .testi-card").forEach(el => {
   el.addEventListener("mouseenter", () => {
     cursor.style.transform = "scale(1.8)";
     trail.style.borderColor = "rgba(255,106,0,0.7)";
-    trail.style.width = "44px";
+    trail.style.width  = "44px";
     trail.style.height = "44px";
   });
   el.addEventListener("mouseleave", () => {
     cursor.style.transform = "scale(1)";
     trail.style.borderColor = "rgba(255,106,0,0.45)";
-    trail.style.width = "34px";
+    trail.style.width  = "34px";
     trail.style.height = "34px";
   });
 });
 
-// ─── Mobile Menu ──────────────────────────────────────────────────────────────
+// ─── Magnetic Cursor Effect on CTA buttons ────────────────────────────────────
+
+document.querySelectorAll(".btn-primary, .btn-ghost, .btn-dark, .nav-cta").forEach(btn => {
+  btn.addEventListener("mousemove", (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px) translateY(-2px)`;
+  });
+  btn.addEventListener("mouseleave", () => {
+    btn.style.transform = "";
+  });
+});
+
+// ─── Mobile Menu ─────────────────────────────────────────────────────────────
 
 function openMobileMenu() {
   document.getElementById("mobileMenu").classList.add("open");
@@ -71,12 +84,11 @@ function closeMobileMenu() {
   document.body.style.overflow = "";
 }
 
-// ─── Page Loader ──────────────────────────────────────────────────────────────
+// ─── Page Loader ─────────────────────────────────────────────────────────────
 
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
   if (loader) {
-    // inject progress bar into loader
     const bar = document.createElement("div");
     bar.className = "loader-bar";
     loader.appendChild(bar);
@@ -89,16 +101,12 @@ window.addEventListener("load", () => {
 function revealOnScroll() {
   const elements = document.querySelectorAll(".reveal");
   const windowBottom = window.innerHeight * 0.92;
-
   elements.forEach(el => {
     const top = el.getBoundingClientRect().top;
-    if (top < windowBottom) {
-      el.classList.add("visible");
-    }
+    if (top < windowBottom) el.classList.add("visible");
   });
 }
 
-// Auto-add reveal class to key sections
 function initReveal() {
   const selectors = [
     ".cat-card",
@@ -124,19 +132,18 @@ function initReveal() {
     });
   });
 
-  // run once immediately for elements already in view
   revealOnScroll();
 }
 
 // ─── Stat Counter Animation ───────────────────────────────────────────────────
-   
+
 function animateCounters() {
   const nums = document.querySelectorAll(".fire-num");
   nums.forEach(el => {
     const target = parseInt(el.textContent, 10);
     if (isNaN(target)) return;
     let start = 0;
-    const duration = 1600;
+    const duration = 1800;
     const step = (timestamp) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
@@ -149,7 +156,6 @@ function animateCounters() {
   });
 }
 
-// Trigger counter once hero stats come into view
 let countersRun = false;
 function checkCounters() {
   if (countersRun) return;
@@ -162,8 +168,6 @@ function checkCounters() {
   }
 }
 
-window.addEventListener("scroll", checkCounters);
-
 // ─── Ticker Pause on Hover ────────────────────────────────────────────────────
 
 const tickerInner = document.querySelector(".ticker-inner");
@@ -173,6 +177,71 @@ if (tickerInner) {
   });
   tickerInner.addEventListener("mouseleave", () => {
     tickerInner.style.animationPlayState = "running";
+  });
+}
+
+// ─── Parallax on Hero BG Image ───────────────────────────────────────────────
+
+const heroBgImg = document.querySelector(".hero-bg-img");
+if (heroBgImg) {
+  window.addEventListener("scroll", () => {
+    const scrolled = window.scrollY;
+    heroBgImg.style.transform = `scale(1.04) translateY(${scrolled * 0.3}px)`;
+  });
+}
+
+// ─── Tilt effect on Category cards ───────────────────────────────────────────
+
+document.querySelectorAll(".cat-card").forEach(card => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 10;
+    card.style.transform = `translateY(-3px) rotateX(${-y}deg) rotateY(${x}deg)`;
+    card.style.transition = "box-shadow 0.3s, border-bottom-color 0.3s";
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "";
+    card.style.transition = "all 0.42s cubic-bezier(0.4, 0, 0.2, 1)";
+  });
+});
+
+// ─── Testimonial Card hover: slight tilt ─────────────────────────────────────
+
+document.querySelectorAll(".testi-card").forEach(card => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 6;
+    card.style.transform = `translateY(-4px) rotateX(${-y}deg) rotateY(${x}deg)`;
+    card.style.transition = "box-shadow 0.2s, background 0.2s";
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "";
+    card.style.transition = "all 0.42s cubic-bezier(0.4, 0, 0.2, 1)";
+  });
+});
+
+// ─── Animated underline on Why Feat hover ────────────────────────────────────
+
+document.querySelectorAll(".why-feat").forEach(feat => {
+  feat.addEventListener("mouseenter", () => {
+    feat.querySelector(".why-feat-icon").style.transform = "scale(1.12) rotate(-5deg)";
+  });
+  feat.addEventListener("mouseleave", () => {
+    feat.querySelector(".why-feat-icon").style.transform = "";
+  });
+});
+
+// ─── Brand scroll: pause on hover ────────────────────────────────────────────
+
+const brandsScroll = document.getElementById("brandsScroll");
+if (brandsScroll) {
+  brandsScroll.addEventListener("mouseenter", () => {
+    brandsScroll.style.animationPlayState = "paused";
+  });
+  brandsScroll.addEventListener("mouseleave", () => {
+    brandsScroll.style.animationPlayState = "running";
   });
 }
 
