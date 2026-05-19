@@ -136,83 +136,138 @@
     </div>
   </div>
 
-  <!-- CATEGORIES -->
-  <section class="categories" id="categories">
-    <div class="categories-header">
-      <div>
-        <h2 class="section-title">SHOP BY CATEGORY</h2>
-      </div>
-      <p class="section-sub">
-        Complete fire safety solutions for residential, commercial, and industrial applications.
-      </p>
+<!-- ══════════════════════════════════════════════════
+   CATEGORIES SECTION
+   Uses your existing CSS variables — no extra imports needed.
+   Link: <link rel="stylesheet" href="categories.css">
+   ══════════════════════════════════════════════════ -->
+
+<section class="categories" id="categories">
+
+  <!-- HEADER -->
+  <div class="categories-header">
+    <div>
+    
+      <h2 class="section-title">SHOP BY <span>CATEGORY</span></h2>
     </div>
-    <div class="cat-grid">
-      <div class="cat-card" onclick="filterProducts('extinguisher')">
+    <p class="section-sub">
+      Complete fire safety solutions for residential, commercial, and industrial applications.
+    </p>
+  </div>
+
+  <!-- GRID -->
+  <div class="cat-grid">
+
+    <!-- 01 Fire Extinguishers -->
+    <div class="cat-card" onclick="filterProducts('extinguisher')" role="button" tabindex="0">
+      <div class="cat-card-inner">
+        <div class="cat-num">01</div>
         <div class="cat-icon">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M12 2C9 2 7 4 7 7v1H5v14h14V8h-2V7c0-3-2-5-5-5zm0 2c1.7 0 3 1.3 3 3v1H9V7c0-1.7 1.3-3 3-3zM7 10h10v10H7z" />
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2C9 2 7 4 7 7v1H5v14h14V8h-2V7c0-3-2-5-5-5zm0 2c1.7 0 3 1.3 3 3v1H9V7c0-1.7 1.3-3 3-3zM7 10h10v10H7z"/></svg>
         </div>
         <div class="cat-name">Fire Extinguishers</div>
-        <div class="cat-count">48 Products</div>
-        <div class="cat-arrow">→</div>
-      </div>
-      <div class="cat-card" onclick="filterProducts('hydrant')">
-        <div class="cat-icon">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M12 2a4 4 0 0 1 4 4v2h1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1V6a4 4 0 0 1 4-4zm2 6V6a2 2 0 0 0-4 0v2h4z" />
-          </svg>
+        <div class="cat-desc">ABC, CO₂, Wet Chemical, Foam & Dry Powder for all fire classes</div>
+        <div class="cat-bottom">
+          <div class="cat-count">48 Products</div>
+          <div class="cat-arrow"><a href="./products.html">→</a></div>
         </div>
-        <div class="cat-name">Fire Hydrant Systems</div>
-        <div class="cat-count">32 Products</div>
-        <div class="cat-arrow">→</div>
-      </div>
-      <div class="cat-card" onclick="filterProducts('detection')">
-        <div class="cat-icon">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
-          </svg>
-        </div>
-        <div class="cat-name">Fire Detection</div>
-        <div class="cat-count">56 Products</div>
-        <div class="cat-arrow">→</div>
-      </div>
-      <div class="cat-card" onclick="filterProducts('suppression')">
-        <div class="cat-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M17 8C8 10 5.9 16.17 3.82 21H5.71C7.72 17 11 14.07 17 14v4l4-5-4-5z" />
-          </svg>
-        </div>
-        <div class="cat-name">Suppression Systems</div>
-        <div class="cat-count">24 Products</div>
-        <div class="cat-arrow">→</div>
-      </div>
-      <div class="cat-card" onclick="filterProducts('ppe')">
-        <div class="cat-icon">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M12 1C8.676 1 6 3.676 6 7v2H4v14h16V9h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v2H8V7c0-2.276 1.724-4 4-4z" />
-          </svg>
-        </div>
-        <div class="cat-name">Safety Equipment & PPE</div>
-        <div class="cat-count">76 Products</div>
-        <div class="cat-arrow">→</div>
-      </div>
-      <div class="cat-card" onclick="filterProducts('signage')">
-        <div class="cat-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
-          </svg>
-        </div>
-        <div class="cat-name">Fire Safety Signage</div>
-        <div class="cat-count">38 Products</div>
-        <div class="cat-arrow">→</div>
       </div>
     </div>
-  </section>
+
+    <!-- 02 Fire Hydrant Systems -->
+    <div class="cat-card" onclick="filterProducts('hydrant')" role="button" tabindex="0">
+      <div class="cat-card-inner">
+        <div class="cat-num">02</div>
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4v2h1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1V6a4 4 0 0 1 4-4zm2 6V6a2 2 0 0 0-4 0v2h4z"/></svg>
+        </div>
+        <div class="cat-name">Fire Hydrant Systems</div>
+        <div class="cat-desc">Landing valves, hose reels, branch pipes & hydrant accessories</div>
+        <div class="cat-bottom">
+          <div class="cat-count">32 Products</div>
+          <div class="cat-arrow"><a href="./products.html">→</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 Fire Detection -->
+    <div class="cat-card" onclick="filterProducts('detection')" role="button" tabindex="0">
+      <div class="cat-card-inner">
+        <div class="cat-num">03</div>
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        </div>
+        <div class="cat-name">Fire Detection</div>
+        <div class="cat-desc">Smoke detectors, heat sensors, alarm panels & addressable systems</div>
+        <div class="cat-bottom">
+          <div class="cat-count">56 Products</div>
+          <div class="cat-arrow"><a href="./products.html">→</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 Suppression Systems -->
+    <div class="cat-card" onclick="filterProducts('suppression')" role="button" tabindex="0">
+      <div class="cat-card-inner">
+        <div class="cat-num">04</div>
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21H5.71C7.72 17 11 14.07 17 14v4l4-5-4-5z"/></svg>
+        </div>
+        <div class="cat-name">Suppression Systems</div>
+        <div class="cat-desc">Sprinkler heads, deluge valves, gas suppression & foam systems</div>
+        <div class="cat-bottom">
+          <div class="cat-count">24 Products</div>
+          <div class="cat-arrow"><a href="./products.html">→</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 Safety Equipment & PPE -->
+    <div class="cat-card" onclick="filterProducts('ppe')" role="button" tabindex="0">
+      <div class="cat-card-inner">
+        <div class="cat-num">05</div>
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1C8.676 1 6 3.676 6 7v2H4v14h16V9h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v2H8V7c0-2.276 1.724-4 4-4z"/></svg>
+        </div>
+        <div class="cat-name">Safety Equipment & PPE</div>
+        <div class="cat-desc">Fire suits, gloves, helmets, boots & breathing apparatus</div>
+        <div class="cat-bottom">
+          <div class="cat-count">76 Products</div>
+          <div class="cat-arrow"><a href="./products.html">→</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 Fire Safety Signage -->
+    <div class="cat-card" onclick="filterProducts('signage')" role="button" tabindex="0">
+      <div class="cat-card-inner">
+        <div class="cat-num">06</div>
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+        </div>
+        <div class="cat-name">Fire Safety Signage</div>
+        <div class="cat-desc">Exit signs, evacuation maps, assembly boards & photoluminescent labels</div>
+        <div class="cat-bottom">
+          <div class="cat-count">38 Products</div>
+          <div class="cat-arrow"><a href="./products.html">→</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="cat-footer">` 
+    <div class="cat-stat">
+      <div class="cat-stat-num">274</div>
+      <div class="cat-stat-label">Products<br>Available</div>
+    </div>
+    <a href="#products" class="cat-cta">
+      Browse All Products <span>→</span>
+    </a>
+  </div>
+
+</section>
 
   <!-- PRODUCTS -->
   <section class="home-products-section" id="products">
@@ -220,7 +275,7 @@
       <div>
         <h2 class="section-title">OUR FIRE SAFETY PRODUCTS</h2>
       </div>
-      <p class="section-sub">
+      <p class="section-sub sub-1">
         Browse proven, certified fire safety products for homes and businesses. Click any item for full details and
         specifications.
       </p>
@@ -433,18 +488,54 @@
 
   <!-- CTA -->
   <section class="cta-section" id="contact">
+  <div class="cta-line-top"></div>
+
+  <div class="cta-embers">
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+  </div>
+
+  <div class="cta-glow-orb"></div>
+  
+
+  <div class="cta-inner">
+    
+
     <h2 class="cta-title">
-      DON'T WAIT<br />
-      <span style="color:var(--fire);">FOR FIRE</span><br />
+      DON'T WAIT
+      <span class="fire-line" data-text="FOR FIRE">FOR FIRE</span>
       TO STRIKE
     </h2>
-    <p class="cta-sub">Contact our fire safety experts today for a free consultation and site assessment. Protect your
-      people and property.</p>
-    <div class="cta-actions">
-      <a href="tel:+919876543210" class="btn-primary">📞 Call Now: +91 98765 43210</a>
-      <a href="mailto:info@ignis.in" class="btn-ghost">✉ Email Us</a>
+
+    <div class="cta-divider">
+      <div class="cta-divider-line"></div>
+      <div class="cta-divider-icon">🔥</div>
+      <div class="cta-divider-line"></div>
     </div>
-  </section>
+
+    <p class="cta-sub">Contact our fire safety experts today for a free consultation
+      and site assessment. Protect your people and property.</p>
+
+   
+
+    <div class="cta-actions">
+      <a href="tel:+919876543210" class="btn-primary">
+        📞 Call Now: +91 98765 43210
+      </a>
+      <a href="mailto:info@ignis.in" class="btn-ghost">
+        ✉ Email Us
+      </a>
+    </div>
+
+    
+  </div>
+</section>
 
   <!-- FOOTER -->
   <footer>

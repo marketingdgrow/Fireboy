@@ -334,6 +334,150 @@ const products = [
     cert: true,
     specs: ["Full Face Coverage", "Adjustable Headgear", "Impact Resistant", "Clear Vision"],
     color: "#ffd400"
+},
+
+{
+    id: 36,
+    category: "mask",
+    name: "3M 8822 FFP2 Respirator Mask",
+    desc: "Professional 3M FFP2 respirator mask with exhalation valve for advanced dust and particle protection.",
+    price: "145",
+    badge: "FFP2",
+    cert: true,
+    specs: ["Exhalation Valve", "FFP2 Protection", "Dust Filtration", "Comfort Fit"],
+    color: "#f2f2f2"
+},
+
+{
+    id: 41,
+    category: "mask",
+    name: "3M 9001 N95 Respirator",
+    desc: "Lightweight 3M N95 respirator mask designed for industrial safety and airborne particle filtration.",
+    price: "120",
+    badge: "N95",
+    cert: true,
+    specs: ["N95 Filtration", "Light Weight", "Comfort Elastic", "Industrial Safety"],
+    color: "#ffffff"
+},
+
+{
+    id: 42,
+    category: "mask",
+    name: "3M 8210 Valve Respirator",
+    desc: "Industrial-grade respirator mask with valve system for breathable and reliable particle protection.",
+    price: "160",
+    badge: "Valve Type",
+    cert: true,
+    specs: ["Valve System", "Dust Protection", "NIOSH Approved", "Comfort Wear"],
+    color: "#fafafa"
+},
+
+{
+    id: 43,
+    category: "mask",
+    name: "3M 9501+ N95 Mask",
+    desc: "Premium 3M 9501+ N95 protective mask with advanced filtration for industrial and personal safety use.",
+    price: "135",
+    badge: "Premium",
+    cert: true,
+    specs: ["N95 Certified", "Advanced Filtration", "Soft Ear Loops", "Breathable Design"],
+    color: "#f8f8f8"
+},
+
+{
+    id: 44,
+    category: "mask",
+    name: "3M 9042 KN90 Mask",
+    desc: "KN90 protective respirator mask designed for dust, pollution, and industrial particle protection.",
+    price: "115",
+    badge: "KN90",
+    cert: true,
+    specs: ["KN90 Protection", "Dust Filtration", "Comfort Fit", "Multi Layer Safety"],
+    color: "#9a9a9a"
+},
+
+{
+    id: 45,
+    category: "respirator",
+    name: "Full Face Industrial Respirator",
+    desc: "Professional full-face respirator mask designed for chemical, gas, and industrial particle protection.",
+    price: "2450",
+    badge: "Full Face",
+    cert: true,
+    specs: ["Full Face Seal", "Chemical Protection", "Replaceable Filter", "Industrial Grade"],
+    color: "#2f2f2f"
+},
+
+{
+    id: 46,
+    category: "respirator",
+    name: "3M P100 Dual Filter Respirator",
+    desc: "Advanced dual-filter respirator with P100 filtration for hazardous particles and industrial environments.",
+    price: "1850",
+    badge: "P100",
+    cert: true,
+    specs: ["P100 Filters", "Dual Cartridge", "NIOSH Approved", "Comfort Fit"],
+    color: "#5d3fd3"
+},
+
+{
+    id: 47,
+    category: "respirator",
+    name: "3M 6200 Half Face Respirator",
+    desc: "Reusable half-face respirator designed for dust, fumes, and chemical vapor protection.",
+    price: "1350",
+    badge: "Reusable",
+    cert: true,
+    specs: ["Half Face Design", "Dual Filter Support", "Lightweight", "Durable Material"],
+    color: "#2d2d2d"
+},
+
+{
+    id: 48,
+    category: "respirator",
+    name: "3M Full Face Safety Respirator",
+    desc: "Heavy-duty full-face respirator providing maximum respiratory and eye protection for industrial use.",
+    price: "3200",
+    badge: "Heavy Duty",
+    cert: true,
+    specs: ["Wide Lens View", "Full Protection", "Secure Head Harness", "Industrial Safety"],
+    color: "#1f1f1f"
+},
+
+{
+    id: 49,
+    category: "respirator",
+    name: "3M Dual Cartridge Respirator",
+    desc: "Industrial dual-cartridge respirator mask for chemical handling and hazardous work environments.",
+    price: "2150",
+    badge: "Dual Cartridge",
+    cert: true,
+    specs: ["Dual Filters", "Chemical Resistant", "Comfort Breathing", "Professional Grade"],
+    color: "#3a2a5f"
+},
+
+{
+    id: 50,
+    category: "respirator",
+    name: "3M Blue Half Face Respirator",
+    desc: "Compact blue half-face respirator mask with ergonomic fit for industrial respiratory safety.",
+    price: "1250",
+    badge: "Compact",
+    cert: true,
+    specs: ["Ergonomic Fit", "Reusable Design", "Dust Protection", "Soft Head Straps"],
+    color: "#496d9b"
+},
+
+{
+    id: 51,
+    category: "respirator",
+    name: "3M Gray Industrial Respirator",
+    desc: "Premium industrial respirator mask designed for advanced airborne and chemical protection.",
+    price: "1750",
+    badge: "Industrial",
+    cert: true,
+    specs: ["Advanced Seal", "Replaceable Filters", "Chemical Protection", "Professional Use"],
+    color: "#7a7a7a"
 }
 
 ];
@@ -374,10 +518,27 @@ const productImages = {
   33: "./img/glasshel/glasshel-1.jpeg",
   34: "./img/glasshel/glasshel-2.jpeg",
   35: "./img/glasshel/glasshel-3.jpeg",
-  37: "./img/glasshel/glasshel-5.jpeg",
-  38: "./img/glasshel/glasshel-6.jpeg",
-  39: "./img/glasshel/glasshel-7.jpeg",
-  40: "./img/glasshel/glasshel-8.jpeg",
+  37: "./img/glasshel/glasshel-4.jpeg",
+  38: "./img/glasshel/glasshel-5.jpeg",
+  39: "./img/glasshel/glasshel-6.jpeg",
+  40: "./img/glasshel/glasshel-7.jpeg",
+  36: "./img/mask/mask-1.jpeg",
+  41: "./img/mask/mask-2.jpeg",
+  42: "./img/mask/mask-3.jpeg",
+  43: "./img/mask/mask-4.jpeg",
+  44: "./img/mask/mask-5.jpeg",
+
+  45: "./img/facemask/fmask-1.jpeg",
+  46: "./img/facemask/fmask-2.jpeg",
+  47: "./img/facemask/fmask-3.jpeg",
+  48: "./img/facemask/fmask-4.jpeg",
+  49: "./img/facemask/fmask-5.jpeg",
+  50: "./img/facemask/fmask-6.jpeg",
+  51: "./img/facemask/fmask-7.jpeg",
+
+  52: "./img/mask/mask-5.jpeg",
+  53: "./img/mask/mask-5.jpeg",
+  54: "./img/mask/mask-5.jpeg",
 
 };
 
@@ -418,6 +579,10 @@ const productPages = {
   33: "./product33.html",
   34: "./product34.html",
   35: "./product35.html",
+  37: "./product37.html",
+  38: "./product38.html",
+  39: "./product39.html",
+  40: "./product40.html",
   
   
   
