@@ -1,1655 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Product Details - Fire Boy</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet" />
+  <title id="page-title">Product — Fire Boy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --fire: #ff6a00;
-      --fire-light: #ff8c2a;
-      --text-dark: #111111;
-      --text-mid: #555555;
-      --text-muted: #888888;
-      --ash: #f5f5f3;
-      --footer-bg: #111111;
-      --font-display: "Oswald", sans-serif;
-      --font-body: "Inter", sans-serif;
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: #ffffff;
-      color: var(--text-dark);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-    }
-
-    .cursor,
-    .cursor-trail {
-      position: fixed;
-      pointer-events: none;
-      border-radius: 50%;
-      z-index: 99999;
-    }
-
-    .cursor {
-      width: 12px;
-      height: 12px;
-      background: var(--fire);
-      box-shadow: 0 0 8px var(--fire), 0 0 20px rgba(255, 106, 0, 0.4);
-      transition: transform 0.1s;
-    }
-
-    .cursor-trail {
-      width: 36px;
-      height: 36px;
-      border: 1.5px solid rgba(255, 106, 0, 0.45);
-      transition: left 0.15s ease, top 0.15s ease;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      z-index: 1000;
-      width: 100%;
-      height: 72px;
-      padding: 0 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.96);
-      border-bottom: 1px solid rgba(255, 106, 0, 0.15);
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
-      backdrop-filter: blur(20px);
-    }
-
-    .logo img {
-      width: 48px;
-      display: block;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 32px;
-    }
-
-    .nav-links a,
-    .nav-cta,
-    .mobile-menu a {
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-
-    .nav-links a {
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 2px;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--fire);
-    }
-
-    .nav-cta,
-    .btn-primary {
-      background: var(--fire);
-      color: #ffffff;
-      font-family: var(--font-display);
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-      box-shadow: 0 4px 20px rgba(255, 106, 0, 0.28);
-    }
-
-    .nav-cta {
-      padding: 10px 24px;
-      font-size: 13px;
-    }
-
-    .nav-hamburger {
-      display: none;
-      width: 42px;
-      height: 42px;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .nav-hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      margin: 5px auto;
-      background: #111111;
-    }
-
-    .mobile-menu {
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      display: none;
-      place-content: center;
-      gap: 24px;
-      background: #111111;
-      text-align: center;
-    }
-
-    .mobile-menu.open {
-      display: grid;
-    }
-
-    .mobile-menu a {
-      color: #ffffff;
-      font-family: var(--font-display);
-      font-size: 28px;
-      letter-spacing: 2px;
-    }
-
-    .mobile-close {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: transparent;
-      color: #ffffff;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .detail-top {
-      padding: 118px 48px 28px;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-
-    .breadcrumb {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      color: #aaaaaa;
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .breadcrumb a {
-      color: #999999;
-      text-decoration: none;
-    }
-
-    .page-title {
-      margin-top: 24px;
-      font-family: var(--font-display);
-      font-size: clamp(44px, 7vw, 96px);
-      line-height: 0.92;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-
-    .page-title span {
-      color: var(--fire);
-    }
-
-    .product-jump {
-      padding: 0 48px 28px;
-      max-width: 1300px;
-      margin: 0 auto;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .product-jump a {
-      padding: 10px 16px;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      color: #111111;
-      text-decoration: none;
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
-
-    .product-jump a:hover {
-      background: var(--fire);
-      color: #fff;
-      border-color: var(--fire);
-    }
-
-    .product-section {
-      scroll-margin-top: 96px;
-      padding: 48px 48px 96px;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    .product-section:target {
-      background: linear-gradient(180deg, rgba(255, 106, 0, 0.08), rgba(255, 255, 255, 0) 260px);
-    }
-
-    .product-hero {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(300px, 0.9fr) minmax(320px, 1fr);
-      gap: 72px;
-      align-items: start;
-    }
-
-    .img-col {
-      position: sticky;
-      top: 104px;
-    }
-
-    .img-main {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      aspect-ratio: 1;
-      overflow: hidden;
-      background: linear-gradient(135deg, var(--product-bg, #f5f5f3), #f5f5f3);
-    }
-
-    .img-main::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 35% 30%, rgba(255, 106, 0, 0.1), transparent 64%);
-    }
-
-    .img-main img {
-      position: relative;
-      z-index: 1;
-      width: 74%;
-      height: 74%;
-      object-fit: contain;
-      animation: floatImg 4s ease-in-out infinite;
-    }
-
-    @keyframes floatImg {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-12px);
-      }
-    }
-
-    .badge-strip {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      padding: 6px 14px;
-      background: #111111;
-      color: #ffffff;
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
-    }
-
-    .badge-fire {
-      background: var(--fire);
-    }
-
-    .prod-cat {
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--fire);
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
-
-    .prod-cat::before {
-      content: "";
-      width: 28px;
-      height: 1px;
-      background: var(--fire);
-    }
-
-    .prod-name {
-      margin-bottom: 20px;
-      font-family: var(--font-display);
-      font-size: clamp(36px, 4.2vw, 58px);
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-
-    .prod-name span {
-      color: var(--fire);
-    }
-
-    .prod-desc {
-      margin-bottom: 32px;
-      padding-left: 20px;
-      border-left: 3px solid var(--fire);
-      color: var(--text-mid);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .price-box {
-      margin-bottom: 32px;
-      padding: 24px;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      background: #f9f9f7;
-      border-left: 4px solid var(--fire);
-    }
-
-    .price-label,
-    .price-note,
-    .spec-key {
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .price-label,
-    .spec-key {
-      font-size: 10px;
-      letter-spacing: 2px;
-    }
-
-    .price-val {
-      font-family: var(--font-display);
-      font-size: 48px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .price-val span {
-      color: #999999;
-      font-family: var(--font-body);
-      font-size: 18px;
-    }
-
-    .price-note {
-      margin-top: 4px;
-      font-size: 12px;
-      text-transform: none;
-    }
-
-    .action-btns {
-      margin-bottom: 36px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      display: inline-block;
-      padding: 14px 30px;
-      border: 0;
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-align: center;
-      text-decoration: none;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    .btn-secondary {
-      border: 2px solid rgba(0, 0, 0, 0.15);
-      color: #111111;
-      background: transparent;
-    }
-
-    .spec-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .spec-item {
-      padding: 16px 20px;
-      background: var(--ash);
-      border-left: 3px solid transparent;
-      transition: all 0.2s;
-    }
-
-    .spec-item:hover {
-      border-left-color: var(--fire);
-      background: #fff5ef;
-    }
-
-    .spec-val {
-      margin-top: 4px;
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .detail-panel {
-      max-width: 1300px;
-      margin: 40px auto 0;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .detail-card {
-      min-height: 120px;
-      padding: 24px;
-      background: #111111;
-      color: #ffffff;
-    }
-
-    .detail-card h3 {
-      margin-bottom: 10px;
-      color: var(--fire-light);
-      font-family: var(--font-display);
-      font-size: 17px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .detail-card p {
-      color: #d8d8d8;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    footer {
-      background: #111111;
-      color: #ffffff;
-    }
-
-    .footer-main {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 58px 48px;
-      display: grid;
-      grid-template-columns: 1.3fr repeat(3, 1fr);
-      gap: 40px;
-    }
-
-    .footer-desc,
-    .footer-links a,
-    .footer-copy,
-    .footer-legal a {
-      color: #aaaaaa;
-    }
-
-    .footer-desc {
-      margin-top: 18px;
-      max-width: 340px;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .footer-col h4 {
-      margin-bottom: 16px;
-      font-family: var(--font-display);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .footer-links {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-    }
-
-    .footer-links a,
-    .footer-legal a {
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    .footer-bottom {
-      padding: 18px 48px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 12px;
-    }
-
-    .footer-legal {
-      display: flex;
-      gap: 18px;
-    }
-
-    @media (max-width: 980px) {
-
-      .product-hero,
-      .detail-panel,
-      .footer-main {
-        grid-template-columns: 1fr;
-      }
-
-      .img-col {
-        position: static;
-      }
-    }
-
-    @media (max-width: 760px) {
-      nav {
-        padding: 0 20px;
-      }
-
-      .nav-links,
-      .nav-cta {
-        display: none;
-      }
-
-      .nav-hamburger {
-        display: block;
-      }
-
-      .detail-top,
-      .product-jump,
-      .product-section {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .product-section {
-        padding-top: 36px;
-        padding-bottom: 72px;
-      }
-
-      .product-hero {
-        gap: 32px;
-      }
-
-      .spec-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .price-box,
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .footer-main,
-      .footer-bottom {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-    }
+    :root { --fire:#ff6a00; --fire-light:#ff8c2a; --gold:#c9a84c; --font-display:"Oswald",sans-serif; --font-body:"Inter",sans-serif; }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:#fff;color:#111;font-family:var(--font-body);overflow-x:hidden;cursor:none;}
+
+    /* CURSOR */
+    .cursor{position:fixed;width:12px;height:12px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:99999;box-shadow:0 0 8px var(--fire),0 0 20px rgba(255,106,0,.4);transition:transform .1s;}
+    .cursor-trail{position:fixed;width:36px;height:36px;border:1.5px solid rgba(255,106,0,.45);border-radius:50%;pointer-events:none;z-index:99998;transition:left .15s ease,top .15s ease;}
+
+    /* SCROLL BAR */
+    .scroll-bar{position:fixed;top:72px;left:0;z-index:999;height:3px;background:var(--fire);width:0;box-shadow:0 0 8px rgba(255,106,0,.5);}
+
+    /* NAV */
+    nav{position:fixed;top:0;width:100%;z-index:1000;height:72px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,106,0,.15);}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo img{width:48px;}
+    .nav-links{list-style:none;display:flex;gap:32px;}
+    .nav-links a{text-decoration:none;color:#fff;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:color .3s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--fire);}
+    .nav-cta{background:var(--fire);color:#fff;text-decoration:none;padding:10px 24px;font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:all .3s;}
+    .nav-cta:hover{background:var(--fire-light);transform:translateY(-1px);}
+
+    /* BREADCRUMB */
+    .breadcrumb{padding:100px 48px 0;display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#aaa;flex-wrap:wrap;}
+    .breadcrumb a{color:#aaa;text-decoration:none;transition:color .3s;}
+    .breadcrumb a:hover{color:var(--fire);}
+    .breadcrumb span{color:var(--fire);}
+
+    /* NOT FOUND */
+    .not-found{text-align:center;padding:160px 48px;display:none;}
+    .not-found h2{font-family:var(--font-display);font-size:48px;margin-bottom:16px;}
+    .not-found p{color:#777;margin-bottom:32px;}
+    .not-found a{background:var(--fire);color:#fff;padding:14px 36px;text-decoration:none;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+
+    /* HERO */
+    .product-hero{padding:40px 48px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1300px;margin:auto;}
+
+    /* IMAGE COL */
+    .img-col{position:sticky;top:100px;}
+    .img-main{position:relative;aspect-ratio:1;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+    .img-main::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(255,106,0,.1) 0%,transparent 65%);}
+    .img-main img{width:70%;height:70%;object-fit:contain;position:relative;z-index:1;animation:floatImg 4s ease-in-out infinite;transition:transform .6s;}
+    @keyframes floatImg{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+    .img-main:hover img{transform:scale(1.06) translateY(-6px);}
+    .badge-strip{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+    .badge{padding:5px 14px;font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
+    .badge-fire{background:var(--fire);color:#fff;}
+    .badge-gold{background:var(--gold);color:#fff;}
+    .badge-dark{background:#111;color:#fff;}
+
+    /* INFO COL */
+    .info-col{padding-top:20px;}
+    .prod-cat{font-size:10px;letter-spacing:4px;color:var(--fire);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+    .prod-cat::before{content:"";width:28px;height:1px;background:var(--fire);}
+    .prod-name{font-family:var(--font-display);font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1;letter-spacing:1px;margin-bottom:20px;}
+    .prod-name span{color:var(--fire);}
+    .prod-desc{font-size:15px;color:#555;line-height:1.8;border-left:3px solid var(--fire);padding-left:20px;margin-bottom:36px;}
+
+    /* PRICE */
+    .price-box{display:flex;align-items:center;gap:24px;padding:24px;background:#f9f9f7;border-left:4px solid var(--fire);margin-bottom:36px;}
+    .price-label{font-size:11px;letter-spacing:2px;color:#aaa;text-transform:uppercase;}
+    .price-val{font-family:var(--font-display);font-size:48px;font-weight:700;color:#111;line-height:1;}
+    .price-val span{font-size:18px;color:#999;font-family:var(--font-body);}
+    .price-note{font-size:12px;color:#aaa;margin-top:4px;}
+
+    /* BUTTONS */
+    .action-btns{display:flex;gap:12px;margin-bottom:40px;flex-wrap:wrap;}
+    .btn-primary{padding:14px 36px;background:var(--fire);color:#fff;border:none;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);box-shadow:0 4px 20px rgba(255,106,0,.3);}
+    .btn-primary:hover{background:var(--fire-light);transform:translateY(-2px);}
+    .btn-secondary{padding:14px 36px;background:transparent;color:#111;border:2px solid rgba(0,0,0,.15);font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all .3s;text-decoration:none;display:inline-block;text-align:center;}
+    .btn-secondary:hover{border-color:var(--fire);color:var(--fire);}
+
+    /* SPEC GRID */
+    .spec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:40px;}
+    .spec-item{padding:16px 20px;background:#f5f5f3;border-left:3px solid transparent;transition:all .3s;}
+    .spec-item:hover{border-left-color:var(--fire);background:#fff5ef;}
+    .spec-key{font-size:10px;letter-spacing:2px;color:#aaa;text-transform:uppercase;margin-bottom:4px;}
+    .spec-val{font-family:var(--font-display);font-size:18px;font-weight:600;color:#111;}
+
+    /* TABS */
+    .tabs{border-top:1px solid rgba(0,0,0,.08);}
+    .tab-btns{display:flex;}
+    .tab-btn{padding:16px 28px;background:none;border:none;font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;cursor:none;transition:all .3s;border-bottom:3px solid transparent;}
+    .tab-btn.active{color:var(--fire);border-bottom-color:var(--fire);}
+    .tab-btn:hover{color:#111;}
+    .tab-content{display:none;padding:32px 0;}
+    .tab-content.active{display:block;}
+    .feature-list{list-style:none;display:flex;flex-direction:column;gap:14px;}
+    .feature-list li{display:flex;align-items:flex-start;gap:14px;font-size:14px;color:#555;line-height:1.6;}
+    .feature-list li::before{content:"→";color:var(--fire);font-size:14px;flex-shrink:0;margin-top:1px;}
+    .spec-table{width:100%;border-collapse:collapse;}
+    .spec-table tr{border-bottom:1px solid rgba(0,0,0,.06);transition:background .2s;}
+    .spec-table tr:hover{background:#fff8f4;}
+    .spec-table td{padding:14px 12px;font-size:14px;}
+    .spec-table td:first-child{color:#888;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;width:40%;}
+    .spec-table td:last-child{color:#111;font-weight:500;}
+    .cert-row{display:flex;gap:16px;flex-wrap:wrap;}
+    .cert-tag{padding:10px 20px;background:#f5f5f3;border:1px solid rgba(0,0,0,.1);font-family:var(--font-display);font-size:13px;letter-spacing:1.5px;color:#333;}
+    .cert-tag strong{color:var(--fire);}
+
+    /* RELATED */
+    .detail-section{max-width:1300px;margin:0 auto;padding:80px 48px;border-top:1px solid rgba(0,0,0,.07);}
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--fire);display:flex;align-items:center;gap:12px;margin-bottom:40px;}
+    .section-label::after{content:"";flex:1;height:1px;background:rgba(0,0,0,.08);}
+    .section-heading{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:.95;margin-bottom:24px;}
+    .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+    .related-card{background:#f5f5f3;overflow:hidden;cursor:none;transition:all .3s;text-decoration:none;display:block;}
+    .related-card:hover{background:#fff8f4;}
+    .related-img{height:180px;display:flex;align-items:center;justify-content:center;background:#efefec;overflow:hidden;}
+    .related-img img{height:120px;object-fit:contain;transition:transform .4s;}
+    .related-card:hover .related-img img{transform:scale(1.08);}
+    .related-info{padding:20px;}
+    .related-cat-lbl{font-size:10px;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:6px;}
+    .related-name{font-family:var(--font-display);font-size:16px;font-weight:600;color:#111;margin-bottom:8px;}
+    .related-price{font-family:var(--font-display);font-size:20px;color:#111;}
+
+    /* FOOTER */
+    footer{background:#111;border-top:1px solid rgba(255,106,0,.15);}
+    .footer-main{padding:40px 48px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;}
+    .footer-desc{font-size:14px;color:#666;line-height:1.7;margin-bottom:28px;max-width:300px;}
+    .footer-socials{display:flex;gap:12px;}
+    .social-btn{width:38px;height:38px;background:#1e1e1e;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s;cursor:none;font-size:14px;color:#aaa;}
+    .social-btn:hover{background:var(--fire);border-color:var(--fire);color:#fff;}
+    .footer-col h4{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;color:#fff;}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+    .footer-links a{color:#666;text-decoration:none;font-size:14px;transition:color .3s;}
+    .footer-links a:hover{color:#fff;}
+    .footer-bottom{padding:20px 48px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .footer-copy{font-size:12px;color:#444;letter-spacing:1px;}
+    .footer-legal{display:flex;gap:24px;}
+    .footer-legal a{font-size:12px;color:#444;text-decoration:none;transition:color .3s;}
+    .footer-legal a:hover{color:var(--fire);}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+    .reveal.visible{opacity:1;transform:none;}
+
+    /* LOADING */
+    .loader{display:flex;align-items:center;justify-content:center;height:60vh;}
+    .loader-ring{width:48px;height:48px;border:4px solid #f5f5f3;border-top-color:var(--fire);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){.product-hero{grid-template-columns:1fr;gap:40px;}.img-col{position:static;}.related-grid{grid-template-columns:repeat(2,1fr);}.footer-main{grid-template-columns:1fr 1fr;}}
+    @media(max-width:768px){nav{padding:0 20px;}.nav-links,.nav-cta{display:none;}.breadcrumb{padding:90px 20px 0;font-size:10px;}.product-hero{padding:24px 20px 60px;gap:32px;}.spec-grid{grid-template-columns:1fr 1fr;}.related-grid{grid-template-columns:1fr;}.detail-section{padding:60px 20px;}.footer-main{grid-template-columns:1fr;padding:48px 20px;}.footer-bottom{padding:16px 20px;}}
   </style>
 </head>
-
 <body>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
+  <div class="scroll-bar" id="scrollBar"></div>
 
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-close" onclick="closeMobileMenu()">x</button>
-    <a href="./index.html" onclick="closeMobileMenu()">Home</a>
-    <a href="./about.html" onclick="closeMobileMenu()">About</a>
-    <a href="./products.html" onclick="closeMobileMenu()">Products</a>
-    <a href="./contact.html" onclick="closeMobileMenu()">Contact</a>
-  </div>
-
-  <nav id="navbar">
-    <a href="./index.html" class="logo">
-      <img src="./img/fire-logo.png" alt="Fire Boy" />
-    </a>
+  <!-- NAV -->
+  <nav>
+    <a href="./index.html" class="logo"><img src="./img/fire-logo.png" alt="Fire Boy"/></a>
     <ul class="nav-links">
       <li><a href="./index.html">Home</a></li>
       <li><a href="./about.html">About</a></li>
       <li><a href="./products.html" class="active">Products</a></li>
       <li><a href="./contact.html">Contact</a></li>
     </ul>
-    <a href="./contact.html" class="nav-cta">Get Quote</a>
-    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#quote" class="nav-cta">Get Quote</a>
   </nav>
 
-  <main>
-    <header class="detail-top">
-      <div class="breadcrumb">
-        <a href="./index.html">Home</a> /
-        <a href="./products.html">Products</a> /
-        <span>Product Details</span>
-      </div>
-      <h1 class="page-title">All Product<br /><span>Details</span></h1>
-    </header>
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="./index.html">Home</a> /
+    <a href="./products.html">Products</a> /
+    <a href="#" id="bc-cat">...</a> /
+    <span id="bc-name">Loading...</span>
+  </div>
 
-    <div class="product-jump" aria-label="Product shortcuts">
-      <a href="#product-1">ABC Powder</a>
-      <a href="#product-2">CO₂ 4.5KG</a>
-      <a href="#product-3">Clean Agent</a>
-      <a href="#product-4">Hydrant Valve</a>
-      <a href="#product-5">Hose Reel</a>
-      <a href="#product-6">Smoke Detector</a>
-      <a href="#product-7">Alarm Panel</a>
-      <a href="#product-8">Sprinkler</a>
-      <a href="#product-9">Proximity Suit</a>
-      <a href="#product-10">SCBA</a>
-      <a href="#product-11">Exit Signs</a>
-      <a href="#product-12">Water Mist</a>
+  <!-- LOADER -->
+  <div class="loader" id="loader"><div class="loader-ring"></div></div>
+
+  <!-- NOT FOUND -->
+  <div class="not-found" id="notFound">
+    <h2>Product <span style="color:var(--fire)">Not Found</span></h2>
+    <p>The product you're looking for doesn't exist or has been removed.</p>
+    <a href="./products.html">← Back to Products</a>
+  </div>
+
+  <!-- MAIN CONTENT (injected by JS) -->
+  <div id="main-content" style="display:none;">
+    <!-- HERO -->
+    <div class="product-hero">
+      <div class="img-col reveal">
+        <div class="img-main" id="img-main">
+          <img id="prod-img" src="" alt=""/>
+        </div>
+        <div class="badge-strip" id="badge-strip"></div>
+      </div>
+      <div class="info-col">
+        <div class="prod-cat reveal" id="prod-cat"></div>
+        <h1 class="prod-name reveal" id="prod-name"></h1>
+        <p class="prod-desc reveal" id="prod-desc"></p>
+        <div class="price-box reveal">
+          <div>
+            <div class="price-label">Unit Price</div>
+            <div class="price-val" id="prod-price"></div>
+            <div class="price-note">Bulk pricing available. GST extra.</div>
+          </div>
+        </div>
+        <div class="action-btns reveal">
+          <button class="btn-primary" onclick="document.getElementById('quote-section')?.scrollIntoView({behavior:'smooth'})">Enquire Now</button>
+          <a href="./products.html" class="btn-secondary">← Back to Products</a>
+        </div>
+        <div class="spec-grid reveal" id="spec-grid"></div>
+        <div class="tabs reveal">
+          <div class="tab-btns">
+            <button class="tab-btn active" onclick="switchTab('features',this)">Features</button>
+            <button class="tab-btn" onclick="switchTab('specs',this)">Full Specs</button>
+            <button class="tab-btn" onclick="switchTab('certs',this)">Certifications</button>
+          </div>
+          <div class="tab-content active" id="tab-features"><ul class="feature-list" id="feature-list"></ul></div>
+          <div class="tab-content" id="tab-specs"><table class="spec-table" id="spec-table"></table></div>
+          <div class="tab-content" id="tab-certs">
+            <div class="cert-row" id="cert-row"></div>
+            <p id="cert-note" style="margin-top:20px;font-size:13px;color:#777;line-height:1.7;"></p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- ─── PRODUCT 1 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-1" style="--product-bg: #ffece0">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/DCP-SBC-PBC.webp" alt="ABC Dry Powder Extinguisher 4KG" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Best Seller</div>
-            <div class="badge">ISI Marked</div>
-            <div class="badge">5 Year Warranty</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Extinguisher</div>
-          <h2 class="prod-name">ABC Dry<br /><span>Powder</span><br />Extinguisher 4KG</h2>
-          <p class="prod-desc">
-            Multi-purpose dry powder extinguisher for Class A, B and C fires. A reliable fit for offices,
-            homes, shops, warehouses and general industrial use.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹1,250 <span>/ unit</span></div>
-              <div class="price-note">Bulk and AMC pricing available on request</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Capacity</div>
-              <div class="spec-val">4 KG</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Fire Class</div>
-              <div class="spec-val">A / B / C</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">IS:2171</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Warranty</div>
-              <div class="spec-val">5 Years</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Discharge</div>
-              <div class="spec-val">Approx 13 sec</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Range</div>
-              <div class="spec-val">4–6 Metres</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>General fire protection for mixed-risk spaces with paper, wood, liquid and gas hazards.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Check pressure monthly and refill after discharge or as per service schedule.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Wall hook, hose/nozzle assembly, safety seal and inspection tag.</p>
-        </div>
-      </div>
-    </section>
+    <!-- RELATED -->
+    <div class="detail-section">
+      <div class="section-label">You May Also Need</div>
+      <h2 class="section-heading reveal">RELATED<br/>PRODUCTS</h2>
+      <div class="related-grid reveal" id="related-grid"></div>
+    </div>
+  </div>
 
-    <!-- ─── PRODUCT 2 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-2" style="--product-bg: #f0f4ff">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/CO2-TM-XX.webp" alt="CO2 Fire Extinguisher 4.5KG" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Premium</div>
-            <div class="badge">BIS Certified</div>
-            <div class="badge">Electrical Safe</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Extinguisher</div>
-          <h2 class="prod-name">CO₂<br /><span>Carbon</span><br />Dioxide 4.5KG</h2>
-          <p class="prod-desc">
-            Carbon dioxide extinguisher designed for electrical panels, server rooms, labs and clean indoor
-            environments where residue-free discharge matters.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹3,800 <span>/ unit</span></div>
-              <div class="price-note">Available with installation and service support</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Capacity</div>
-              <div class="spec-val">4.5 KG</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Fire Class</div>
-              <div class="spec-val">B / E</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">IS:2878</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Agent</div>
-              <div class="spec-val">CO₂ Gas</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Discharge</div>
-              <div class="spec-val">Approx 14 sec</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Range</div>
-              <div class="spec-val">2–3 Metres</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Best for electrical and electronic risks where powder residue can damage equipment.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Inspect weight and horn condition during scheduled service visits.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Discharge horn, safety pin, wall mounting bracket and service tag.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 3 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-3" style="--product-bg: #f0f8ff">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/STP-CA-XX.webp" alt="Clean Agent HFC-236fa 4KG" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">New</div>
-            <div class="badge">No Residue</div>
-            <div class="badge">Safe Electronics</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Extinguisher</div>
-          <h2 class="prod-name">Clean<br /><span>Agent</span><br />HFC-236fa 4KG</h2>
-          <p class="prod-desc">
-            Zero-residue clean agent extinguisher made for data centers, control rooms, medical equipment zones
-            and sensitive assets that cannot tolerate powder cleanup.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹6,500 <span>/ unit</span></div>
-              <div class="price-note">Recommended for high-value electronics rooms</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Capacity</div>
-              <div class="spec-val">4 KG</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Fire Class</div>
-              <div class="spec-val">A / B / C / E</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Agent</div>
-              <div class="spec-val">HFC-236fa</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Residue</div>
-              <div class="spec-val">Zero</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Discharge</div>
-              <div class="spec-val">Approx 10 sec</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Electrical Safe</div>
-              <div class="spec-val">35,000V</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Protection for IT, telecom, laboratories and clean rooms with sensitive equipment.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Verify seal, weight and pressure during periodic inspection.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Hose assembly, mounting accessories and product certification support.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 4 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-4" style="--product-bg: #fff8f0">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/Double-Headed-Hydrant-Valve_pro.webp" alt="Fire Hydrant Valve Gun Metal 63mm" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Hydrant System</div>
-            <div class="badge">IS:5290</div>
-            <div class="badge">High Pressure</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Hydrant Systems</div>
-          <h2 class="prod-name">Fire Hydrant<br /><span>Valve</span><br />Gun Metal 63MM</h2>
-          <p class="prod-desc">
-            Heavy-duty gun metal landing valve for hydrant risers and hose stations, built for reliable water
-            delivery during emergency response.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹2,100 <span>/ unit</span></div>
-              <div class="price-note">Project quantity pricing available</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Size</div>
-              <div class="spec-val">63 mm</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Material</div>
-              <div class="spec-val">Gun Metal</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">IS:5290</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Pressure</div>
-              <div class="spec-val">16 Bar</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Operation</div>
-              <div class="spec-val">Quarter Turn</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Inlet Thread</div>
-              <div class="spec-val">BSP / IS</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Hydrant networks in commercial buildings, factories, parking areas and warehouses.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Operate periodically and check washer, spindle and leakage points.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Valve body, hand wheel, cap/chain and inspection-ready documentation.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 5 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-5" style="--product-bg: #f5fff0">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/Short-Branch-Pipe-With-Nozzle_pro.webp" alt="Fire Hose Reel 30M x 25mm" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Popular</div>
-            <div class="badge">30M Hose</div>
-            <div class="badge">180° Swivel</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Hydrant Systems</div>
-          <h2 class="prod-name">Fire Hose<br /><span>Reel</span><br />30M × 25MM</h2>
-          <p class="prod-desc">
-            Wall-mounted hose reel with 30 metre hose and swivel arm coverage for quick first-response water
-            deployment in building corridors and plant areas.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹4,200 <span>/ unit</span></div>
-              <div class="price-note">Installation support available on request</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Hose Length</div>
-              <div class="spec-val">30 Metres</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Bore</div>
-              <div class="spec-val">25 mm</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Swivel</div>
-              <div class="spec-val">180°</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">IS:884</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Pressure</div>
-              <div class="spec-val">8 Bar</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Mounting</div>
-              <div class="spec-val">Wall Bracket</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Fast manual firefighting access for corridors, parking zones, warehouses and workshops.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Unwind and inspect hose, nozzle, drum movement and water flow during service checks.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Hose reel drum, hose, nozzle, wall bracket and inlet connection assembly.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 6 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-6" style="--product-bg: #f0f5ff">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/Panel-Protection-Systems_pro.webp" alt="Photoelectric Smoke Detector" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">ISI ✓</div>
-            <div class="badge">360° Coverage</div>
-            <div class="badge">Low False Alarm</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Detection</div>
-          <h2 class="prod-name">Photoelectric<br /><span>Smoke</span><br />Detector</h2>
-          <p class="prod-desc">
-            Advanced optical smoke detector with 360° sensing coverage and low false-alarm technology.
-            Compatible with conventional and addressable fire alarm panels.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹850 <span>/ unit</span></div>
-              <div class="price-note">Bulk project pricing available on request</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Coverage</div>
-              <div class="spec-val">360°</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Voltage</div>
-              <div class="spec-val">9–35V DC</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">IS:11360</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Type</div>
-              <div class="spec-val">Optical / Photo</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Alarm LED</div>
-              <div class="spec-val">Red Flash</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Power</div>
-              <div class="spec-val">Low Consumption</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Early smoke detection for offices, corridors, server rooms, hotels and residential complexes.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Clean sensing chamber every 6 months and test alarm response annually.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Detector head, mounting base, installation screws and wiring guide.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 7 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-7" style="--product-bg: #f5f5f5">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/FB-1X2.webp" alt="Conventional Fire Alarm Panel 4-Zone" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">New</div>
-            <div class="badge">ISI ✓</div>
-            <div class="badge">4 Zone</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Detection</div>
-          <h2 class="prod-name">Fire Alarm<br /><span>Panel</span><br />4-Zone LCD</h2>
-          <p class="prod-desc">
-            4-zone conventional fire alarm control panel with LCD display and event logging. Supports detectors,
-            manual call points, bells and sounder beacons across four independent zones.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹8,500 <span>/ unit</span></div>
-              <div class="price-note">Multi-panel and AMC packages available</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Zones</div>
-              <div class="spec-val">4 Zones</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Display</div>
-              <div class="spec-val">LCD</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Power</div>
-              <div class="spec-val">240V AC</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Backup</div>
-              <div class="spec-val">12V Battery</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Event Log</div>
-              <div class="spec-val">Yes</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Output</div>
-              <div class="spec-val">Relay / Sounder</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Central alarm management for small to mid-size buildings, factories and commercial premises.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Test zone circuits and backup battery every 6 months. Inspect log entries regularly.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Control panel unit, mounting hardware, terminal block cover and user manual.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 8 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-8" style="--product-bg: #f0fff5">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/Fire-Hydrants-and-Sprinkler-Systems.webp" alt="Automatic Water Sprinkler Head 68C" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">IS:903</div>
-            <div class="badge">ISI ✓</div>
-            <div class="badge">68°C Rating</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Suppression</div>
-          <h2 class="prod-name">Automatic<br /><span>Sprinkler</span><br />Head 68°C</h2>
-          <p class="prod-desc">
-            Pendant-type fusible-link sprinkler head that activates automatically at 68°C. Provides reliable
-            water distribution coverage for commercial and industrial spaces.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹180 <span>/ unit</span></div>
-              <div class="price-note">Available in bulk quantities for system installations</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Type</div>
-              <div class="spec-val">Pendant</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Temperature</div>
-              <div class="spec-val">68°C</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">K Factor</div>
-              <div class="spec-val">K = 80</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">IS:903</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Thread</div>
-              <div class="spec-val">½" BSP</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Coverage</div>
-              <div class="spec-val">9–12 m²</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Automatic suppression for shopping malls, warehouses, hotels and industrial buildings.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Inspect visually every year. Replace any physically damaged or paint-coated heads.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Sprinkler head with pre-fitted glass bulb and thread protection cap.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 9 ─────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-9" style="--product-bg: #fff5f0">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/DSPA-5-Fire-Suppression-Aerosol-Device_pro_pro.webp" alt="Firefighter Proximity Suit" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Premium</div>
-            <div class="badge">ISI ✓</div>
-            <div class="badge">1000°C Rated</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">PPE &amp; Safety</div>
-          <h2 class="prod-name">Firefighter<br /><span>Proximity</span><br />Suit</h2>
-          <p class="prod-desc">
-            Full-body aluminized firefighter proximity suit offering radiant heat protection up to 1000°C.
-            Designed for airport crash rescue, industrial firefighting and high-heat emergency response.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹18,500 <span>/ unit</span></div>
-              <div class="price-note">Sizing and custom fit available on request</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Material</div>
-              <div class="spec-val">Aluminized</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Heat Rating</div>
-              <div class="spec-val">1000°C</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">EN 1486</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Coverage</div>
-              <div class="spec-val">Full Body</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Layers</div>
-              <div class="spec-val">3-Layer Composite</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Visor</div>
-              <div class="spec-val">Gold-Coated</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Airport crash rescue, petroleum refineries, industrial furnace areas and high-radiant-heat zones.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Inspect for tears, reflectivity loss and visor damage after each use. Store away from UV.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Jacket, trousers, hood with visor, gloves and boot covers — full set.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 10 ────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-10" style="--product-bg: #f0f5ff">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/Battery-Energy-Storage-Systems-BESS_pro_pro.webp"
-              alt="SCBA Self Contained Breathing Apparatus" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Premium</div>
-            <div class="badge">CE Certified</div>
-            <div class="badge">30 Min Air</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">PPE &amp; Safety</div>
-          <h2 class="prod-name">SCBA<br /><span>Breathing</span><br />Apparatus</h2>
-          <p class="prod-desc">
-            Self-Contained Breathing Apparatus with 6L carbon fibre cylinder and full-face mask. Provides
-            30 minutes of clean air supply for entry into smoke-filled or oxygen-deficient environments.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹42,000 <span>/ unit</span></div>
-              <div class="price-note">Cylinder refilling and servicing available</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Cylinder</div>
-              <div class="spec-val">6 Litres</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Air Supply</div>
-              <div class="spec-val">30 Minutes</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Mask</div>
-              <div class="spec-val">Full Face</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">CE Certified</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Pressure</div>
-              <div class="spec-val">300 Bar</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Weight</div>
-              <div class="spec-val">Approx 12 KG</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Smoke rescue, confined space entry, chemical spill response and industrial emergency intervention.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Hydrostatic test cylinder every 3 years. Check mask seals, harness straps and regulator function.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Carbon cylinder, full-face mask, demand regulator, harness frame and carry bag.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 11 ────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-11" style="--product-bg: #f0fff0">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/Clean-Agent-Fire-Suppression-Systems_pro.webp"
-              alt="Glow in Dark Fire Exit Sign Pack of 10" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Value Pack</div>
-            <div class="badge">Pack of 10</div>
-            <div class="badge">8hr Glow</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Signage</div>
-          <h2 class="prod-name">Glow-in-Dark<br /><span>Fire Exit</span><br />Signs ×10</h2>
-          <p class="prod-desc">
-            Photoluminescent fire exit signage that remains visible for 8+ hours after power failure.
-            No wiring required — simply mount and charge under ambient light.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹650 <span>/ pack</span></div>
-              <div class="price-note">Pack of 10 units — ideal for complete floor coverage</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Pack Size</div>
-              <div class="spec-val">10 Units</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Type</div>
-              <div class="spec-val">Photoluminescent</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Glow Duration</div>
-              <div class="spec-val">8+ Hours</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Standard</div>
-              <div class="spec-val">IS:12349</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Mounting</div>
-              <div class="spec-val">Self-Adhesive</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Power</div>
-              <div class="spec-val">None Required</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Evacuation route marking for offices, malls, hotels, hospitals and any multi-floor buildings.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Wipe clean periodically. Replace signs that show fading or physical damage.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>10 self-adhesive photoluminescent signs with pre-punched holes for screw fixing option.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── PRODUCT 12 ────────────────────────────────────────────────────── -->
-    <section class="product-section" id="product-12" style="--product-bg: #f0f8ff">
-      <div class="product-hero">
-        <div class="img-col">
-          <div class="img-main">
-            <img src="./img/SHP-CO2-XX.webp" alt="Water Mist Extinguisher 9L" />
-          </div>
-          <div class="badge-strip">
-            <div class="badge badge-fire">Eco Choice</div>
-            <div class="badge">ISI ✓</div>
-            <div class="badge">No Chemicals</div>
-          </div>
-        </div>
-        <div class="info-col">
-          <div class="prod-cat">Extinguisher</div>
-          <h2 class="prod-name">Water Mist<br /><span>Extinguisher</span><br />9 Litres</h2>
-          <p class="prod-desc">
-            Eco-friendly water mist extinguisher safe on electrical fires up to 1000V. Covers Class A, B and F
-            fires with no chemical residue — ideal for kitchens, offices and public areas.
-          </p>
-          <div class="price-box">
-            <div>
-              <div class="price-label">Starting Price</div>
-              <div class="price-val">₹4,900 <span>/ unit</span></div>
-              <div class="price-note">Ideal for kitchen and hospitality environments</div>
-            </div>
-          </div>
-          <div class="action-btns">
-            <a class="btn-primary" href="./contact.html">Request Quote</a>
-            <a class="btn-secondary" href="./products.html">Back to Products</a>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <div class="spec-key">Capacity</div>
-              <div class="spec-val">9 Litres</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Fire Class</div>
-              <div class="spec-val">A / B / F</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Electrical</div>
-              <div class="spec-val">Safe to 1000V</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Residue</div>
-              <div class="spec-val">None</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Agent</div>
-              <div class="spec-val">Distilled Water</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-key">Discharge</div>
-              <div class="spec-val">Approx 55 sec</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-card">
-          <h3>Use Case</h3>
-          <p>Restaurants, hotel kitchens, offices, hospitals and anywhere chemical extinguishers are undesirable.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Maintenance</h3>
-          <p>Annual pressure check and refill with demineralised water per service schedule.</p>
-        </div>
-        <div class="detail-card">
-          <h3>Included</h3>
-          <p>Extinguisher body, spray nozzle, wall bracket, safety pin and service label.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
+  <!-- FOOTER -->
   <footer>
     <div class="footer-main">
       <div class="footer-brand">
-        <a href="./index.html" class="logo">
-          <img src="./img/fire-logo.png" alt="Fire Boy" />
-        </a>
-        <p class="footer-desc">
-          India's fire safety equipment supplier with certified products, technical consultation and installation
-          support.
-        </p>
+        <a href="./index.html" class="logo"><img src="./img/fire-logo.png" alt="Fire Boy" style="width:50px;filter:brightness(0) invert(1);margin-bottom:16px;"/></a>
+        <p class="footer-desc">India's premier fire safety equipment supplier. BIS certified, expert-backed, always reliable. Protecting lives and properties since 1998.</p>
+        <div class="footer-socials"><a href="#" class="social-btn">f</a><a href="#" class="social-btn">in</a><a href="#" class="social-btn">tw</a><a href="#" class="social-btn">yt</a></div>
       </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul class="footer-links">
-          <li><a href="./products.html?category=extinguisher">Fire Extinguishers</a></li>
-          <li><a href="./products.html?category=hydrant">Hydrant Systems</a></li>
-          <li><a href="./products.html?category=detection">Fire Detection</a></li>
-          <li><a href="./products.html?category=suppression">Suppression</a></li>
-          <li><a href="./products.html?category=ppe">PPE &amp; Safety</a></li>
-          <li><a href="./products.html?category=signage">Signage</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul class="footer-links">
-          <li><a href="./about.html">About</a></li>
-          <li><a href="./products.html">Products</a></li>
-          <li><a href="./contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul class="footer-links">
-          <li><a href="./contact.html">Request Quote</a></li>
-          <li><a href="./contact.html">Site Assessment</a></li>
-          <li><a href="./contact.html">AMC Service</a></li>
-        </ul>
-      </div>
+      <div class="footer-col"><h4>Products</h4><ul class="footer-links"><li><a href="#">Fire Extinguishers</a></li><li><a href="#">Hydrant Systems</a></li><li><a href="#">Fire Alarms</a></li><li><a href="#">Smoke Detectors</a></li><li><a href="#">Sprinkler Systems</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="#">Annual Maintenance</a></li><li><a href="#">Site Assessment</a></li><li><a href="#">Refilling Services</a></li><li><a href="#">Installation</a></li><li><a href="#">Training</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="footer-links"><li><a href="#">📞 +91 98765 43210</a></li><li><a href="#">✉ info@ignis.in</a></li><li><a href="#">About IGNIS</a></li><li><a href="#">Certifications</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">&copy; 2025 IGNIS Fire Safety Solutions Pvt. Ltd. All rights reserved.</div>
-      <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Sitemap</a>
-      </div>
+      <div class="footer-copy">© 2025 IGNIS Fire Safety Solutions Pvt. Ltd. All rights reserved.</div>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
     </div>
   </footer>
 
   <script>
-    const cursor = document.getElementById("cursor");
-    const trail = document.getElementById("cursorTrail");
-    let tx = 0, ty = 0, cx = 0, cy = 0;
+  // ── CATEGORY LABELS ──
+  const CAT_LABELS = {
+    extinguisher: "Fire Extinguisher",
+    head: "Head Protection",
+    eye: "Eye Protection",
+    face: "Face Protection",
+    mask: "Respiratory Protection",
+    hand: "Hand Protection",
+    foot: "Foot Protection",
+    body: "Body Protection",
+    safety: "Safety Equipment"
+  };
 
-    document.addEventListener("mousemove", (e) => {
-      tx = e.clientX; ty = e.clientY;
-      cursor.style.left = tx - 6 + "px";
-      cursor.style.top = ty - 6 + "px";
+  // ══════════════════════════════════════════════
+  //  PRODUCTS JSON — add all your products here
+  // ══════════════════════════════════════════════
+  const PRODUCTS = [
+    // ── FIRE EXTINGUISHERS ──
+    {id:1,category:"extinguisher",name:"ABC Dry Powder Extinguisher 4KG",title:["ABC DRY","POWDER","EXTINGUISHER 4KG"],desc:"India's most trusted multi-purpose fire extinguisher. ISI marked under IS:2171, this 4KG dry powder unit tackles Class A, B, and C fires. Engineered for commercial, industrial and residential premises.",price:"1250",badge:"Best Seller",img:"./img/DCP-SBC-PBC.webp",bg:"linear-gradient(135deg,#ffece0,#f5f5f3)",specGrid:[{key:"Capacity",val:"4 KG"},{key:"Fire Class",val:"A / B / C"},{key:"Standard",val:"IS:2171"},{key:"Warranty",val:"5 Years"},{key:"Discharge",val:"~13 sec"},{key:"Range",val:"4–6 Meters"}],features:["Multi-purpose ABC powder — effective against Class A, B, and C fires","ISI marked under IS:2171, ensuring compliance with Indian fire safety standards","Pressurized with dry nitrogen for a consistent discharge","Easy-to-use squeeze-grip valve with safety pin and tamper-evident seal","Powder discharge range of 4–6 meters for a safe standoff distance","Lightweight body with hang bracket included for wall mounting","Annual service due indicator and pressure gauge for quick visual check"],specTable:[["Model","DCP-4KG-ABC"],["Capacity","4 KG"],["Agent Type","Mono Ammonium Phosphate"],["Propellant","Dry Nitrogen"],["Working Pressure","14.5 bar"],["Discharge Time","~13 seconds"],["Throw Range","4–6 Meters"],["IS Standard","IS:2171"],["Hydrostatic Test","Every 5 years"]],certs:["ISI Mark — IS:2171","BIS Certified","TAC Approved","NBC Compliant"],certNote:"Carries the BIS ISI mark under IS:2171. Suitable for TAC approval and NBC compliance.",related:[2,3,4]},
+
+    // ── HEAD PROTECTION ──
+    {id:13,category:"head",name:"Fire Rescue Helmet",title:["FIRE RESCUE","HELMET",""],desc:"Advanced fire rescue helmet with transparent visor and impact protection for firefighters and emergency response teams.",price:"8500",badge:"Premium Safety",img:"./img/head-13.webp",bg:"linear-gradient(135deg,#fff9c0,#ffe066)",specGrid:[{key:"Heat Resistant",val:"Yes"},{key:"Visor",val:"Full Face"},{key:"Protection",val:"Impact"},{key:"Strap",val:"Adjustable"},{key:"Grade",val:"Fire Rescue"},{key:"Standard",val:"IS:2745"}],features:["Heat-resistant outer shell rated for direct flame exposure","Integrated full-face transparent visor protects against radiant heat and debris","Multi-layer impact protection meets EN 443 firefighting helmet standards","Adjustable ratchet strap system provides a secure, stable fit","Padded inner liner absorbs shock and improves comfort during extended operations","Reflective strips enhance visibility in smoke-filled environments","Compatible with SCBA masks, communication devices, and head lamps"],specTable:[["Model","FRH-13-YLW"],["Shell Material","Thermoplastic / GRP"],["Visor","Transparent Polycarbonate"],["Heat Resistance","Up to 300°C radiant heat"],["Impact Standard","EN 443 / IS:2745"],["Strap","Adjustable Ratchet"],["Weight","Approx. 1.2 kg"],["Color","Yellow"],["IS Standard","IS:2745"]],certs:["ISI Mark — IS:2745","BIS Certified","EN 443","CE Marked"],certNote:"BIS certified under IS:2745. Meets EN 443 firefighting helmet standard.",related:[14,17,22]},
+    {id:14,category:"head",name:"Industrial Safety Helmet",title:["INDUSTRIAL","SAFETY","HELMET"],desc:"Heavy-duty industrial safety helmet designed for construction and factory environments.",price:"450",badge:"Best Seller",img:"./img/head-14.webp",bg:"linear-gradient(135deg,#ccdeff,#0066ff22)",specGrid:[{key:"Material",val:"ABS Plastic"},{key:"Lock",val:"Adjustable"},{key:"Weight",val:"Light"},{key:"Grade",val:"Industrial"},{key:"Standard",val:"IS:2925"},{key:"Color",val:"Blue"}],features:["High-strength ABS plastic shell provides reliable protection against falling objects","Adjustable lock harness system for a snug, stable fit","Lightweight design reduces neck fatigue during extended wear","Ventilated crown slots promote airflow and reduce heat build-up","Wide brim offers additional protection from sun and water","Accessory slots for mounting ear defenders or face shields","Available in multiple colors for site role color-coding compliance"],specTable:[["Model","ISH-14-BLU"],["Shell Material","ABS Plastic"],["Harness","Adjustable Lock Ratchet"],["Weight","Approx. 380g"],["Brim","Full Brim"],["Color","Blue"],["IS Standard","IS:2925"]],certs:["ISI Mark — IS:2925","BIS Certified","EN 397","CE Marked"],certNote:"BIS certified under IS:2925. Meets EN 397 and CE requirements.",related:[18,19,23]},
+    {id:15,category:"head",name:"Auto Darkening Welding Helmet",title:["AUTO DARKENING","WELDING","HELMET"],desc:"Professional welding helmet with auto-darkening lens for arc, MIG and TIG welding applications.",price:"3200",badge:"Professional",img:"./img/head-15.webp",bg:"linear-gradient(135deg,#2a2a2a,#111)",specGrid:[{key:"Lens",val:"Auto Darkening"},{key:"UV Protection",val:"DIN 4–13"},{key:"Heat Resistant",val:"Yes"},{key:"Lens Width",val:"Wide"},{key:"Power",val:"Solar + Battery"},{key:"Reaction",val:"1/25000 sec"}],features:["Auto-darkening LCD lens reacts in 1/25,000 second","Shade range DIN 4–13 covers MIG, TIG, arc, and plasma cutting","Solar-powered with backup battery","Wide-view lens (98×43mm) for a larger field of vision","UV and IR protection at all shade settings","Adjustable shade, sensitivity, and delay controls","Heat-resistant outer shell with padded headband"],specTable:[["Model","ADW-15-BLK"],["Lens Type","Auto-Darkening LCD"],["Lens Size","98 × 43 mm"],["Shade Range","DIN 4–13"],["Reaction Time","1/25,000 second"],["Power","Solar + CR2032 Battery"],["UV/IR Protection","DIN 16 constant"],["Weight","Approx. 500g"],["IS Standard","IS:9005 / ANSI Z87.1"]],certs:["ISI Mark — IS:9005","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"Meets IS:9005, ANSI Z87.1, and CE requirements for welding helmets.",related:[22,13,16]},
+    {id:16,category:"head",name:"Full Cover Face Shield Hood",title:["FULL COVER","FACE SHIELD","HOOD"],desc:"Complete face and neck protection hood for chemical and hazardous industrial operations.",price:"5400",badge:"Full Protection",img:"./img/head-16.webp",bg:"linear-gradient(135deg,#b2f0d8,#00aa6622)",specGrid:[{key:"Coverage",val:"Full Face"},{key:"Chemical",val:"Resistant"},{key:"Shield",val:"Anti Fog"},{key:"Fit",val:"Comfort"},{key:"Protection",val:"Face + Neck"},{key:"Standard",val:"IS:8521"}],features:["Full face and neck coverage provides 360° protection against chemical splashes","Chemical-resistant hood material withstands acids, alkalis, and solvents","Anti-fog coated clear shield maintains visibility","Adjustable elastic hood fits securely over helmets or alone","Soft inner edge prevents skin irritation","Compatible with respirators, hard hats, and other PPE","Meets IS:8521 requirements for face protectors in chemical environments"],specTable:[["Model","FCH-16-GRN"],["Shield Material","PET Anti-Fog Coated"],["Hood Material","Chemical-Resistant PE"],["Coverage","Face + Neck + Chin"],["Coating","Anti-Fog"],["Fit","Elastic Adjustable"],["IS Standard","IS:8521"]],certs:["ISI Mark — IS:8521","BIS Certified","EN 166","CE Marked"],certNote:"BIS certified under IS:8521. Meets EN 166 and CE requirements.",related:[17,13,15]},
+    {id:17,category:"head",name:"Safety Helmet with Face Shield",title:["SAFETY HELMET","WITH FACE","SHIELD"],desc:"Industrial safety helmet with transparent face visor for grinding and cutting operations.",price:"1200",badge:"Industrial Use",img:"./img/head-17.webp",bg:"linear-gradient(135deg,#fff5c0,#ffd400aa)",specGrid:[{key:"Shield",val:"Clear Face"},{key:"Resistance",val:"Impact"},{key:"Mount",val:"Helmet"},{key:"Shield",val:"Reusable"},{key:"Standard",val:"IS:2925"},{key:"Operation",val:"Flip-Up"}],features:["Integrated flip-up face shield mounts on the helmet crown","Clear polycarbonate visor provides full face protection","Hard hat shell meets IS:2925 for industrial head protection","Shield pivots smoothly for quick transition","Reusable polycarbonate shield is scratch-resistant","Ventilated crown design reduces heat build-up","Suitable for construction, fabrication, and engineering"],specTable:[["Model","SHF-17-YLW"],["Helmet Shell","ABS Plastic"],["Visor Material","Clear Polycarbonate"],["Visor Operation","Flip-Up"],["Harness","Adjustable Ratchet"],["Weight","Approx. 520g"],["IS Standard","IS:2925 + IS:5983"]],certs:["ISI Mark — IS:2925","BIS Certified","EN 166","CE Marked"],certNote:"Meets IS:2925 for head protection and IS:5983 for eye protection.",related:[14,18,22]},
+    {id:18,category:"head",name:"Ventilated Safety Helmet",title:["VENTILATED","SAFETY","HELMET"],desc:"Ventilated lightweight helmet suitable for long working hours in industrial environments.",price:"650",badge:"Comfort Fit",img:"./img/head-18.webp",bg:"linear-gradient(135deg,#ccffd8,#39d35322)",specGrid:[{key:"Ventilation",val:"Slots"},{key:"Material",val:"ABS"},{key:"Fit",val:"Adjustable"},{key:"Sweat",val:"Resistant"},{key:"Weight",val:"Light"},{key:"Standard",val:"IS:2925"}],features:["Multiple ventilation slots provide continuous airflow","Lightweight ABS shell keeps overall weight minimal","Sweat-resistant inner band wicks moisture away","Adjustable ratchet harness fits 52–63 cm head sizes","Bright green color enhances worker visibility","Compatible with face shields, ear defenders, and accessories","Meets IS:2925 industrial head protection standards"],specTable:[["Model","VSH-18-GRN"],["Shell","Ventilated ABS"],["Ventilation","8 Slot Crown Vents"],["Inner Band","Sweat-Resistant Foam"],["Harness","Adjustable Ratchet"],["Size Range","52–63 cm"],["Weight","Approx. 340g"],["IS Standard","IS:2925"]],certs:["ISI Mark — IS:2925","BIS Certified","EN 397","CE Marked"],certNote:"BIS certified under IS:2925. Meets EN 397 standards.",related:[14,21,19]},
+    {id:19,category:"head",name:"Construction Safety Helmet",title:["CONSTRUCTION","SAFETY","HELMET"],desc:"Durable construction helmet for civil, industrial, and site safety applications.",price:"500",badge:"Construction Grade",img:"./img/head-19.webp",bg:"linear-gradient(135deg,#ffe5cc,#ff6a0033)",specGrid:[{key:"Resistance",val:"Impact"},{key:"Build",val:"Heavy Duty"},{key:"Weight",val:"Light"},{key:"Use",val:"Site Safety"},{key:"Material",val:"ABS"},{key:"Standard",val:"IS:2925"}],features:["Heavy-duty ABS shell rated for high-impact load protection","Lightweight construction allows extended wear without fatigue","Broad brim design shields from sun, rain, and falling debris","6-point suspension harness distributes impact force evenly","Orange color provides excellent site visibility","Chin strap attachment points for heights and windy conditions","Meets IS:2925 and EN 397 construction site helmet standards"],specTable:[["Model","CSH-19-ORG"],["Shell","ABS Plastic"],["Suspension","6-Point Harness"],["Brim","Full Brim"],["Chin Strap","Attachment Points"],["Weight","Approx. 390g"],["Color","Orange"],["IS Standard","IS:2925 / EN 397"]],certs:["ISI Mark — IS:2925","BIS Certified","EN 397","CE Marked"],certNote:"BIS certified under IS:2925 and EN 397 for construction site helmets.",related:[14,23,18]},
+    {id:20,category:"head",name:"Bump Cap Helmet",title:["BUMP CAP","HELMET",""],desc:"Soft shell bump cap designed for low-risk head protection in maintenance and warehouse areas.",price:"700",badge:"Light Duty",img:"./img/head-20.webp",bg:"linear-gradient(135deg,#d0eaff,#5da9ff33)",specGrid:[{key:"Padding",val:"Soft"},{key:"Breathability",val:"High"},{key:"Weight",val:"Light"},{key:"Wear",val:"Comfort"},{key:"Use",val:"Warehouse"},{key:"Style",val:"Baseball"}],features:["Soft padded inner shell protects against bumps and scrapes","Baseball cap style design is comfortable and non-intimidating","Highly breathable fabric construction prevents heat build-up","Lightweight at under 200g — workers often forget they are wearing it","Designed specifically for low-risk bump protection environments","Suitable for warehouses, food processing, and light manufacturing","Available in multiple sizes for a precise fit"],specTable:[["Model","BCP-20-BLU"],["Style","Baseball Cap"],["Inner Shell","ABS Bump Plate"],["Outer","Breathable Polyester"],["Padding","Soft EVA Foam"],["Weight","Approx. 180g"],["Standard","EN 812"]],certs:["EN 812 Certified","CE Marked","BIS Certified","Industrial Grade"],certNote:"Certified to EN 812 for industrial bump caps. CE marked for European PPE compliance.",related:[14,18,21]},
+    {id:21,category:"head",name:"Ventilated Safety Helmet - Purple",title:["VENTILATED HELMET","PURPLE","COLOR SERIES"],desc:"Color-coded ventilated industrial helmet with enhanced airflow and lightweight structure.",price:"650",badge:"Color Series",img:"./img/head-21.webp",bg:"linear-gradient(135deg,#e8d8ff,#7b2cff22)",specGrid:[{key:"Ventilation",val:"Design"},{key:"Material",val:"ABS Plastic"},{key:"Lock",val:"Comfort"},{key:"Grade",val:"Industrial"},{key:"Color",val:"Purple"},{key:"Standard",val:"IS:2925"}],features:["Color-coded purple shell for supervisor/inspector site identification","Enhanced ventilation design with open crown slots for maximum airflow","Lightweight ABS plastic shell meets industrial head protection standards","Comfort-lock ratchet harness adjusts easily and stays locked under load","Sweat-resistant inner lining for comfort through full working shifts","Compatible with all standard helmet accessories","Meets IS:2925 head protection standard"],specTable:[["Model","VSH-21-PRP"],["Shell","ABS Plastic"],["Ventilation","Open Crown + Side Slots"],["Harness","Comfort-Lock Ratchet"],["Inner Lining","Sweat-Resistant"],["Weight","Approx. 345g"],["Color","Purple"],["IS Standard","IS:2925"]],certs:["ISI Mark — IS:2925","BIS Certified","EN 397","CE Marked"],certNote:"BIS certified under IS:2925 for ventilated industrial helmets.",related:[18,14,19]},
+    {id:22,category:"head",name:"Flip Front Welding Shield",title:["FLIP FRONT","WELDING","SHIELD"],desc:"Flip-front welding face shield with protective viewing window for fabrication works.",price:"1800",badge:"Welding Safety",img:"./img/head-22.webp",bg:"linear-gradient(135deg,#2a2a2a,#444)",specGrid:[{key:"Glass",val:"Flip Front"},{key:"Heat Resistant",val:"Yes"},{key:"Protection",val:"Face"},{key:"Build",val:"Durable"},{key:"Lens Shade",val:"DIN 10"},{key:"Standard",val:"IS:9005"}],features:["Flip-front design allows instant transition between welding and inspection","Shade DIN 10 lens provides reliable protection for MIG, MMA, and gas welding","Heat-resistant thermoplastic body withstands spatter and radiant heat","Full face coverage protects face, chin, and neck","Adjustable headband fits over helmets or directly on the head","Durable hinged mechanism for long-lasting flip action","Replacement lens available separately"],specTable:[["Model","FFS-22-BLK"],["Body","Heat-Resistant Thermoplastic"],["Lens Shade","DIN 10"],["Lens Size","110 × 90mm"],["Mechanism","Flip-Front Hinge"],["Headband","Adjustable"],["Weight","Approx. 600g"],["IS Standard","IS:9005"]],certs:["ISI Mark — IS:9005","BIS Certified","EN 175","CE Marked"],certNote:"BIS certified under IS:9005 for welding eye and face protectors.",related:[15,17,13]},
+    {id:23,category:"head",name:"Yellow Industrial Helmet",title:["YELLOW","INDUSTRIAL","HELMET"],desc:"Classic industrial safety helmet with chin strap for maximum workplace safety.",price:"550",badge:"Industrial Standard",img:"./img/head-23.webp",bg:"linear-gradient(135deg,#fffaaa,#ffdd0066)",specGrid:[{key:"Material",val:"High Impact ABS"},{key:"Strap",val:"Adjustable"},{key:"Certified",val:"IS:2925"},{key:"Weight",val:"Light"},{key:"Color",val:"Yellow"},{key:"Chin Strap",val:"Included"}],features:["High-impact ABS shell provides reliable protection against falling objects","Adjustable chin strap keeps helmet secure at heights and in wind","Classic yellow color — most recognized site safety helmet for general workers","Six-point suspension harness distributes impact energy across the head","Lightweight design reduces neck fatigue over extended shifts","Wide brim protects from sun, rain, and overhead debris","Meets IS:2925 and EN 397 standards"],specTable:[["Model","YIH-23-YLW"],["Shell","High-Impact ABS"],["Suspension","6-Point Harness"],["Chin Strap","Adjustable (included)"],["Brim","Full Brim"],["Weight","Approx. 400g"],["Color","Yellow"],["IS Standard","IS:2925 / EN 397"]],certs:["ISI Mark — IS:2925","BIS Certified","EN 397","CE Marked"],certNote:"BIS certified under IS:2925. Meets EN 397 and CE requirements for industrial helmets.",related:[14,19,18]},
+
+    // ── EYE PROTECTION ──
+    {id:24,category:"eye",name:"Transparent Safety Glass",title:["TRANSPARENT","SAFETY","GLASS"],desc:"Lightweight transparent safety glasses for industrial and workshop eye protection.",price:"180",badge:"Best Seller",img:"./img/eye-24.webp",bg:"linear-gradient(135deg,#f5f5f5,#e8e8e5)",specGrid:[{key:"Category",val:"Eye PPE"},{key:"Lens",val:"Transparent"},{key:"Frame",val:"Clear"},{key:"Coating",val:"Anti Scratch"},{key:"Weight",val:"Light"},{key:"Use",val:"Industrial"}],features:["Anti-scratch coating on both sides for extended clarity","Ultra-lightweight polycarbonate frame for all-day wear","Clear transparent lens for maximum light transmission","Designed for workshop, manufacturing, and industrial environments","Adjustable nose bridge for a comfortable, secure fit","Wrap-around design provides peripheral protection","Compatible with helmets and ear protection"],specTable:[["Model","TSG-24-CLR"],["Lens Material","Polycarbonate (PC)"],["Lens Color","Clear / Transparent"],["Frame","Lightweight Nylon"],["Coating","Anti-Scratch"],["UV Protection","UV 400"],["Weight","Approx. 28g"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983. Meets ANSI Z87.1 and CE requirements.",related:[25,26,31]},
+    {id:25,category:"eye",name:"Black Frame Safety Glass",title:["BLACK FRAME","SAFETY","GLASS"],desc:"Stylish black frame protective eyewear for factory and engineering environments.",price:"250",badge:"Premium",img:"./img/eye-25.webp",bg:"linear-gradient(135deg,#1a1a1a,#2d2d2d)",specGrid:[{key:"Frame",val:"Black"},{key:"UV",val:"UV 400"},{key:"Resistance",val:"Impact"},{key:"Fit",val:"Comfort"},{key:"Lens",val:"Wide"},{key:"Grade",val:"Premium"}],features:["Premium black nylon frame — stylish yet durable","UV 400 protection against harmful ultraviolet rays","Impact-resistant polycarbonate wide lens","Comfort-fit design with ergonomic nose bridge","Lightweight for all-day use in factories and workshops","Scratch-resistant lens coating","Compatible with face shields and industrial PPE"],specTable:[["Model","BFS-25-BLK"],["Frame Color","Black"],["Lens Material","Polycarbonate (PC)"],["Lens Style","Wide / Panoramic"],["UV Protection","UV 400"],["Coating","Anti-Scratch"],["Weight","Approx. 30g"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983 for industrial eye protectors.",related:[24,30,28]},
+    {id:26,category:"eye",name:"Crystal Clear Safety Spectacles",title:["CRYSTAL CLEAR","SAFETY","SPECTACLES"],desc:"Crystal-clear industrial eye protector designed for all-day comfortable usage.",price:"220",badge:"Comfort Fit",img:"./img/eye-26.webp",bg:"linear-gradient(135deg,#eaf4ff,#f0f8ff)",specGrid:[{key:"Coating",val:"Anti Fog"},{key:"Arms",val:"Flexible"},{key:"Weight",val:"Light"},{key:"Lens",val:"Scratch Resistant"},{key:"Lens Color",val:"Crystal Clear"},{key:"Fit",val:"All-Day"}],features:["Anti-fog coating prevents condensation build-up","Flexible arms provide a secure, comfortable fit","Crystal-clear polycarbonate lens for superior optical clarity","Scratch-resistant hard coating extends usable life","Ultra-lightweight design prevents ear and nose fatigue","Suitable for industrial, laboratory, and construction environments","Easy to clean and maintain"],specTable:[["Model","CCS-26-CLR"],["Lens Material","Polycarbonate (PC)"],["Lens Color","Crystal Clear"],["Coating","Anti-Fog + Scratch Resistant"],["Frame","Flexible Nylon Arms"],["Weight","Approx. 25g"],["UV Protection","UV 400"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983. Meets ANSI Z87.1 and CE requirements.",related:[24,31,32]},
+    {id:27,category:"eye",name:"Pink Protective Glass",title:["PINK","PROTECTIVE","GLASS"],desc:"Fashion-style pink protective eyewear with impact-resistant transparent lens.",price:"280",badge:"Stylish",img:"./img/eye-27.webp",bg:"linear-gradient(135deg,#ffe0f0,#ffb6d9)",specGrid:[{key:"UV Safe",val:"UV 400"},{key:"Resistance",val:"Impact"},{key:"Grip",val:"Soft"},{key:"Design",val:"Modern"},{key:"Frame",val:"Pink"},{key:"Lens",val:"Transparent"}],features:["Fashion-forward pink frame without compromising safety standards","UV 400 protection from harmful ultraviolet rays","Impact-resistant polycarbonate lens","Soft grip nose piece and arm tips prevent slipping","Lightweight for all-day industrial wear","Scratch-resistant lens coating","Meets IS:5983 and international PPE safety standards"],specTable:[["Model","PPG-27-PNK"],["Frame Color","Pink"],["Lens Material","Polycarbonate (PC)"],["Lens Color","Transparent"],["UV Protection","UV 400"],["Grip","Soft Grip Arms"],["Weight","Approx. 27g"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983 for industrial eye protectors.",related:[24,26,28]},
+    {id:28,category:"eye",name:"Side Shield Safety Glass",title:["SIDE SHIELD","SAFETY","GLASS"],desc:"Industrial safety spectacles with side shield protection against dust and particles.",price:"240",badge:"Industrial Grade",img:"./img/eye-28.webp",bg:"linear-gradient(135deg,#eef7ff,#d0e8ff)",specGrid:[{key:"Side Shield",val:"Yes"},{key:"Lens",val:"Clear"},{key:"Dust",val:"Resistant"},{key:"Frame",val:"Durable"},{key:"Grade",val:"Industrial"},{key:"Coverage",val:"Extended"}],features:["Integrated side shields provide 180° lateral protection","Clear polycarbonate lens with anti-scratch coating","Durable nylon frame for demanding industrial environments","Dust-resistant construction prevents fine particles","Suitable for grinding, cutting, and drilling operations","Adjustable temple length for a secure fit","Compatible with dust masks and other PPE"],specTable:[["Model","SSG-28-CLR"],["Lens Material","Polycarbonate (PC)"],["Lens Color","Clear"],["Side Shields","Integrated Fixed"],["Coating","Anti-Scratch"],["Frame","Durable Nylon"],["Weight","Approx. 35g"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983 for side-shield industrial spectacles.",related:[24,25,32]},
+    {id:29,category:"eye",name:"Welding Protection Goggles",title:["WELDING","PROTECTION","GOGGLES"],desc:"Professional welding goggles designed to protect eyes from sparks and harmful light.",price:"850",badge:"Welding Safety",img:"./img/eye-29.webp",bg:"linear-gradient(135deg,#1d3b6d,#0d1f3c)",specGrid:[{key:"Lens",val:"Dark Shade 5"},{key:"Heat Resistant",val:"Yes"},{key:"Strap",val:"Elastic"},{key:"Grade",val:"Welding"},{key:"Protection",val:"UV + IR"},{key:"Use",val:"Gas Welding"}],features:["Shade 5 dark lens filters harmful UV and IR radiation from welding arcs","Heat-resistant frame withstands high-temperature welding environments","Elastic adjustable strap ensures a secure, snug fit","Full-surround sealed frame prevents sparks from reaching eyes","Suitable for gas welding, cutting, brazing, and soldering","Indirect ventilation prevents fogging while keeping out sparks","Meets IS:5983 and ANSI Z87.1 welding protection requirements"],specTable:[["Model","WPG-29-DRK"],["Lens Shade","Shade 5"],["Lens Material","Toughened Green Glass"],["Frame","Heat-Resistant Nylon"],["Strap","Elastic Adjustable"],["Ventilation","Indirect"],["UV Protection","Yes (Shade 5)"],["IS Standard","IS:5983 / IS:1179"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983 / IS:1179 for welding eye protectors.",related:[30,31,32]},
+    {id:30,category:"eye",name:"Black UV Protection Glass",title:["BLACK UV","PROTECTION","GLASS"],desc:"Dark lens protective eyewear for outdoor industrial and high-light environments.",price:"350",badge:"UV Shield",img:"./img/eye-30.webp",bg:"linear-gradient(135deg,#111111,#2a2a2a)",specGrid:[{key:"UV",val:"UV 400"},{key:"Lens",val:"Dark Tinted"},{key:"Design",val:"Sport"},{key:"Resistance",val:"Impact"},{key:"Frame",val:"Black"},{key:"Use",val:"Outdoor"}],features:["Dark tinted lens provides UV 400 protection for outdoor industrial use","Sport-style wrap-around design for maximum peripheral coverage","Impact-resistant lens meets high-impact safety standards","Sleek black frame for industrial and outdoor environments","Reduces glare in bright sunlight or high-intensity lighting","Anti-scratch coating ensures lens durability","Lightweight and ergonomic for security, outdoor work, and field operations"],specTable:[["Model","BUV-30-DRK"],["Lens Material","Polycarbonate (PC)"],["Lens Color","Dark Tinted"],["Frame Color","Black"],["UV Protection","UV 400"],["Design","Sport Wrap-Around"],["Coating","Anti-Scratch"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983 for UV-protective industrial eyewear.",related:[25,29,28]},
+    {id:31,category:"eye",name:"Transparent Safety Goggles",title:["TRANSPARENT","SAFETY","GOGGLES"],desc:"Full-cover transparent safety goggles for chemical and laboratory protection.",price:"320",badge:"Lab Safety",img:"./img/eye-31.webp",bg:"linear-gradient(135deg,#dfefff,#c5e0ff)",specGrid:[{key:"Chemical",val:"Resistant"},{key:"Band",val:"Elastic"},{key:"Coating",val:"Anti Fog"},{key:"Coverage",val:"Full Eye"},{key:"Use",val:"Lab"},{key:"Seal",val:"Full Surround"}],features:["Sealed full-surround frame provides complete protection against chemical splashes","Anti-fog coated transparent lens maintains clear vision","Chemical-resistant frame withstands exposure to common lab chemicals","Elastic adjustable headband fits over prescription glasses","Suitable for chemical handling, lab work, and spray painting","Indirect ventilation prevents fogging while blocking liquid splash","Meets IS:5983 for chemical splash protection goggles"],specTable:[["Model","TSG-31-CLR"],["Lens Material","Polycarbonate (PC)"],["Lens Color","Transparent"],["Frame","Chemical-Resistant Sealed"],["Coating","Anti-Fog"],["Strap","Elastic Adjustable"],["Ventilation","Indirect"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983. Suitable for chemical splash environments.",related:[32,26,29]},
+    {id:32,category:"eye",name:"Ventilated Safety Goggles",title:["VENTILATED","SAFETY","GOGGLES"],desc:"Ventilated industrial safety goggles designed for long-duration comfortable wear.",price:"360",badge:"Ventilated",img:"./img/eye-32.webp",bg:"linear-gradient(135deg,#e8d8ff,#d0bbff)",specGrid:[{key:"Ventilation",val:"Holes"},{key:"Protection",val:"Dust"},{key:"Fit",val:"Flexible"},{key:"Wear",val:"Comfort"},{key:"Frame",val:"Purple/Clear"},{key:"Use",val:"Industrial"}],features:["Direct ventilation holes allow continuous airflow to prevent fogging","Flexible PVC frame adapts to different face shapes","Wide-vision transparent polycarbonate lens","Dust-resistant construction for construction and grinding","Elastic adjustable strap for secure fit during active work","Lightweight and comfortable for extended wear","Easy to clean with standard cleaning solutions"],specTable:[["Model","VSG-32-VNT"],["Lens Material","Polycarbonate (PC)"],["Frame Material","Flexible PVC"],["Ventilation","Direct Ventilation Holes"],["Strap","Elastic Adjustable"],["Weight","Approx. 80g"],["Use","Construction / Woodworking / Grinding"],["IS Standard","IS:5983"]],certs:["ISI Mark — IS:5983","BIS Certified","ANSI Z87.1","CE Marked"],certNote:"BIS certified under IS:5983 for ventilated industrial goggles.",related:[31,28,24]},
+
+    // ── FACE PROTECTION ──
+    {id:33,category:"face",name:"Forestry Safety Helmet",title:["FORESTRY","SAFETY","HELMET"],desc:"Professional forestry safety helmet with mesh face shield and ear protection for industrial cutting operations.",price:"1850",badge:"Forestry",img:"./img/face-33.webp",bg:"linear-gradient(135deg,#ffe8cc,#ff7a0033)",specGrid:[{key:"Face Shield",val:"Mesh"},{key:"Ear Protection",val:"Integrated"},{key:"Resistance",val:"Impact"},{key:"Grade",val:"Industrial"},{key:"Use",val:"Forestry"},{key:"Standard",val:"IS:2925"}],features:["Integrated steel mesh face shield protects against wood chips and debris","Attached ear defenders provide hearing protection for chainsaw operations","High-impact ABS helmet shell meets industrial head protection standards","Mesh visor allows excellent ventilation and peripheral vision","All three protections — head, face, and hearing — in one unit","Adjustable ratchet harness fits a wide range of head sizes","Suitable for forestry, arboriculture, and landscaping"],specTable:[["Model","FSH-33-ORG"],["Shell","ABS Plastic"],["Face Shield","Steel Mesh"],["Ear Protection","Attached Ear Defenders"],["Noise Reduction","SNR 25 dB"],["Harness","Adjustable Ratchet"],["Weight","Approx. 720g"],["IS Standard","IS:2925 / EN 397"]],certs:["ISI Mark — IS:2925","BIS Certified","EN 397","CE Marked"],certNote:"BIS certified under IS:2925. Meets EN 397 for combined head, face, and hearing protection.",related:[34,38,40]},
+    {id:34,category:"face",name:"Blue Face Shield",title:["BLUE","FACE","SHIELD"],desc:"Industrial face shield with clear visor for full-face safety protection in workshops and factories.",price:"620",badge:"Face Protection",img:"./img/face-34.webp",bg:"linear-gradient(135deg,#ccdeff,#1d5dff22)",specGrid:[{key:"Visor",val:"Clear"},{key:"Headband",val:"Adjustable"},{key:"Resistance",val:"Impact"},{key:"Weight",val:"Light"},{key:"Coverage",val:"Full Face"},{key:"Standard",val:"IS:8521"}],features:["Crystal-clear polycarbonate visor for unobstructed vision","Blue adjustable headband fits a wide range of head sizes","Lightweight construction reduces neck fatigue","Flip-up visor mechanism for quick face access","Impact-resistant lens protects against grinding sparks and metal chips","Can be worn over spectacles and safety glasses","Meets IS:8521 for face and eye protectors"],specTable:[["Model","BFS-34-BLU"],["Visor Material","Clear Polycarbonate"],["Visor Thickness","2mm"],["Headband","Adjustable Blue Nylon"],["Mechanism","Flip-Up"],["Weight","Approx. 280g"],["Coverage","Full Face"],["IS Standard","IS:8521"]],certs:["ISI Mark — IS:8521","BIS Certified","EN 166","CE Marked"],certNote:"BIS certified under IS:8521 for industrial face shields.",related:[35,39,40]},
+    {id:35,category:"face",name:"White Industrial Face Shield",title:["WHITE INDUSTRIAL","FACE","SHIELD"],desc:"Heavy-duty industrial face shield designed for chemical, laboratory, and workshop safety applications.",price:"650",badge:"Industrial",img:"./img/face-35.webp",bg:"linear-gradient(135deg,#f5f5f5,#e0e0e0)",specGrid:[{key:"Coverage",val:"Full Face"},{key:"Frame",val:"Chemical Resistant"},{key:"Fit",val:"Adjustable"},{key:"Safety",val:"Industrial"},{key:"Visor",val:"Clear Wide"},{key:"Standard",val:"IS:8521"}],features:["Chemical-resistant white frame withstands acids, alkalis, and solvents","Wide-area clear polycarbonate visor provides maximum face and chin coverage","Anti-fog treated visor maintains clarity","Compatible with respirators and safety glasses","Easy-clean surface resists chemical staining","Suitable for chemical handling, lab work, and spray operations","Meets IS:8521 face protector requirements"],specTable:[["Model","WIF-35-WHT"],["Frame","Chemical-Resistant ABS"],["Visor Material","Clear Polycarbonate"],["Coating","Anti-Fog"],["Headband","Adjustable"],["Coverage","Full Face + Chin"],["Weight","Approx. 310g"],["IS Standard","IS:8521"]],certs:["ISI Mark — IS:8521","BIS Certified","EN 166","CE Marked"],certNote:"BIS certified under IS:8521 for chemical-resistant industrial face shields.",related:[34,38,39]},
+    {id:37,category:"face",name:"Flip Front Welding Shield",title:["FLIP FRONT","WELDING","SHIELD"],desc:"Industrial welding face shield with flip-front viewing window for safe welding operations.",price:"1350",badge:"Flip Front",img:"./img/face-37.webp",bg:"linear-gradient(135deg,#2a2a2a,#111)",specGrid:[{key:"Lens",val:"Flip Front"},{key:"Heat Resistant",val:"Yes"},{key:"Grade",val:"Industrial"},{key:"Headband",val:"Comfort"},{key:"Shade",val:"DIN 10"},{key:"Standard",val:"IS:9005"}],features:["Flip-front lens enables instant switch between welding and inspection","Shade DIN 10 lens certified for MIG and arc welding","Heat-resistant thermoplastic body shields against weld spatter","Comfort-padded headband distributes weight evenly","Full face coverage protects face, chin, and neck","Replacement lenses available separately","Durable flip hinge rated for thousands of cycles"],specTable:[["Model","FFW-37-BLK"],["Body","Heat-Resistant Thermoplastic"],["Lens Shade","DIN 10"],["Lens Size","110 × 90mm"],["Mechanism","Flip-Front Hinge"],["Headband","Padded Adjustable"],["Weight","Approx. 580g"],["IS Standard","IS:9005"]],certs:["ISI Mark — IS:9005","BIS Certified","EN 175","CE Marked"],certNote:"BIS certified under IS:9005 for welding face protectors.",related:[33,38,35]},
+    {id:38,category:"face",name:"Black Safety Face Shield",title:["BLACK SAFETY","FACE","SHIELD"],desc:"Durable black safety face shield designed for grinding, industrial, and workshop applications.",price:"580",badge:"Safety Shield",img:"./img/face-38.webp",bg:"linear-gradient(135deg,#2a2a2a,#3d3d3d)",specGrid:[{key:"Visor",val:"Clear"},{key:"Strap",val:"Adjustable"},{key:"Resistance",val:"Impact"},{key:"Weight",val:"Light"},{key:"Frame",val:"Black"},{key:"Standard",val:"IS:8521"}],features:["Robust black ABS frame for professional daily industrial use","Clear polycarbonate visor protects against grinding sparks","Lightweight construction for extended wear","Adjustable headband strap fits a wide range of head sizes","Flip-up visor for quick and easy face access","Scratch-resistant visor coating extends operational life","Compatible with safety glasses, earmuffs, and hard hat brackets"],specTable:[["Model","BSF-38-BLK"],["Frame","ABS — Black"],["Visor Material","Clear Polycarbonate"],["Coating","Scratch-Resistant"],["Mechanism","Flip-Up"],["Strap","Adjustable Elastic"],["Weight","Approx. 265g"],["IS Standard","IS:8521"]],certs:["ISI Mark — IS:8521","BIS Certified","EN 166","CE Marked"],certNote:"BIS certified under IS:8521 for industrial face shields.",related:[34,39,40]},
+    {id:39,category:"face",name:"Green Face Shield",title:["GREEN","FACE","SHIELD"],desc:"Industrial green face shield with transparent visor for workshop and engineering safety use.",price:"590",badge:"Industrial",img:"./img/face-39.webp",bg:"linear-gradient(135deg,#b2f0d0,#184d2f33)",specGrid:[{key:"Visor",val:"Transparent"},{key:"Fit",val:"Comfort"},{key:"Safety",val:"Industrial"},{key:"Design",val:"Reusable"},{key:"Frame",val:"Green"},{key:"Standard",val:"IS:8521"}],features:["Transparent polycarbonate visor for clear, undistorted vision","Green-framed comfort headgear distributes weight evenly","Reusable durable construction for long-term use","Suitable for workshop, engineering, and maintenance","Flip-up visor for convenient access","Anti-scratch coating resists surface damage","Meets IS:8521 face and eye protector standards"],specTable:[["Model","GFS-39-GRN"],["Frame","ABS — Green"],["Visor Material","Clear Polycarbonate"],["Coating","Anti-Scratch"],["Mechanism","Flip-Up"],["Headband","Comfort-Fit Adjustable"],["Weight","Approx. 270g"],["IS Standard","IS:8521"]],certs:["ISI Mark — IS:8521","BIS Certified","EN 166","CE Marked"],certNote:"BIS certified under IS:8521 for industrial face shields.",related:[34,38,40]},
+    {id:40,category:"face",name:"Yellow Face Shield",title:["YELLOW","FACE","SHIELD"],desc:"Protective yellow face shield with full-face transparent visor for industrial safety applications.",price:"610",badge:"Full Protection",img:"./img/face-40.webp",bg:"linear-gradient(135deg,#fffaaa,#ffd40033)",specGrid:[{key:"Coverage",val:"Full Face"},{key:"Headgear",val:"Adjustable"},{key:"Resistance",val:"Impact"},{key:"Vision",val:"Clear"},{key:"Frame",val:"Yellow"},{key:"Standard",val:"IS:8521"}],features:["Full-face coverage visor protects against sparks, chips, and chemical splash","Bright yellow frame provides excellent site visibility","Impact-resistant polycarbonate clear lens meets IS:8521","Adjustable headgear ratchet fits 52–63 cm head sizes","Flip-up mechanism for quick task inspection","Anti-fog and scratch-resistant coating for sustained clarity","Lightweight for all-day continuous wear"],specTable:[["Model","YFS-40-YLW"],["Frame","ABS — Yellow"],["Visor Material","Clear Polycarbonate"],["Coating","Anti-Fog + Anti-Scratch"],["Mechanism","Flip-Up"],["Headgear","Adjustable Ratchet"],["Size Range","52–63 cm"],["Weight","Approx. 285g"],["IS Standard","IS:8521"]],certs:["ISI Mark — IS:8521","BIS Certified","EN 166","CE Marked"],certNote:"BIS certified under IS:8521. Meets EN 166 and CE requirements.",related:[34,39,38]},
+
+    // ── RESPIRATORY PROTECTION ──
+    {id:36,category:"mask",name:"3M 8822 FFP2 Respirator Mask",title:["3M 8822","FFP2","RESPIRATOR"],desc:"Professional 3M FFP2 respirator mask with exhalation valve for advanced dust and particle protection.",price:"145",badge:"FFP2",img:"./img/mask-36.webp",bg:"linear-gradient(135deg,#f2f2f2,#dcdcdc)",specGrid:[{key:"Valve",val:"Exhalation"},{key:"Protection",val:"FFP2"},{key:"Filtration",val:"Dust"},{key:"Fit",val:"Comfort"},{key:"Shape",val:"Cup Form"},{key:"Standard",val:"EN 149"}],features:["FFP2 filtration filters at least 94% of airborne particles","Exhalation valve reduces heat and moisture build-up","Cup-shaped design maintains a reliable seal","3M Cool Flow valve minimises breathing resistance","Soft inner foam nose clip reduces fogging of glasses","Suitable for construction dust, metalworking fumes, and woodworking","Meets EN 149:2001+A1:2009 FFP2 NR D and IS:9473"],specTable:[["Model","3M 8822"],["Protection Class","FFP2 NR D"],["Filtration Efficiency","Min. 94%"],["Valve","3M Cool Flow Exhalation Valve"],["Shape","Cup-Form"],["Nose Clip","Soft Foam"],["Strap","Dual Elastic Headband"],["Weight","Approx. 18g"],["Standard","EN 149:2001+A1:2009 / IS:9473"]],certs:["ISI Mark — IS:9473","NIOSH Approved","EN 149 FFP2","CE Marked"],certNote:"BIS certified under IS:9473. Meets EN 149 FFP2 NR D and NIOSH requirements.",related:[41,42,43]},
+    {id:41,category:"mask",name:"3M 9001 N95 Respirator",title:["3M 9001","N95","RESPIRATOR"],desc:"Lightweight 3M N95 respirator mask designed for industrial safety and airborne particle filtration.",price:"120",badge:"N95",img:"./img/mask-41.webp",bg:"linear-gradient(135deg,#f9f9f9,#e8e8e8)",specGrid:[{key:"Filtration",val:"N95"},{key:"Weight",val:"Light"},{key:"Straps",val:"Elastic"},{key:"Safety",val:"Industrial"},{key:"Shape",val:"Flat Fold"},{key:"Standard",val:"NIOSH"}],features:["N95 filtration efficiency — filters 95%+ of airborne non-oil-based particles","Flat-fold design collapses for compact storage","Lightweight construction reduces facial pressure and fatigue","Dual comfort elastic straps for a secure fit","Adjustable nose clip for a personalised, leak-free seal","Suitable for fine dust, pollution, and industrial fumes","NIOSH-approved N95 rating and meets IS:9473"],specTable:[["Model","3M 9001"],["Protection Class","N95"],["Filtration Efficiency","Min. 95%"],["Valve","No Valve"],["Shape","Flat Fold"],["Nose Clip","Pre-Shaped Foam"],["Straps","Dual Elastic"],["Weight","Approx. 9g"],["Standard","NIOSH 42 CFR 84 / IS:9473"]],certs:["ISI Mark — IS:9473","NIOSH N95","EN 149","CE Marked"],certNote:"NIOSH-approved N95. BIS certified under IS:9473.",related:[36,42,43]},
+    {id:42,category:"mask",name:"3M 8210 Valve Respirator",title:["3M 8210","VALVE","RESPIRATOR"],desc:"Industrial-grade respirator mask with valve system for breathable and reliable particle protection.",price:"160",badge:"Valve Type",img:"./img/mask-42.webp",bg:"linear-gradient(135deg,#fafafa,#e5e5e5)",specGrid:[{key:"Valve",val:"Yes"},{key:"Protection",val:"Dust"},{key:"Approval",val:"NIOSH"},{key:"Wear",val:"Comfort"},{key:"Filtration",val:"N95"},{key:"Standard",val:"42 CFR 84"}],features:["NIOSH-approved N95 filtration with integrated exhalation valve","Valve system reduces heat and moisture build-up","Advanced electrostatically charged microfibre filter media","Contoured cup shape and soft inner liner","Ideal for long-duration wear in dusty environments","Dual headbands for a stable, secure fit","Meets NIOSH 42 CFR 84 N95 and IS:9473"],specTable:[["Model","3M 8210"],["Protection Class","N95"],["Filtration Efficiency","Min. 95%"],["Valve","Exhalation Valve"],["Filter Media","Electrostatic Microfibre"],["Shape","Cup-Form"],["Straps","Dual Elastic Headband"],["Weight","Approx. 14g"],["Standard","NIOSH 42 CFR 84 / IS:9473"]],certs:["ISI Mark — IS:9473","NIOSH N95","EN 149","CE Marked"],certNote:"NIOSH-approved N95. BIS certified under IS:9473.",related:[36,41,43]},
+    {id:43,category:"mask",name:"3M 9501+ N95 Mask",title:["3M 9501+","N95","MASK"],desc:"Premium 3M 9501+ N95 protective mask with advanced filtration for industrial and personal safety use.",price:"135",badge:"Premium",img:"./img/mask-43.webp",bg:"linear-gradient(135deg,#f8f8f8,#e2e2e2)",specGrid:[{key:"Certified",val:"N95"},{key:"Filtration",val:"Advanced"},{key:"Loops",val:"Soft Ear"},{key:"Design",val:"Breathable"},{key:"Layers",val:"Multi-Layer"},{key:"Standard",val:"GB2626"}],features:["Advanced multi-layer filtration with N95 certification","Soft, adjustable ear loops for comfortable wear","Breathable outer layer and soft inner fabric","Foldable butterfly design for a better facial seal","Suitable for industrial use and pollution protection","Integrated nose wire for a customised, leak-free fit","Meets GB2626 KN95 equivalent and IS:9473"],specTable:[["Model","3M 9501+"],["Protection Class","N95 / KN95 equivalent"],["Filtration Efficiency","Min. 95%"],["Valve","No Valve"],["Shape","Foldable Butterfly"],["Straps","Soft Ear Loops"],["Nose Wire","Adjustable Metal"],["Weight","Approx. 10g"],["Standard","GB2626 / IS:9473"]],certs:["ISI Mark — IS:9473","NIOSH N95","GB2626","CE Marked"],certNote:"BIS certified under IS:9473. Meets GB2626 KN95 equivalent standard.",related:[36,41,44]},
+    {id:44,category:"mask",name:"3M 9042 KN90 Mask",title:["3M 9042","KN90","MASK"],desc:"KN90 protective respirator mask designed for dust, pollution, and industrial particle protection.",price:"115",badge:"KN90",img:"./img/mask-44.webp",bg:"linear-gradient(135deg,#d0d0d0,#9a9a9a44)",specGrid:[{key:"Protection",val:"KN90"},{key:"Filtration",val:"Dust"},{key:"Fit",val:"Comfort"},{key:"Safety",val:"Multi Layer"},{key:"Grade",val:"Industrial"},{key:"Standard",val:"GB2626"}],features:["KN90 rating filters at least 90% of non-oil-based airborne particles","Multi-layer filter construction for comprehensive protection","Lightweight cup-form design maintains shape on the face","Adjustable nose clip minimises air leakage","Soft elastic ear loops for comfortable extended wear","Suitable for construction dust, road pollution, and agricultural dust","Meets GB2626 KN90 and IS:9473"],specTable:[["Model","3M 9042"],["Protection Class","KN90"],["Filtration Efficiency","Min. 90%"],["Valve","No Valve"],["Shape","Cup-Form"],["Layers","3-Layer Filter"],["Straps","Ear Loops"],["Nose Clip","Adjustable Metal"],["Standard","GB2626 / IS:9473"]],certs:["ISI Mark — IS:9473","GB2626 KN90","BIS Certified","CE Marked"],certNote:"BIS certified under IS:9473. Meets GB2626 KN90 standard.",related:[43,41,42]}
+  ];
+
+  // ── HELPERS ──
+  const getParam = key => new URLSearchParams(window.location.search).get(key);
+  const findProduct = id => PRODUCTS.find(p => p.id === parseInt(id));
+  const findProductByAny = (id) => PRODUCTS.find(p => p.id === parseInt(id));
+
+  // ── RENDER ──
+  function renderProduct(p) {
+    document.title = p.name + ' — Fire Boy';
+    document.getElementById('page-title').textContent = p.name + ' — Fire Boy';
+
+    // Breadcrumb
+    const catLabel = CAT_LABELS[p.category] || p.category;
+    document.getElementById('bc-cat').textContent = catLabel;
+    document.getElementById('bc-cat').href = `./products.html?category=${p.category}`;
+    document.getElementById('bc-name').textContent = p.name;
+
+    // Image
+    document.getElementById('img-main').style.background = p.bg;
+    const img = document.getElementById('prod-img');
+    img.src = p.img; img.alt = p.name;
+
+    // Badges
+    document.getElementById('badge-strip').innerHTML =
+      `<div class="badge badge-fire">${p.badge}</div>
+       <div class="badge badge-gold">ISI Marked ✓</div>
+       <div class="badge badge-dark">BIS Certified</div>`;
+
+    // Category + Name
+    document.getElementById('prod-cat').textContent = catLabel;
+    const titleLines = p.title.filter(t => t);
+    document.getElementById('prod-name').innerHTML =
+      titleLines.map((t,i) => i===1 ? `<span>${t}</span>` : t).join('<br/>');
+
+    // Desc + Price
+    document.getElementById('prod-desc').textContent = p.desc;
+    document.getElementById('prod-price').innerHTML = `₹${p.price} <span>/ unit</span>`;
+
+    // Spec Grid
+    document.getElementById('spec-grid').innerHTML = p.specGrid.map(s =>
+      `<div class="spec-item"><div class="spec-key">${s.key}</div><div class="spec-val">${s.val}</div></div>`
+    ).join('');
+
+    // Features
+    document.getElementById('feature-list').innerHTML = p.features.map(f =>
+      `<li>${f}</li>`
+    ).join('');
+
+    // Spec Table
+    document.getElementById('spec-table').innerHTML = p.specTable.map(r =>
+      `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`
+    ).join('');
+
+    // Certs
+    document.getElementById('cert-row').innerHTML = p.certs.map(c => {
+      const parts = c.split(' — ');
+      return `<div class="cert-tag"><strong>${parts[0]}</strong>${parts[1] ? ' — ' + parts[1] : ''}</div>`;
+    }).join('');
+    document.getElementById('cert-note').textContent = p.certNote;
+
+    // Related
+    const relatedGrid = document.getElementById('related-grid');
+    relatedGrid.innerHTML = '';
+    (p.related || []).slice(0,3).forEach(rid => {
+      const rp = findProduct(rid);
+      if (!rp) return;
+      const card = document.createElement('a');
+      card.className = 'related-card';
+      card.href = `./product.html?id=${rp.id}`;
+      card.innerHTML = `
+        <div class="related-img"><img src="${rp.img}" alt="${rp.name}"/></div>
+        <div class="related-info">
+          <div class="related-cat-lbl">${CAT_LABELS[rp.category] || rp.category}</div>
+          <div class="related-name">${rp.name}</div>
+          <div class="related-price">₹${rp.price} <span style="font-size:13px;color:#999;font-family:var(--font-body);">/ unit</span></div>
+        </div>`;
+      relatedGrid.appendChild(card);
     });
 
-    setInterval(() => {
-      cx += (tx - cx) * 0.15;
-      cy += (ty - cy) * 0.15;
-      trail.style.left = cx - 18 + "px";
-      trail.style.top = cy - 18 + "px";
-    }, 16);
+    // Show content
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
 
-    document.addEventListener("mousedown", () => cursor.style.transform = "scale(2)");
-    document.addEventListener("mouseup", () => cursor.style.transform = "scale(1)");
+    // Reveal
+    setTimeout(() => {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+      },{threshold:.12});
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    }, 50);
+  }
 
-    window.addEventListener("scroll", () => {
-      document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 60);
-    });
+  // ── INIT ──
+  window.addEventListener('DOMContentLoaded', () => {
+    const id = getParam('id');
+    if (!id) {
+      // No ID — show all products list or redirect
+      window.location.href = './products.html';
+      return;
+    }
+    const product = findProduct(id);
+    if (!product) {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('notFound').style.display = 'block';
+      return;
+    }
+    renderProduct(product);
+  });
 
-    function openMobileMenu() { document.getElementById("mobileMenu").classList.add("open"); }
-    function closeMobileMenu() { document.getElementById("mobileMenu").classList.remove("open"); }
+  // ── TABS ──
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── CURSOR ──
+  const cursor = document.getElementById('cursor');
+  const trail = document.getElementById('cursorTrail');
+  let tx=0,ty=0,cx=0,cy=0;
+  document.addEventListener('mousemove', e => {
+    tx=e.clientX; ty=e.clientY;
+    cursor.style.left=(tx-6)+'px'; cursor.style.top=(ty-6)+'px';
+  });
+  setInterval(()=>{ cx+=(tx-cx)*.15; cy+=(ty-cy)*.15; trail.style.left=(cx-18)+'px'; trail.style.top=(cy-18)+'px'; },16);
+  document.addEventListener('mousedown', ()=>cursor.style.transform='scale(2)');
+  document.addEventListener('mouseup', ()=>cursor.style.transform='scale(1)');F
+
+  // ── SCROLL PROGRESS ──
+  window.addEventListener('scroll', ()=>{
+    const pct = window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+    document.getElementById('scrollBar').style.width = pct+'%';
+  });
   </script>
-  <link rel="stylesheet" href="./floating-widgets.css" />
-<script src="./floating-widgets.js"></script>
 </body>
-
 </html>
